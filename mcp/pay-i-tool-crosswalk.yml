@@ -1,0 +1,177 @@
+generated: '2026-08-26'
+method: derived
+source: mcp/pay-i-mcp-tools.json (live tools/list, probed 2026-08-26) + openapi/pay-i-openapi-original.json
+surfaces:
+  openapi:
+    file: openapi/pay-i-openapi.yml
+    operations: 63
+    paths: 49
+    gated: false
+  mcp:
+    url: https://docs.pay-i.com/mcp
+    tools: 4
+    gated: false
+    note: tools/list answers anonymously with HTTP 200. This is ReadMe SuperHub's built-in documentation MCP server,
+      not a bespoke Pay-i domain server.
+  graphql:
+    present: false
+    note: No GraphQL surface found on any Pay-i host.
+binding_model: meta — the MCP tools operate OVER the OpenAPI document rather than mapping one-to-one onto operations
+note: 'This crosswalk is deliberately shaped as a NON-correspondence. Pay-i''s MCP server exposes four generic spec-navigation
+  tools, so there is no tool named after a Pay-i noun (limit, use case, KPI, category, ingest event). Every one
+  of the 63 REST operations is reachable through the MCP server, but only indirectly: an agent calls list-endpoints
+  / search-endpoints / get-endpoint to discover an operation, then hands a hand-built HAR object to execute-request
+  along with its own xProxy-api-key. Recording a fabricated one-to-one crosswalk here would misrepresent that.'
+crosswalk:
+- tool: list-endpoints
+  category: discovery
+  rest:
+  - '*'
+  binding: meta
+  confidence: high
+  note: Enumerates all 49 paths and 63 operations from the Pay-i OpenAPI. Backed by the whole document, not a single
+    operationId.
+- tool: search-endpoints
+  category: discovery
+  rest:
+  - '*'
+  binding: meta
+  confidence: high
+  note: Keyword search across paths, operations and parameters of the same document.
+- tool: get-endpoint
+  category: discovery
+  rest:
+  - '*'
+  binding: meta
+  confidence: high
+  note: Returns one operation's detail including security schemes and servers, keyed on (path, method) rather than
+    operationId.
+- tool: execute-request
+  category: execution
+  rest:
+  - '*'
+  binding: proxy
+  confidence: high
+  note: Generic HAR-request executor. Can invoke any of the 63 operations, but supplies no Pay-i credential — the
+    caller must inject xProxy-api-key. No per-operation input schema is inherited, so an agent gets no typed contract
+    from the tool itself.
+mcp_only: []
+rest_only_note: All 63 operations lack a dedicated MCP tool. Grouped by tag below.
+rest_only:
+- capability: Use Cases
+  operation_count: 12
+  operations:
+  - getUseCases
+  - createUseCase
+  - getUseCase
+  - updateUseCase
+  - deleteUseCase
+  - incrementUseCaseVersion
+  - createUseCaseLimitConfig
+  - deleteUseCaseLimitConfig
+  - getUseCaseInstance
+  - deleteUseCaseInstance
+  - newUseCaseInstance
+  - updateUseCaseInstanceProperties
+- capability: KPIs
+  operation_count: 8
+  operations:
+  - getKpi
+  - createUseCaseKpiDefinition
+  - getUseCaseKpiDetails
+  - deleteUseCaseKpiDefinition
+  - updateUseCaseKpiDefinition
+  - updateUseCaseInstanceKpi
+  - getUseCaseInstanceKpis
+  - getUseCaseInstanceValue
+- capability: Limits
+  operation_count: 7
+  operations:
+  - getLimits
+  - createLimit
+  - getLimit
+  - updateLimit
+  - deleteLimit
+  - updateLimitProperties
+  - resetLimit
+- capability: Ingest Events
+  operation_count: 5
+  operations:
+  - requests.Ingest
+  - requests.BulkIngest
+  - requests.BulkUpsert
+  - requests.CopilotTranscriptIngest
+  - requests.CopilotLicensingIngest
+- capability: AWS Bedrock Requests
+  operation_count: 4
+  operations:
+  - requests.AwsBedrock.Converse
+  - requests.AwsBedrock.ConverseStream
+  - requests.AwsBedrock.InvokeModel
+  - requests.AwsBedrock.InvokeModelWithStream
+- capability: Azure OpenAI Requests
+  operation_count: 4
+  operations:
+  - requests.AzureOpenAI.ResponsesAPI
+  - requests.AzureOpenAI.ChatCompletionsAPI
+  - requests.AzureOpenAI.EmbeddingsAPI
+  - requests.AzureOpenAI.ImagesGenerationsAPI
+- capability: Categories
+  operation_count: 4
+  operations:
+  - getCategories
+  - getResourcesList
+  - deleteCategoryResources
+  - deleteCategoryResource
+- capability: Resources
+  operation_count: 4
+  operations:
+  - getResources
+  - createResource
+  - getResource
+  - deleteResource
+- capability: Google Vertex Requests
+  operation_count: 4
+  operations:
+  - requests.GoogleVertex.GenerateContent
+  - requests.GoogleVertex.StreamGenerateContent
+  - requests.GoogleVertex.RawPredict
+  - requests.GoogleVertex.StreamRawPredict
+- capability: OpenAI Requests
+  operation_count: 4
+  operations:
+  - requests.OpenAI.ChatCompletionsAPIV1
+  - requests.OpenAI.EmbeddingsAPIV1
+  - requests.OpenAI.ImagesGenerationsAPIV1
+  - requests.OpenAI.ResponsesAPIV1
+- capability: Requests
+  operation_count: 4
+  operations:
+  - updateRequestProperties
+  - getRequestResult
+  - updateRequestPropertiesProvider
+  - getRequestResultProvider
+- capability: Anthropic Requests
+  operation_count: 1
+  operations:
+  - requests.Anthropic.MessagesAPIV1
+- capability: Azure Anthropic Requests
+  operation_count: 1
+  operations:
+  - requests.AzureAnthropic.MessagesAPIV1
+- capability: Reports
+  operation_count: 1
+  operations:
+  - getReport
+coverage:
+  mcp_tools_named: 4
+  mcp_tools_bound_to_specific_operation: 0
+  mcp_tools_meta: 4
+  mcp_only_tools: 0
+  rest_operations_total: 63
+  rest_operations_with_dedicated_tool: 0
+  rest_operations_reachable_via_execute_request: 63
+x-findings:
+- Pay-i has an agent-reachable MCP endpoint but no agent-native tool vocabulary. The highest-value gap is a domain
+  MCP server exposing limits, use cases, KPIs and ingest as typed tools that inherit their inputSchema from the
+  operations already defined in the OpenAPI.

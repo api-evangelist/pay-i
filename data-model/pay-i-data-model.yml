@@ -1,0 +1,537 @@
+generated: '2026-08-26'
+method: derived
+source: openapi/pay-i-openapi-original.json ($ref graph + *_id reference fields)
+note: 'Entity graph derived from the 74 component schemas. Schema names are CLR-namespaced (PayI.BudgetManagement.*,
+  PayI.Calculator.*, PayI.Proxy.*), which cleanly separates the three product domains: budget/limit management,
+  use-case + KPI value calculation, and the metering proxy.'
+domains:
+- PayI.BudgetManagement — Limits, spend, cost data
+- PayI.Calculator — Use Cases, KPIs, Categories, Resources, value scoring
+- PayI.Proxy — provider passthrough request/response envelopes
+entity_count: 69
+entities:
+- name: PaginatedCursorLimitList
+  schema: PayI.BudgetManagement.Models.ApiQueries.PaginatedCursorLimitList
+  fields: 3
+  relationships:
+  - type: belongs_to
+    entity: request
+    via: request_id
+  - type: has_many
+    entity: Limit
+    via: items
+- name: CostData
+  schema: PayI.BudgetManagement.Models.CostData
+  fields: 3
+  relationships:
+  - type: has_one
+    entity: CostDetailsBase
+    via: input
+  - type: has_one
+    entity: CostDetailsBase
+    via: output
+  - type: has_one
+    entity: CostDetails
+    via: total
+- name: DefaultResponse
+  schema: PayI.BudgetManagement.Models.DefaultResponse
+  fields: 2
+  relationships:
+  - type: belongs_to
+    entity: request
+    via: request_id
+- name: Limit
+  schema: PayI.BudgetManagement.Models.Limit
+  fields: 8
+  relationships:
+  - type: belongs_to
+    entity: limit
+    via: limit_id
+  - type: has_one
+    entity: LimitType
+    via: limit_type
+  - type: has_one
+    entity: TotalCostData
+    via: totals
+- name: LimitHistory
+  schema: PayI.BudgetManagement.Models.LimitHistory
+  fields: 7
+  relationships:
+  - type: belongs_to
+    entity: limit
+    via: limit_id
+  - type: has_one
+    entity: LimitType
+    via: limit_type
+  - type: has_one
+    entity: TotalCostData
+    via: totals
+- name: LimitHistoryResponse
+  schema: PayI.BudgetManagement.Models.LimitHistoryResponse
+  fields: 3
+  relationships:
+  - type: belongs_to
+    entity: request
+    via: request_id
+  - type: has_one
+    entity: LimitHistory
+    via: limit_history
+- name: LimitResponse
+  schema: PayI.BudgetManagement.Models.LimitResponse
+  fields: 3
+  relationships:
+  - type: belongs_to
+    entity: request
+    via: request_id
+  - type: has_one
+    entity: Limit
+    via: limit
+- name: TotalCostData
+  schema: PayI.BudgetManagement.Models.TotalCostData
+  fields: 2
+  relationships:
+  - type: has_one
+    entity: CostData
+    via: cost
+  - type: has_one
+    entity: RequestsData
+    via: requests
+- name: PaginatedCursorCategoryResourceResponseList
+  schema: PayI.Calculator.Models.ApiQueries.PaginatedCursorCategoryResourceResponseList
+  fields: 3
+  relationships:
+  - type: belongs_to
+    entity: request
+    via: request_id
+  - type: has_many
+    entity: CategoryResourceResponse
+    via: items
+- name: PaginatedCursorCategoryResponseList
+  schema: PayI.Calculator.Models.ApiQueries.PaginatedCursorCategoryResponseList
+  fields: 3
+  relationships:
+  - type: belongs_to
+    entity: request
+    via: request_id
+  - type: has_many
+    entity: CategoryResponse
+    via: items
+- name: PaginatedCursorKpiResponseList
+  schema: PayI.Calculator.Models.ApiQueries.PaginatedCursorKpiResponseList
+  fields: 3
+  relationships:
+  - type: belongs_to
+    entity: request
+    via: request_id
+  - type: has_many
+    entity: KpiResponse
+    via: items
+- name: PaginatedCursorUseCaseDefinitionResponseList
+  schema: PayI.Calculator.Models.ApiQueries.PaginatedCursorUseCaseDefinitionResponseList
+  fields: 3
+  relationships:
+  - type: belongs_to
+    entity: request
+    via: request_id
+  - type: has_many
+    entity: UseCaseDefinitionResponse
+    via: items
+- name: PaginatedKpiScoreResponseList
+  schema: PayI.Calculator.Models.ApiQueries.PaginatedKpiScoreResponseList
+  fields: 3
+  relationships:
+  - type: belongs_to
+    entity: request
+    via: request_id
+  - type: has_many
+    entity: KpiScoreResponse
+    via: items
+- name: CreateKpiRequest
+  schema: PayI.Calculator.Models.CreateKpiRequest
+  fields: 4
+  relationships:
+  - type: has_one
+    entity: KpiType
+    via: kpi_type
+- name: KpiResponse
+  schema: PayI.Calculator.Models.KpiResponse
+  fields: 7
+  relationships:
+  - type: belongs_to
+    entity: request
+    via: request_id
+  - type: has_one
+    entity: KpiType
+    via: kpi_type
+- name: KpiScoreResponse
+  schema: PayI.Calculator.Models.KpiScoreResponse
+  fields: 5
+  relationships:
+  - type: has_one
+    entity: KpiType
+    via: kpi_type
+- name: PropertiesResponse
+  schema: PayI.Calculator.Models.PropertiesResponse
+  fields: 1
+  relationships:
+  - type: belongs_to
+    entity: request
+    via: request_id
+- name: RequestResultResponse
+  schema: PayI.Calculator.Models.RequestResultResponse
+  fields: 1
+  relationships:
+  - type: has_one
+    entity: ProxyResult
+    via: xproxy_result
+- name: UseCaseDefinitionResponse
+  schema: PayI.Calculator.Models.UseCaseDefinitionResponse
+  fields: 6
+  relationships:
+  - type: belongs_to
+    entity: request
+    via: request_id
+- name: UseCaseInstanceResponse
+  schema: PayI.Calculator.Models.UseCaseInstanceResponse
+  fields: 4
+  relationships:
+  - type: belongs_to
+    entity: use_case
+    via: use_case_id
+  - type: belongs_to
+    entity: limit
+    via: limit_id
+- name: ApiError
+  schema: PayI.Common.Models.ApiError
+  fields: 3
+  relationships:
+  - type: has_one
+    entity: ProxyError
+    via: xproxy_error
+- name: AnthropicResponse
+  schema: PayI.Common.Models.ApiRouter.AnthropicResponse
+  fields: 4
+  relationships:
+  - type: belongs_to
+    entity: self
+    via: id
+  - type: has_one
+    entity: ProxyResult
+    via: proxy_result
+- name: AwsBedrockResponse
+  schema: PayI.Common.Models.ApiRouter.AwsBedrockResponse
+  fields: 1
+  relationships:
+  - type: has_one
+    entity: ProxyResult
+    via: proxy_result
+- name: BulkIngestRequest
+  schema: PayI.Common.Models.ApiRouter.BulkIngestRequest
+  fields: 27
+  relationships:
+  - type: has_many
+    entity: HeaderInfo
+    via: provider_request_headers
+  - type: has_many
+    entity: HeaderInfo
+    via: provider_response_headers
+  - type: has_many
+    entity: FunctionCallInfo
+    via: provider_response_function_calls
+  - type: belongs_to
+    entity: provider_response
+    via: provider_response_id
+  - type: belongs_to
+    entity: user
+    via: user_id
+  - type: belongs_to
+    entity: use_case
+    via: use_case_id
+- name: CopilotActivity
+  schema: PayI.Common.Models.ApiRouter.Copilot.CopilotActivity
+  fields: 10
+  relationships:
+  - type: belongs_to
+    entity: self
+    via: id
+- name: CopilotActivityFrom
+  schema: PayI.Common.Models.ApiRouter.Copilot.CopilotActivityFrom
+  fields: 3
+  relationships:
+  - type: belongs_to
+    entity: self
+    via: id
+- name: CopilotLicensingIngestRequest
+  schema: PayI.Common.Models.ApiRouter.Copilot.CopilotLicensingIngestRequest
+  fields: 3
+  relationships:
+  - type: has_one
+    entity: CopilotLicensingRecord
+    via: resource
+- name: CopilotLicensingRecord
+  schema: PayI.Common.Models.ApiRouter.Copilot.CopilotLicensingRecord
+  fields: 6
+  relationships:
+  - type: has_one
+    entity: CopilotLicensingMetadata
+    via: metadata
+- name: CopilotTranscript
+  schema: PayI.Common.Models.ApiRouter.Copilot.CopilotTranscript
+  fields: 8
+  relationships:
+  - type: belongs_to
+    entity: conversation
+    via: conversation_id
+  - type: belongs_to
+    entity: transcript
+    via: transcript_id
+  - type: has_many
+    entity: CopilotActivity
+    via: activities
+- name: CopilotTranscriptIngestRequest
+  schema: PayI.Common.Models.ApiRouter.Copilot.CopilotTranscriptIngestRequest
+  fields: 1
+  relationships:
+  - type: has_one
+    entity: CopilotTranscript
+    via: transcript
+- name: GoogleVertexResponse
+  schema: PayI.Common.Models.ApiRouter.GoogleVertexResponse
+  fields: 1
+  relationships:
+  - type: has_one
+    entity: ProxyResult
+    via: proxy_result
+- name: IngestRequest
+  schema: PayI.Common.Models.ApiRouter.IngestRequest
+  fields: 18
+  relationships:
+  - type: has_many
+    entity: HeaderInfo
+    via: provider_request_headers
+  - type: has_many
+    entity: HeaderInfo
+    via: provider_response_headers
+  - type: has_many
+    entity: FunctionCallInfo
+    via: provider_response_function_calls
+  - type: belongs_to
+    entity: provider_response
+    via: provider_response_id
+- name: OpenAIResponse
+  schema: PayI.Common.Models.ApiRouter.OpenAIResponse
+  fields: 4
+  relationships:
+  - type: belongs_to
+    entity: self
+    via: id
+  - type: has_one
+    entity: ProxyResult
+    via: proxy_result
+- name: CreateLimit
+  schema: PayI.Common.Models.BudgetManagement.CreateLimit
+  fields: 6
+  relationships:
+  - type: has_one
+    entity: LimitType
+    via: limit_type
+  - type: belongs_to
+    entity: limit
+    via: limit_id
+- name: CreateLimitBase
+  schema: PayI.Common.Models.BudgetManagement.CreateLimitBase
+  fields: 4
+  relationships:
+  - type: has_one
+    entity: LimitType
+    via: limit_type
+- name: BulkIngestResponse
+  schema: PayI.Common.Models.BulkIngestResponse
+  fields: 7
+  relationships:
+  - type: belongs_to
+    entity: request
+    via: request_id
+  - type: has_many
+    entity: IndexApiError
+    via: errors
+- name: CategoryResourceResponse
+  schema: PayI.Common.Models.CategoryResource.CategoryResourceResponse
+  fields: 22
+  relationships:
+  - type: belongs_to
+    entity: resource
+    via: resource_id
+  - type: belongs_to
+    entity: reservation
+    via: reservation_id
+- name: CopilotLicensingIngestResponse
+  schema: PayI.Common.Models.CopilotLicensingIngestResponse
+  fields: 5
+  relationships:
+  - type: belongs_to
+    entity: request
+    via: request_id
+  - type: has_many
+    entity: IndexApiError
+    via: errors
+- name: CopilotTranscriptIngestResponse
+  schema: PayI.Common.Models.CopilotTranscriptIngestResponse
+  fields: 5
+  relationships:
+  - type: belongs_to
+    entity: request
+    via: request_id
+  - type: has_many
+    entity: IndexApiError
+    via: errors
+- name: IndexApiError
+  schema: PayI.Common.Models.IndexApiError
+  fields: 2
+  relationships:
+  - type: has_one
+    entity: ApiError
+    via: xproxy_result
+- name: IngestResponse
+  schema: PayI.Common.Models.IngestResponse
+  fields: 4
+  relationships:
+  - type: belongs_to
+    entity: request
+    via: request_id
+  - type: has_one
+    entity: ProxyResult
+    via: xproxy_result
+- name: ProxyLimitStatus
+  schema: PayI.Common.Models.Proxy.ProxyLimitStatus
+  fields: 1
+  relationships:
+  - type: has_one
+    entity: LimitStatus
+    via: state
+- name: ProxyResult
+  schema: PayI.Common.Models.Proxy.ProxyResult
+  fields: 16
+  relationships:
+  - type: belongs_to
+    entity: request
+    via: request_id
+  - type: belongs_to
+    entity: use_case
+    via: use_case_id
+  - type: belongs_to
+    entity: resource
+    via: resource_id
+  - type: belongs_to
+    entity: user
+    via: user_id
+- name: ProxyApiError
+  schema: PayI.Common.Models.ProxyApiError
+  fields: 4
+  relationships:
+  - type: has_one
+    entity: ProxyError
+    via: xproxy_error
+  - type: has_one
+    entity: ProxyResult
+    via: xproxy_result
+- name: ProblemDetails
+  schema: Microsoft.AspNetCore.Mvc.ProblemDetails
+  fields: 5
+  relationships: []
+- name: RequestsData
+  schema: PayI.BudgetManagement.Models.RequestsData
+  fields: 7
+  relationships: []
+- name: CategoryResponse
+  schema: PayI.Calculator.Models.CategoryResponse
+  fields: 1
+  relationships: []
+- name: KpiScoreRequest
+  schema: PayI.Calculator.Models.KpiScoreRequest
+  fields: 1
+  relationships: []
+- name: UpdateKpiRequest
+  schema: PayI.Calculator.Models.UpdateKpiRequest
+  fields: 2
+  relationships: []
+- name: UpdateUseCaseDefinitionRequest
+  schema: PayI.Calculator.Models.UpdateUseCaseDefinitionRequest
+  fields: 2
+  relationships: []
+- name: UseCaseDefinitionRequest
+  schema: PayI.Calculator.Models.UseCaseDefinitionRequest
+  fields: 4
+  relationships: []
+- name: ValueScoreResponse
+  schema: PayI.Calculator.Models.ValueScoreResponse
+  fields: 2
+  relationships: []
+- name: CopilotLicensingMetadata
+  schema: PayI.Common.Models.ApiRouter.Copilot.CopilotLicensingMetadata
+  fields: 8
+  relationships: []
+- name: CopilotTranscriptMetrics
+  schema: PayI.Common.Models.ApiRouter.Copilot.CopilotTranscriptMetrics
+  fields: 4
+  relationships: []
+- name: FunctionCallInfo
+  schema: PayI.Common.Models.ApiRouter.FunctionCallInfo
+  fields: 2
+  relationships: []
+- name: HeaderInfo
+  schema: PayI.Common.Models.ApiRouter.HeaderInfo
+  fields: 2
+  relationships: []
+- name: IngestUnits
+  schema: PayI.Common.Models.ApiRouter.IngestUnits
+  fields: 2
+  relationships: []
+- name: CostDetails
+  schema: PayI.Common.Models.BudgetManagement.CostDetails
+  fields: 2
+  relationships: []
+- name: CostDetailsBase
+  schema: PayI.Common.Models.BudgetManagement.CostDetailsBase
+  fields: 1
+  relationships: []
+- name: UpdateLimit
+  schema: PayI.Common.Models.BudgetManagement.UpdateLimit
+  fields: 2
+  relationships: []
+- name: CategoryResourceRequest
+  schema: PayI.Common.Models.CategoryResource.CategoryResourceRequest
+  fields: 5
+  relationships: []
+- name: MappedResourceResponse
+  schema: PayI.Common.Models.CategoryResource.MappedResourceResponse
+  fields: 6
+  relationships: []
+- name: ResourcePriceUnits
+  schema: PayI.Common.Models.CategoryResource.ResourcePriceUnits
+  fields: 2
+  relationships: []
+- name: PropertiesRequest
+  schema: PayI.Common.Models.PropertiesRequest
+  fields: 1
+  relationships: []
+- name: RequestCost
+  schema: PayI.Common.Models.Proxy.RequestCost
+  fields: 4
+  relationships: []
+- name: ProxyError
+  schema: PayI.Common.Models.ProxyError
+  fields: 2
+  relationships: []
+- name: AwsBedrockReservationResource
+  schema: PayI.Common.Models.Reservation.AwsBedrockReservationResource
+  fields: 1
+  relationships: []
+- name: AzureReservationResource
+  schema: PayI.Common.Models.Reservation.AzureReservationResource
+  fields: 1
+  relationships: []
+- name: GoogleVertexReservationResource
+  schema: PayI.Common.Models.Reservation.GoogleVertexReservationResource
+  fields: 1
+  relationships: []

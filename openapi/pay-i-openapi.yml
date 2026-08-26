@@ -1,0 +1,5796 @@
+openapi: 3.0.3
+info:
+  title: Pay-i
+  description: Pay-i API
+  version: v1
+paths:
+  /api/v1/proxy/anthropic/v1/messages:
+    post:
+      tags:
+      - Anthropic Requests
+      summary: Messages
+      operationId: requests.Anthropic.MessagesAPIV1
+      parameters:
+      - name: x-api-key
+        in: header
+        description: Provider Authentication
+        required: true
+        schema:
+          type: string
+      - name: xProxy-PriceAs-Category
+        in: header
+        description: Price as category
+        schema:
+          type: string
+        example: category_name
+      - name: xProxy-PriceAs-Resource
+        in: header
+        description: Price as resource
+        schema:
+          type: string
+        example: resource_name
+      - name: xProxy-Resource-Scope
+        in: header
+        description: Resource scope
+        schema:
+          type: string
+        example: datazone
+      - name: xProxy-Limit-IDs
+        in: header
+        description: Comma separated list of limit ID strings
+        schema:
+          type: string
+        example: limitId1, limitId_2
+      - name: xProxy-User-ID
+        in: header
+        description: User ID
+        schema:
+          type: string
+        example: UserName123
+      - name: xProxy-UseCase-ID
+        in: header
+        description: Use Case ID
+        schema:
+          type: string
+        example: use_case_id
+      - name: xProxy-UseCase-Name
+        in: header
+        description: Use Case Name
+        schema:
+          type: string
+        example: use_case_name
+      - name: xProxy-UseCase-Version
+        in: header
+        description: Use Case Version
+        schema:
+          type: integer
+        example: '1'
+      - name: xProxy-UseCase-Step
+        in: header
+        description: Use Case Step
+        schema:
+          type: string
+        example: step_1
+      - name: xProxy-UseCase-Properties
+        in: header
+        description: Use Case Properties as a Base64 encoded JSON string
+        schema:
+          type: string
+        example: eyJwcm9wZXJ0eTEiOiJ2YWx1ZTEiLCJwcm9wZXJ0eTIiOiJ2YWx1ZTIifQ==
+      - name: xProxy-Request-Properties
+        in: header
+        description: Request Properties as a Base64 encoded JSON string
+        schema:
+          type: string
+        example: eyJwcm9wZXJ0eTEiOiJ2YWx1ZTEiLCJwcm9wZXJ0eTIiOiJ2YWx1ZTIifQ==
+      - name: xProxy-Account-Name
+        in: header
+        description: Account Name
+        schema:
+          type: string
+        example: account_name
+      - name: xProxy-Logging-Disable
+        in: header
+        description: Disable Logging
+        schema:
+          type: string
+      - name: xProxy-Provider-BaseUri
+        in: header
+        description: Provider URI
+        schema:
+          type: string
+        example: https://api.provider.com
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.AnthropicResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ProxyApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+  /api/v1/proxy/aws.bedrock/model/{modelId}/converse:
+    post:
+      tags:
+      - AWS Bedrock Requests
+      summary: Converse
+      operationId: requests.AwsBedrock.Converse
+      parameters:
+      - name: modelId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: Provider Authentication
+        required: true
+        schema:
+          type: string
+      - name: xProxy-PriceAs-Category
+        in: header
+        description: Price as category
+        schema:
+          type: string
+        example: category_name
+      - name: xProxy-PriceAs-Resource
+        in: header
+        description: Price as resource
+        schema:
+          type: string
+        example: resource_name
+      - name: xProxy-Resource-Scope
+        in: header
+        description: Resource scope
+        schema:
+          type: string
+        example: datazone
+      - name: xProxy-Limit-IDs
+        in: header
+        description: Comma separated list of limit ID strings
+        schema:
+          type: string
+        example: limitId1, limitId_2
+      - name: xProxy-User-ID
+        in: header
+        description: User ID
+        schema:
+          type: string
+        example: UserName123
+      - name: xProxy-UseCase-ID
+        in: header
+        description: Use Case ID
+        schema:
+          type: string
+        example: use_case_id
+      - name: xProxy-UseCase-Name
+        in: header
+        description: Use Case Name
+        schema:
+          type: string
+        example: use_case_name
+      - name: xProxy-UseCase-Version
+        in: header
+        description: Use Case Version
+        schema:
+          type: integer
+        example: '1'
+      - name: xProxy-UseCase-Step
+        in: header
+        description: Use Case Step
+        schema:
+          type: string
+        example: step_1
+      - name: xProxy-UseCase-Properties
+        in: header
+        description: Use Case Properties as a Base64 encoded JSON string
+        schema:
+          type: string
+        example: eyJwcm9wZXJ0eTEiOiJ2YWx1ZTEiLCJwcm9wZXJ0eTIiOiJ2YWx1ZTIifQ==
+      - name: xProxy-Request-Properties
+        in: header
+        description: Request Properties as a Base64 encoded JSON string
+        schema:
+          type: string
+        example: eyJwcm9wZXJ0eTEiOiJ2YWx1ZTEiLCJwcm9wZXJ0eTIiOiJ2YWx1ZTIifQ==
+      - name: xProxy-Account-Name
+        in: header
+        description: Account Name
+        schema:
+          type: string
+        example: account_name
+      - name: xProxy-Logging-Disable
+        in: header
+        description: Disable Logging
+        schema:
+          type: string
+      - name: xProxy-Provider-BaseUri
+        in: header
+        description: Provider URI
+        schema:
+          type: string
+        example: https://api.provider.com
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.AwsBedrockResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ProxyApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+  /api/v1/proxy/aws.bedrock/model/{modelId}/converse-stream:
+    post:
+      tags:
+      - AWS Bedrock Requests
+      summary: Converse Stream
+      operationId: requests.AwsBedrock.ConverseStream
+      parameters:
+      - name: modelId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: Provider Authentication
+        required: true
+        schema:
+          type: string
+      - name: xProxy-PriceAs-Category
+        in: header
+        description: Price as category
+        schema:
+          type: string
+        example: category_name
+      - name: xProxy-PriceAs-Resource
+        in: header
+        description: Price as resource
+        schema:
+          type: string
+        example: resource_name
+      - name: xProxy-Resource-Scope
+        in: header
+        description: Resource scope
+        schema:
+          type: string
+        example: datazone
+      - name: xProxy-Limit-IDs
+        in: header
+        description: Comma separated list of limit ID strings
+        schema:
+          type: string
+        example: limitId1, limitId_2
+      - name: xProxy-User-ID
+        in: header
+        description: User ID
+        schema:
+          type: string
+        example: UserName123
+      - name: xProxy-UseCase-ID
+        in: header
+        description: Use Case ID
+        schema:
+          type: string
+        example: use_case_id
+      - name: xProxy-UseCase-Name
+        in: header
+        description: Use Case Name
+        schema:
+          type: string
+        example: use_case_name
+      - name: xProxy-UseCase-Version
+        in: header
+        description: Use Case Version
+        schema:
+          type: integer
+        example: '1'
+      - name: xProxy-UseCase-Step
+        in: header
+        description: Use Case Step
+        schema:
+          type: string
+        example: step_1
+      - name: xProxy-UseCase-Properties
+        in: header
+        description: Use Case Properties as a Base64 encoded JSON string
+        schema:
+          type: string
+        example: eyJwcm9wZXJ0eTEiOiJ2YWx1ZTEiLCJwcm9wZXJ0eTIiOiJ2YWx1ZTIifQ==
+      - name: xProxy-Request-Properties
+        in: header
+        description: Request Properties as a Base64 encoded JSON string
+        schema:
+          type: string
+        example: eyJwcm9wZXJ0eTEiOiJ2YWx1ZTEiLCJwcm9wZXJ0eTIiOiJ2YWx1ZTIifQ==
+      - name: xProxy-Account-Name
+        in: header
+        description: Account Name
+        schema:
+          type: string
+        example: account_name
+      - name: xProxy-Logging-Disable
+        in: header
+        description: Disable Logging
+        schema:
+          type: string
+      - name: xProxy-Provider-BaseUri
+        in: header
+        description: Provider URI
+        schema:
+          type: string
+        example: https://api.provider.com
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.AwsBedrockResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ProxyApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+  /api/v1/proxy/aws.bedrock/model/{modelId}/invoke:
+    post:
+      tags:
+      - AWS Bedrock Requests
+      summary: Invoke Model
+      operationId: requests.AwsBedrock.InvokeModel
+      parameters:
+      - name: modelId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: Provider Authentication
+        required: true
+        schema:
+          type: string
+      - name: xProxy-PriceAs-Category
+        in: header
+        description: Price as category
+        schema:
+          type: string
+        example: category_name
+      - name: xProxy-PriceAs-Resource
+        in: header
+        description: Price as resource
+        schema:
+          type: string
+        example: resource_name
+      - name: xProxy-Resource-Scope
+        in: header
+        description: Resource scope
+        schema:
+          type: string
+        example: datazone
+      - name: xProxy-Limit-IDs
+        in: header
+        description: Comma separated list of limit ID strings
+        schema:
+          type: string
+        example: limitId1, limitId_2
+      - name: xProxy-User-ID
+        in: header
+        description: User ID
+        schema:
+          type: string
+        example: UserName123
+      - name: xProxy-UseCase-ID
+        in: header
+        description: Use Case ID
+        schema:
+          type: string
+        example: use_case_id
+      - name: xProxy-UseCase-Name
+        in: header
+        description: Use Case Name
+        schema:
+          type: string
+        example: use_case_name
+      - name: xProxy-UseCase-Version
+        in: header
+        description: Use Case Version
+        schema:
+          type: integer
+        example: '1'
+      - name: xProxy-UseCase-Step
+        in: header
+        description: Use Case Step
+        schema:
+          type: string
+        example: step_1
+      - name: xProxy-UseCase-Properties
+        in: header
+        description: Use Case Properties as a Base64 encoded JSON string
+        schema:
+          type: string
+        example: eyJwcm9wZXJ0eTEiOiJ2YWx1ZTEiLCJwcm9wZXJ0eTIiOiJ2YWx1ZTIifQ==
+      - name: xProxy-Request-Properties
+        in: header
+        description: Request Properties as a Base64 encoded JSON string
+        schema:
+          type: string
+        example: eyJwcm9wZXJ0eTEiOiJ2YWx1ZTEiLCJwcm9wZXJ0eTIiOiJ2YWx1ZTIifQ==
+      - name: xProxy-Account-Name
+        in: header
+        description: Account Name
+        schema:
+          type: string
+        example: account_name
+      - name: xProxy-Logging-Disable
+        in: header
+        description: Disable Logging
+        schema:
+          type: string
+      - name: xProxy-Provider-BaseUri
+        in: header
+        description: Provider URI
+        schema:
+          type: string
+        example: https://api.provider.com
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.AwsBedrockResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ProxyApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+  /api/v1/proxy/aws.bedrock/model/{modelId}/invoke-with-response-stream:
+    post:
+      tags:
+      - AWS Bedrock Requests
+      summary: Invoke Model with Response Stream
+      operationId: requests.AwsBedrock.InvokeModelWithStream
+      parameters:
+      - name: modelId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: Provider Authentication
+        required: true
+        schema:
+          type: string
+      - name: xProxy-PriceAs-Category
+        in: header
+        description: Price as category
+        schema:
+          type: string
+        example: category_name
+      - name: xProxy-PriceAs-Resource
+        in: header
+        description: Price as resource
+        schema:
+          type: string
+        example: resource_name
+      - name: xProxy-Resource-Scope
+        in: header
+        description: Resource scope
+        schema:
+          type: string
+        example: datazone
+      - name: xProxy-Limit-IDs
+        in: header
+        description: Comma separated list of limit ID strings
+        schema:
+          type: string
+        example: limitId1, limitId_2
+      - name: xProxy-User-ID
+        in: header
+        description: User ID
+        schema:
+          type: string
+        example: UserName123
+      - name: xProxy-UseCase-ID
+        in: header
+        description: Use Case ID
+        schema:
+          type: string
+        example: use_case_id
+      - name: xProxy-UseCase-Name
+        in: header
+        description: Use Case Name
+        schema:
+          type: string
+        example: use_case_name
+      - name: xProxy-UseCase-Version
+        in: header
+        description: Use Case Version
+        schema:
+          type: integer
+        example: '1'
+      - name: xProxy-UseCase-Step
+        in: header
+        description: Use Case Step
+        schema:
+          type: string
+        example: step_1
+      - name: xProxy-UseCase-Properties
+        in: header
+        description: Use Case Properties as a Base64 encoded JSON string
+        schema:
+          type: string
+        example: eyJwcm9wZXJ0eTEiOiJ2YWx1ZTEiLCJwcm9wZXJ0eTIiOiJ2YWx1ZTIifQ==
+      - name: xProxy-Request-Properties
+        in: header
+        description: Request Properties as a Base64 encoded JSON string
+        schema:
+          type: string
+        example: eyJwcm9wZXJ0eTEiOiJ2YWx1ZTEiLCJwcm9wZXJ0eTIiOiJ2YWx1ZTIifQ==
+      - name: xProxy-Account-Name
+        in: header
+        description: Account Name
+        schema:
+          type: string
+        example: account_name
+      - name: xProxy-Logging-Disable
+        in: header
+        description: Disable Logging
+        schema:
+          type: string
+      - name: xProxy-Provider-BaseUri
+        in: header
+        description: Provider URI
+        schema:
+          type: string
+        example: https://api.provider.com
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.AwsBedrockResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ProxyApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+  /api/v1/proxy/azure.anthropic/v1/messages:
+    post:
+      tags:
+      - Azure Anthropic Requests
+      summary: Messages
+      operationId: requests.AzureAnthropic.MessagesAPIV1
+      parameters:
+      - name: x-api-key
+        in: header
+        description: Provider Authentication
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: Provider Authentication
+        schema:
+          type: string
+      - name: xProxy-PriceAs-Category
+        in: header
+        description: Price as category
+        schema:
+          type: string
+        example: category_name
+      - name: xProxy-PriceAs-Resource
+        in: header
+        description: Price as resource
+        required: true
+        schema:
+          type: string
+        example: resource_name
+      - name: xProxy-Resource-Scope
+        in: header
+        description: Resource scope
+        schema:
+          type: string
+        example: datazone
+      - name: xProxy-Limit-IDs
+        in: header
+        description: Comma separated list of limit ID strings
+        schema:
+          type: string
+        example: limitId1, limitId_2
+      - name: xProxy-User-ID
+        in: header
+        description: User ID
+        schema:
+          type: string
+        example: UserName123
+      - name: xProxy-UseCase-ID
+        in: header
+        description: Use Case ID
+        schema:
+          type: string
+        example: use_case_id
+      - name: xProxy-UseCase-Name
+        in: header
+        description: Use Case Name
+        schema:
+          type: string
+        example: use_case_name
+      - name: xProxy-UseCase-Version
+        in: header
+        description: Use Case Version
+        schema:
+          type: integer
+        example: '1'
+      - name: xProxy-UseCase-Step
+        in: header
+        description: Use Case Step
+        schema:
+          type: string
+        example: step_1
+      - name: xProxy-UseCase-Properties
+        in: header
+        description: Use Case Properties as a Base64 encoded JSON string
+        schema:
+          type: string
+        example: eyJwcm9wZXJ0eTEiOiJ2YWx1ZTEiLCJwcm9wZXJ0eTIiOiJ2YWx1ZTIifQ==
+      - name: xProxy-Request-Properties
+        in: header
+        description: Request Properties as a Base64 encoded JSON string
+        schema:
+          type: string
+        example: eyJwcm9wZXJ0eTEiOiJ2YWx1ZTEiLCJwcm9wZXJ0eTIiOiJ2YWx1ZTIifQ==
+      - name: xProxy-Account-Name
+        in: header
+        description: Account Name
+        schema:
+          type: string
+        example: account_name
+      - name: xProxy-Logging-Disable
+        in: header
+        description: Disable Logging
+        schema:
+          type: string
+      - name: xProxy-Provider-BaseUri
+        in: header
+        description: Provider URI
+        schema:
+          type: string
+        example: https://api.provider.com
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.AnthropicResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ProxyApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+  /api/v1/proxy/azure.openai/openai/v1/responses:
+    post:
+      tags:
+      - Azure OpenAI Requests
+      summary: Responses
+      operationId: requests.AzureOpenAI.ResponsesAPI
+      parameters:
+      - name: Authorization
+        in: header
+        description: Provider Authentication
+        schema:
+          type: string
+      - name: api-key
+        in: header
+        description: Provider Authentication
+        schema:
+          type: string
+      - name: xProxy-PriceAs-Category
+        in: header
+        description: Price as category
+        schema:
+          type: string
+        example: category_name
+      - name: xProxy-PriceAs-Resource
+        in: header
+        description: Price as resource
+        schema:
+          type: string
+        example: resource_name
+      - name: xProxy-Resource-Scope
+        in: header
+        description: Resource scope
+        schema:
+          type: string
+        example: datazone
+      - name: xProxy-Limit-IDs
+        in: header
+        description: Comma separated list of limit ID strings
+        schema:
+          type: string
+        example: limitId1, limitId_2
+      - name: xProxy-User-ID
+        in: header
+        description: User ID
+        schema:
+          type: string
+        example: UserName123
+      - name: xProxy-UseCase-ID
+        in: header
+        description: Use Case ID
+        schema:
+          type: string
+        example: use_case_id
+      - name: xProxy-UseCase-Name
+        in: header
+        description: Use Case Name
+        schema:
+          type: string
+        example: use_case_name
+      - name: xProxy-UseCase-Version
+        in: header
+        description: Use Case Version
+        schema:
+          type: integer
+        example: '1'
+      - name: xProxy-UseCase-Step
+        in: header
+        description: Use Case Step
+        schema:
+          type: string
+        example: step_1
+      - name: xProxy-UseCase-Properties
+        in: header
+        description: Use Case Properties as a Base64 encoded JSON string
+        schema:
+          type: string
+        example: eyJwcm9wZXJ0eTEiOiJ2YWx1ZTEiLCJwcm9wZXJ0eTIiOiJ2YWx1ZTIifQ==
+      - name: xProxy-Request-Properties
+        in: header
+        description: Request Properties as a Base64 encoded JSON string
+        schema:
+          type: string
+        example: eyJwcm9wZXJ0eTEiOiJ2YWx1ZTEiLCJwcm9wZXJ0eTIiOiJ2YWx1ZTIifQ==
+      - name: xProxy-Account-Name
+        in: header
+        description: Account Name
+        schema:
+          type: string
+        example: account_name
+      - name: xProxy-Logging-Disable
+        in: header
+        description: Disable Logging
+        schema:
+          type: string
+      - name: xProxy-Provider-BaseUri
+        in: header
+        description: Provider URI
+        schema:
+          type: string
+        example: https://api.provider.com
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.OpenAIResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ProxyApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+  /api/v1/proxy/azure.openai/openai/deployments/{deploymentName}/chat/completions:
+    post:
+      tags:
+      - Azure OpenAI Requests
+      summary: Chat Completions
+      operationId: requests.AzureOpenAI.ChatCompletionsAPI
+      parameters:
+      - name: deploymentName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: Provider Authentication
+        schema:
+          type: string
+      - name: api-key
+        in: header
+        description: Provider Authentication
+        schema:
+          type: string
+      - name: xProxy-PriceAs-Category
+        in: header
+        description: Price as category
+        schema:
+          type: string
+        example: category_name
+      - name: xProxy-PriceAs-Resource
+        in: header
+        description: Price as resource
+        schema:
+          type: string
+        example: resource_name
+      - name: xProxy-Resource-Scope
+        in: header
+        description: Resource scope
+        schema:
+          type: string
+        example: datazone
+      - name: xProxy-Limit-IDs
+        in: header
+        description: Comma separated list of limit ID strings
+        schema:
+          type: string
+        example: limitId1, limitId_2
+      - name: xProxy-User-ID
+        in: header
+        description: User ID
+        schema:
+          type: string
+        example: UserName123
+      - name: xProxy-UseCase-ID
+        in: header
+        description: Use Case ID
+        schema:
+          type: string
+        example: use_case_id
+      - name: xProxy-UseCase-Name
+        in: header
+        description: Use Case Name
+        schema:
+          type: string
+        example: use_case_name
+      - name: xProxy-UseCase-Version
+        in: header
+        description: Use Case Version
+        schema:
+          type: integer
+        example: '1'
+      - name: xProxy-UseCase-Step
+        in: header
+        description: Use Case Step
+        schema:
+          type: string
+        example: step_1
+      - name: xProxy-UseCase-Properties
+        in: header
+        description: Use Case Properties as a Base64 encoded JSON string
+        schema:
+          type: string
+        example: eyJwcm9wZXJ0eTEiOiJ2YWx1ZTEiLCJwcm9wZXJ0eTIiOiJ2YWx1ZTIifQ==
+      - name: xProxy-Request-Properties
+        in: header
+        description: Request Properties as a Base64 encoded JSON string
+        schema:
+          type: string
+        example: eyJwcm9wZXJ0eTEiOiJ2YWx1ZTEiLCJwcm9wZXJ0eTIiOiJ2YWx1ZTIifQ==
+      - name: xProxy-Account-Name
+        in: header
+        description: Account Name
+        schema:
+          type: string
+        example: account_name
+      - name: xProxy-Logging-Disable
+        in: header
+        description: Disable Logging
+        schema:
+          type: string
+      - name: xProxy-Provider-BaseUri
+        in: header
+        description: Provider URI
+        schema:
+          type: string
+        example: https://api.provider.com
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.OpenAIResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ProxyApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+  /api/v1/proxy/azure.openai/openai/deployments/{deploymentName}/embeddings:
+    post:
+      tags:
+      - Azure OpenAI Requests
+      summary: Embeddings
+      operationId: requests.AzureOpenAI.EmbeddingsAPI
+      parameters:
+      - name: deploymentName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: Provider Authentication
+        schema:
+          type: string
+      - name: api-key
+        in: header
+        description: Provider Authentication
+        schema:
+          type: string
+      - name: xProxy-PriceAs-Category
+        in: header
+        description: Price as category
+        schema:
+          type: string
+        example: category_name
+      - name: xProxy-PriceAs-Resource
+        in: header
+        description: Price as resource
+        schema:
+          type: string
+        example: resource_name
+      - name: xProxy-Resource-Scope
+        in: header
+        description: Resource scope
+        schema:
+          type: string
+        example: datazone
+      - name: xProxy-Limit-IDs
+        in: header
+        description: Comma separated list of limit ID strings
+        schema:
+          type: string
+        example: limitId1, limitId_2
+      - name: xProxy-User-ID
+        in: header
+        description: User ID
+        schema:
+          type: string
+        example: UserName123
+      - name: xProxy-UseCase-ID
+        in: header
+        description: Use Case ID
+        schema:
+          type: string
+        example: use_case_id
+      - name: xProxy-UseCase-Name
+        in: header
+        description: Use Case Name
+        schema:
+          type: string
+        example: use_case_name
+      - name: xProxy-UseCase-Version
+        in: header
+        description: Use Case Version
+        schema:
+          type: integer
+        example: '1'
+      - name: xProxy-UseCase-Step
+        in: header
+        description: Use Case Step
+        schema:
+          type: string
+        example: step_1
+      - name: xProxy-UseCase-Properties
+        in: header
+        description: Use Case Properties as a Base64 encoded JSON string
+        schema:
+          type: string
+        example: eyJwcm9wZXJ0eTEiOiJ2YWx1ZTEiLCJwcm9wZXJ0eTIiOiJ2YWx1ZTIifQ==
+      - name: xProxy-Request-Properties
+        in: header
+        description: Request Properties as a Base64 encoded JSON string
+        schema:
+          type: string
+        example: eyJwcm9wZXJ0eTEiOiJ2YWx1ZTEiLCJwcm9wZXJ0eTIiOiJ2YWx1ZTIifQ==
+      - name: xProxy-Account-Name
+        in: header
+        description: Account Name
+        schema:
+          type: string
+        example: account_name
+      - name: xProxy-Logging-Disable
+        in: header
+        description: Disable Logging
+        schema:
+          type: string
+      - name: xProxy-Provider-BaseUri
+        in: header
+        description: Provider URI
+        schema:
+          type: string
+        example: https://api.provider.com
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.OpenAIResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ProxyApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+  /api/v1/proxy/azure.openai/openai/deployments/{deploymentName}/images/generations:
+    post:
+      tags:
+      - Azure OpenAI Requests
+      summary: Generations
+      operationId: requests.AzureOpenAI.ImagesGenerationsAPI
+      parameters:
+      - name: deploymentName
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: Provider Authentication
+        schema:
+          type: string
+      - name: api-key
+        in: header
+        description: Provider Authentication
+        schema:
+          type: string
+      - name: xProxy-PriceAs-Category
+        in: header
+        description: Price as category
+        schema:
+          type: string
+        example: category_name
+      - name: xProxy-PriceAs-Resource
+        in: header
+        description: Price as resource
+        schema:
+          type: string
+        example: resource_name
+      - name: xProxy-Resource-Scope
+        in: header
+        description: Resource scope
+        schema:
+          type: string
+        example: datazone
+      - name: xProxy-Limit-IDs
+        in: header
+        description: Comma separated list of limit ID strings
+        schema:
+          type: string
+        example: limitId1, limitId_2
+      - name: xProxy-User-ID
+        in: header
+        description: User ID
+        schema:
+          type: string
+        example: UserName123
+      - name: xProxy-UseCase-ID
+        in: header
+        description: Use Case ID
+        schema:
+          type: string
+        example: use_case_id
+      - name: xProxy-UseCase-Name
+        in: header
+        description: Use Case Name
+        schema:
+          type: string
+        example: use_case_name
+      - name: xProxy-UseCase-Version
+        in: header
+        description: Use Case Version
+        schema:
+          type: integer
+        example: '1'
+      - name: xProxy-UseCase-Step
+        in: header
+        description: Use Case Step
+        schema:
+          type: string
+        example: step_1
+      - name: xProxy-UseCase-Properties
+        in: header
+        description: Use Case Properties as a Base64 encoded JSON string
+        schema:
+          type: string
+        example: eyJwcm9wZXJ0eTEiOiJ2YWx1ZTEiLCJwcm9wZXJ0eTIiOiJ2YWx1ZTIifQ==
+      - name: xProxy-Request-Properties
+        in: header
+        description: Request Properties as a Base64 encoded JSON string
+        schema:
+          type: string
+        example: eyJwcm9wZXJ0eTEiOiJ2YWx1ZTEiLCJwcm9wZXJ0eTIiOiJ2YWx1ZTIifQ==
+      - name: xProxy-Account-Name
+        in: header
+        description: Account Name
+        schema:
+          type: string
+        example: account_name
+      - name: xProxy-Logging-Disable
+        in: header
+        description: Disable Logging
+        schema:
+          type: string
+      - name: xProxy-Provider-BaseUri
+        in: header
+        description: Provider URI
+        schema:
+          type: string
+        example: https://api.provider.com
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.OpenAIResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ProxyApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+  /api/v1/categories:
+    get:
+      tags:
+      - Categories
+      summary: Get all Categories
+      operationId: getCategories
+      parameters:
+      - name: Active
+        in: query
+        schema:
+          type: boolean
+      - name: sort_ascending
+        in: query
+        schema:
+          type: boolean
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: cursor
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Calculator.Models.ApiQueries.PaginatedCursorCategoryResponseList'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+  /api/v1/categories/{category}/resources:
+    get:
+      tags:
+      - Categories
+      summary: Get all Resources for a Category
+      operationId: getResourcesList
+      parameters:
+      - name: Active
+        in: query
+        schema:
+          type: boolean
+      - name: sort_ascending
+        in: query
+        schema:
+          type: boolean
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: cursor
+        in: query
+        schema:
+          type: string
+      - name: category
+        in: path
+        description: category
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Calculator.Models.ApiQueries.PaginatedCursorCategoryResourceResponseList'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+  /api/v1/categories/{category}:
+    delete:
+      tags:
+      - Categories
+      summary: Delete a Category and all of its Resources
+      operationId: deleteCategoryResources
+      parameters:
+      - name: category
+        in: path
+        description: Category
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PayI.Common.Models.CategoryResource.CategoryResourceResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+  /api/v1/categories/{category}/resources/{resource}:
+    delete:
+      tags:
+      - Categories
+      summary: Delete all versions of Resource from a Category
+      operationId: deleteCategoryResource
+      parameters:
+      - name: category
+        in: path
+        description: Category
+        required: true
+        schema:
+          type: string
+      - name: resource
+        in: path
+        description: Resource
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PayI.Common.Models.CategoryResource.CategoryResourceResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+    get:
+      tags:
+      - Resources
+      summary: Get a list of versions of a Resource
+      operationId: getResources
+      parameters:
+      - name: Active
+        in: query
+        schema:
+          type: boolean
+      - name: sort_ascending
+        in: query
+        schema:
+          type: boolean
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: cursor
+        in: query
+        schema:
+          type: string
+      - name: category
+        in: path
+        description: Category
+        required: true
+        schema:
+          type: string
+      - name: resource
+        in: path
+        description: Resource
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Calculator.Models.ApiQueries.PaginatedCursorCategoryResourceResponseList'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+    post:
+      tags:
+      - Resources
+      summary: Create a Resource
+      operationId: createResource
+      parameters:
+      - name: category
+        in: path
+        description: Category
+        required: true
+        schema:
+          type: string
+      - name: resource
+        in: path
+        description: Resource
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Resource Request
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PayI.Common.Models.CategoryResource.CategoryResourceRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/PayI.Common.Models.CategoryResource.CategoryResourceRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.CategoryResource.CategoryResourceResponse'
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.CategoryResource.CategoryResourceResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+  ? /api/v1/proxy/google.vertex/{version}/projects/{project}/locations/{location}/publishers/{publisher}/models/{modelId}:generateContent
+  : post:
+      tags:
+      - Google Vertex Requests
+      summary: Generate Content
+      operationId: requests.GoogleVertex.GenerateContent
+      parameters:
+      - name: publisher
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: modelId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: version
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: project
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: location
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: Provider Authentication
+        required: true
+        schema:
+          type: string
+      - name: xProxy-PriceAs-Category
+        in: header
+        description: Price as category
+        schema:
+          type: string
+        example: category_name
+      - name: xProxy-PriceAs-Resource
+        in: header
+        description: Price as resource
+        schema:
+          type: string
+        example: resource_name
+      - name: xProxy-Resource-Scope
+        in: header
+        description: Resource scope
+        schema:
+          type: string
+        example: datazone
+      - name: xProxy-Limit-IDs
+        in: header
+        description: Comma separated list of limit ID strings
+        schema:
+          type: string
+        example: limitId1, limitId_2
+      - name: xProxy-User-ID
+        in: header
+        description: User ID
+        schema:
+          type: string
+        example: UserName123
+      - name: xProxy-UseCase-ID
+        in: header
+        description: Use Case ID
+        schema:
+          type: string
+        example: use_case_id
+      - name: xProxy-UseCase-Name
+        in: header
+        description: Use Case Name
+        schema:
+          type: string
+        example: use_case_name
+      - name: xProxy-UseCase-Version
+        in: header
+        description: Use Case Version
+        schema:
+          type: integer
+        example: '1'
+      - name: xProxy-UseCase-Step
+        in: header
+        description: Use Case Step
+        schema:
+          type: string
+        example: step_1
+      - name: xProxy-UseCase-Properties
+        in: header
+        description: Use Case Properties as a Base64 encoded JSON string
+        schema:
+          type: string
+        example: eyJwcm9wZXJ0eTEiOiJ2YWx1ZTEiLCJwcm9wZXJ0eTIiOiJ2YWx1ZTIifQ==
+      - name: xProxy-Request-Properties
+        in: header
+        description: Request Properties as a Base64 encoded JSON string
+        schema:
+          type: string
+        example: eyJwcm9wZXJ0eTEiOiJ2YWx1ZTEiLCJwcm9wZXJ0eTIiOiJ2YWx1ZTIifQ==
+      - name: xProxy-Account-Name
+        in: header
+        description: Account Name
+        schema:
+          type: string
+        example: account_name
+      - name: xProxy-Logging-Disable
+        in: header
+        description: Disable Logging
+        schema:
+          type: string
+      - name: xProxy-Provider-BaseUri
+        in: header
+        description: Provider URI
+        schema:
+          type: string
+        example: https://api.provider.com
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.GoogleVertexResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ProxyApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+  ? /api/v1/proxy/google.vertex/{version}/projects/{project}/locations/{location}/publishers/{publisher}/models/{modelId}:streamGenerateContent
+  : post:
+      tags:
+      - Google Vertex Requests
+      summary: Generate Content Stream
+      operationId: requests.GoogleVertex.StreamGenerateContent
+      parameters:
+      - name: publisher
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: modelId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: version
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: project
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: location
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: Provider Authentication
+        required: true
+        schema:
+          type: string
+      - name: xProxy-PriceAs-Category
+        in: header
+        description: Price as category
+        schema:
+          type: string
+        example: category_name
+      - name: xProxy-PriceAs-Resource
+        in: header
+        description: Price as resource
+        schema:
+          type: string
+        example: resource_name
+      - name: xProxy-Resource-Scope
+        in: header
+        description: Resource scope
+        schema:
+          type: string
+        example: datazone
+      - name: xProxy-Limit-IDs
+        in: header
+        description: Comma separated list of limit ID strings
+        schema:
+          type: string
+        example: limitId1, limitId_2
+      - name: xProxy-User-ID
+        in: header
+        description: User ID
+        schema:
+          type: string
+        example: UserName123
+      - name: xProxy-UseCase-ID
+        in: header
+        description: Use Case ID
+        schema:
+          type: string
+        example: use_case_id
+      - name: xProxy-UseCase-Name
+        in: header
+        description: Use Case Name
+        schema:
+          type: string
+        example: use_case_name
+      - name: xProxy-UseCase-Version
+        in: header
+        description: Use Case Version
+        schema:
+          type: integer
+        example: '1'
+      - name: xProxy-UseCase-Step
+        in: header
+        description: Use Case Step
+        schema:
+          type: string
+        example: step_1
+      - name: xProxy-UseCase-Properties
+        in: header
+        description: Use Case Properties as a Base64 encoded JSON string
+        schema:
+          type: string
+        example: eyJwcm9wZXJ0eTEiOiJ2YWx1ZTEiLCJwcm9wZXJ0eTIiOiJ2YWx1ZTIifQ==
+      - name: xProxy-Request-Properties
+        in: header
+        description: Request Properties as a Base64 encoded JSON string
+        schema:
+          type: string
+        example: eyJwcm9wZXJ0eTEiOiJ2YWx1ZTEiLCJwcm9wZXJ0eTIiOiJ2YWx1ZTIifQ==
+      - name: xProxy-Account-Name
+        in: header
+        description: Account Name
+        schema:
+          type: string
+        example: account_name
+      - name: xProxy-Logging-Disable
+        in: header
+        description: Disable Logging
+        schema:
+          type: string
+      - name: xProxy-Provider-BaseUri
+        in: header
+        description: Provider URI
+        schema:
+          type: string
+        example: https://api.provider.com
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.GoogleVertexResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ProxyApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+  ? /api/v1/proxy/google.vertex/{version}/projects/{project}/locations/{location}/publishers/{publisher}/models/{modelId}:rawPredict
+  : post:
+      tags:
+      - Google Vertex Requests
+      summary: Raw Predict
+      operationId: requests.GoogleVertex.RawPredict
+      parameters:
+      - name: publisher
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: modelId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: version
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: project
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: location
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: Provider Authentication
+        required: true
+        schema:
+          type: string
+      - name: xProxy-PriceAs-Category
+        in: header
+        description: Price as category
+        schema:
+          type: string
+        example: category_name
+      - name: xProxy-PriceAs-Resource
+        in: header
+        description: Price as resource
+        schema:
+          type: string
+        example: resource_name
+      - name: xProxy-Resource-Scope
+        in: header
+        description: Resource scope
+        schema:
+          type: string
+        example: datazone
+      - name: xProxy-Limit-IDs
+        in: header
+        description: Comma separated list of limit ID strings
+        schema:
+          type: string
+        example: limitId1, limitId_2
+      - name: xProxy-User-ID
+        in: header
+        description: User ID
+        schema:
+          type: string
+        example: UserName123
+      - name: xProxy-UseCase-ID
+        in: header
+        description: Use Case ID
+        schema:
+          type: string
+        example: use_case_id
+      - name: xProxy-UseCase-Name
+        in: header
+        description: Use Case Name
+        schema:
+          type: string
+        example: use_case_name
+      - name: xProxy-UseCase-Version
+        in: header
+        description: Use Case Version
+        schema:
+          type: integer
+        example: '1'
+      - name: xProxy-UseCase-Step
+        in: header
+        description: Use Case Step
+        schema:
+          type: string
+        example: step_1
+      - name: xProxy-UseCase-Properties
+        in: header
+        description: Use Case Properties as a Base64 encoded JSON string
+        schema:
+          type: string
+        example: eyJwcm9wZXJ0eTEiOiJ2YWx1ZTEiLCJwcm9wZXJ0eTIiOiJ2YWx1ZTIifQ==
+      - name: xProxy-Request-Properties
+        in: header
+        description: Request Properties as a Base64 encoded JSON string
+        schema:
+          type: string
+        example: eyJwcm9wZXJ0eTEiOiJ2YWx1ZTEiLCJwcm9wZXJ0eTIiOiJ2YWx1ZTIifQ==
+      - name: xProxy-Account-Name
+        in: header
+        description: Account Name
+        schema:
+          type: string
+        example: account_name
+      - name: xProxy-Logging-Disable
+        in: header
+        description: Disable Logging
+        schema:
+          type: string
+      - name: xProxy-Provider-BaseUri
+        in: header
+        description: Provider URI
+        schema:
+          type: string
+        example: https://api.provider.com
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.GoogleVertexResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ProxyApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+  ? /api/v1/proxy/google.vertex/{version}/projects/{project}/locations/{location}/publishers/{publisher}/models/{modelId}:streamRawPredict
+  : post:
+      tags:
+      - Google Vertex Requests
+      summary: Raw Predict Stream
+      operationId: requests.GoogleVertex.StreamRawPredict
+      parameters:
+      - name: publisher
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: modelId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: version
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: project
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: location
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: Provider Authentication
+        required: true
+        schema:
+          type: string
+      - name: xProxy-PriceAs-Category
+        in: header
+        description: Price as category
+        schema:
+          type: string
+        example: category_name
+      - name: xProxy-PriceAs-Resource
+        in: header
+        description: Price as resource
+        schema:
+          type: string
+        example: resource_name
+      - name: xProxy-Resource-Scope
+        in: header
+        description: Resource scope
+        schema:
+          type: string
+        example: datazone
+      - name: xProxy-Limit-IDs
+        in: header
+        description: Comma separated list of limit ID strings
+        schema:
+          type: string
+        example: limitId1, limitId_2
+      - name: xProxy-User-ID
+        in: header
+        description: User ID
+        schema:
+          type: string
+        example: UserName123
+      - name: xProxy-UseCase-ID
+        in: header
+        description: Use Case ID
+        schema:
+          type: string
+        example: use_case_id
+      - name: xProxy-UseCase-Name
+        in: header
+        description: Use Case Name
+        schema:
+          type: string
+        example: use_case_name
+      - name: xProxy-UseCase-Version
+        in: header
+        description: Use Case Version
+        schema:
+          type: integer
+        example: '1'
+      - name: xProxy-UseCase-Step
+        in: header
+        description: Use Case Step
+        schema:
+          type: string
+        example: step_1
+      - name: xProxy-UseCase-Properties
+        in: header
+        description: Use Case Properties as a Base64 encoded JSON string
+        schema:
+          type: string
+        example: eyJwcm9wZXJ0eTEiOiJ2YWx1ZTEiLCJwcm9wZXJ0eTIiOiJ2YWx1ZTIifQ==
+      - name: xProxy-Request-Properties
+        in: header
+        description: Request Properties as a Base64 encoded JSON string
+        schema:
+          type: string
+        example: eyJwcm9wZXJ0eTEiOiJ2YWx1ZTEiLCJwcm9wZXJ0eTIiOiJ2YWx1ZTIifQ==
+      - name: xProxy-Account-Name
+        in: header
+        description: Account Name
+        schema:
+          type: string
+        example: account_name
+      - name: xProxy-Logging-Disable
+        in: header
+        description: Disable Logging
+        schema:
+          type: string
+      - name: xProxy-Provider-BaseUri
+        in: header
+        description: Provider URI
+        schema:
+          type: string
+        example: https://api.provider.com
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.GoogleVertexResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ProxyApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+  /api/v1/ingest:
+    post:
+      tags:
+      - Ingest Events
+      summary: Ingest an Event
+      operationId: requests.Ingest
+      parameters:
+      - name: xProxy-Resource-Scope
+        in: header
+        description: Resource scope
+        schema:
+          type: string
+        example: datazone
+      - name: xProxy-Limit-IDs
+        in: header
+        description: Comma separated list of limit ID strings
+        schema:
+          type: string
+        example: limitId1, limitId_2
+      - name: xProxy-User-ID
+        in: header
+        description: User ID
+        schema:
+          type: string
+        example: UserName123
+      - name: xProxy-UseCase-ID
+        in: header
+        description: Use Case ID
+        schema:
+          type: string
+        example: use_case_id
+      - name: xProxy-UseCase-Name
+        in: header
+        description: Use Case Name
+        schema:
+          type: string
+        example: use_case_name
+      - name: xProxy-UseCase-Version
+        in: header
+        description: Use Case Version
+        schema:
+          type: integer
+        example: '1'
+      - name: xProxy-UseCase-Step
+        in: header
+        description: Use Case Step
+        schema:
+          type: string
+        example: step_1
+      - name: xProxy-Account-Name
+        in: header
+        description: Account Name
+        schema:
+          type: string
+        example: account_name
+      - name: xProxy-Logging-Disable
+        in: header
+        description: Disable Logging
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.IngestRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.IngestRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.IngestResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ProxyApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+  /api/v1/ingest/bulk:
+    post:
+      tags:
+      - Ingest Events
+      summary: Bulk Ingest
+      operationId: requests.BulkIngest
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.BulkIngestRequest'
+          application/*+json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.BulkIngestRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.BulkIngestResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.BulkIngestResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+  /api/v1/ingest/bulk-upsert:
+    post:
+      tags:
+      - Ingest Events
+      summary: Bulk Upsert — insert or update records keyed by provider_response_id.
+      operationId: requests.BulkUpsert
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.BulkIngestRequest'
+          application/*+json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.BulkIngestRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.BulkIngestResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.BulkIngestResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+  /api/v1/ingest/copilot/transcripts:
+    post:
+      tags:
+      - Ingest Events
+      operationId: requests.CopilotTranscriptIngest
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.Copilot.CopilotTranscriptIngestRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.Copilot.CopilotTranscriptIngestRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.CopilotTranscriptIngestResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+  /api/v1/ingest/copilot/licensing:
+    post:
+      tags:
+      - Ingest Events
+      operationId: requests.CopilotLicensingIngest
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.Copilot.CopilotLicensingIngestRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.Copilot.CopilotLicensingIngestRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.CopilotLicensingIngestResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+  /api/v1/use_cases/definitions/{use_case_name}/kpis:
+    get:
+      tags:
+      - KPIs
+      summary: Get all KPIs for a Use Case
+      operationId: getKpi
+      parameters:
+      - name: use_case_name
+        in: path
+        description: Use case
+        required: true
+        schema:
+          type: string
+      - name: kpi_name
+        in: query
+        schema:
+          type: string
+      - name: sort_ascending
+        in: query
+        schema:
+          type: boolean
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: cursor
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Calculator.Models.ApiQueries.PaginatedCursorKpiResponseList'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+    post:
+      tags:
+      - KPIs
+      summary: Create a new KPI definition for a Use Case
+      operationId: createUseCaseKpiDefinition
+      parameters:
+      - name: use_case_name
+        in: path
+        description: Use case
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: New KPI definition
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PayI.Calculator.Models.CreateKpiRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/PayI.Calculator.Models.CreateKpiRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Calculator.Models.KpiResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+  /api/v1/use_cases/definitions/{use_case_name}/kpis/{kpi_name}:
+    get:
+      tags:
+      - KPIs
+      summary: Get a KPI definition for a Use Case
+      operationId: getUseCaseKpiDetails
+      parameters:
+      - name: use_case_name
+        in: path
+        description: Use case
+        required: true
+        schema:
+          type: string
+      - name: kpi_name
+        in: path
+        description: KPI definition name
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Calculator.Models.KpiResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+    delete:
+      tags:
+      - KPIs
+      summary: Delete a KPI definition for a Use Case
+      operationId: deleteUseCaseKpiDefinition
+      parameters:
+      - name: use_case_name
+        in: path
+        description: Use case
+        required: true
+        schema:
+          type: string
+      - name: kpi_name
+        in: path
+        description: KPI definition to delete
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Calculator.Models.KpiResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+    put:
+      tags:
+      - KPIs
+      summary: Update a KPI definition for a Use Case
+      operationId: updateUseCaseKpiDefinition
+      parameters:
+      - name: use_case_name
+        in: path
+        description: Use case
+        required: true
+        schema:
+          type: string
+      - name: kpi_name
+        in: path
+        description: KPI definition to update
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: KPI definition
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PayI.Calculator.Models.UpdateKpiRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/PayI.Calculator.Models.UpdateKpiRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Calculator.Models.KpiResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+  /api/v1/use_cases/instances/{use_case_name}/{use_case_id}/kpis/{kpi_name}:
+    put:
+      tags:
+      - KPIs
+      summary: Update a KPI on a Use Case instance
+      operationId: updateUseCaseInstanceKpi
+      parameters:
+      - name: use_case_name
+        in: path
+        description: Use Case name
+        required: true
+        schema:
+          type: string
+      - name: use_case_id
+        in: path
+        description: Use case instance ID
+        required: true
+        schema:
+          type: string
+      - name: kpi_name
+        in: path
+        description: Name of KPI definition
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: The KPI score
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PayI.Calculator.Models.KpiScoreRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/PayI.Calculator.Models.KpiScoreRequest'
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+  /api/v1/use_cases/instances/{use_case_name}/{use_case_id}/kpis:
+    get:
+      tags:
+      - KPIs
+      summary: Return all KPI scores for a Use Case instance
+      operationId: getUseCaseInstanceKpis
+      parameters:
+      - name: use_case_name
+        in: path
+        description: Use Case name
+        required: true
+        schema:
+          type: string
+      - name: use_case_id
+        in: path
+        description: Use case instance ID
+        required: true
+        schema:
+          type: string
+      - name: kpi_name
+        in: query
+        schema:
+          type: string
+      - name: sort_ascending
+        in: query
+        schema:
+          type: boolean
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: cursor
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Calculator.Models.ApiQueries.PaginatedKpiScoreResponseList'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+  /api/v1/use_cases/instances/{use_case_name}/{use_case_id}/value:
+    get:
+      tags:
+      - KPIs
+      summary: Get the value score (money and/or time) for a Use Case instance
+      operationId: getUseCaseInstanceValue
+      parameters:
+      - name: use_case_name
+        in: path
+        description: Use Case name
+        required: true
+        schema:
+          type: string
+      - name: use_case_id
+        in: path
+        description: Use case instance ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Calculator.Models.ValueScoreResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+  /api/v1/limits:
+    get:
+      tags:
+      - Limits
+      summary: Get all Limits
+      operationId: getLimits
+      parameters:
+      - name: limit_name
+        in: query
+        schema:
+          type: string
+      - name: sort_ascending
+        in: query
+        schema:
+          type: boolean
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: cursor
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.BudgetManagement.Models.ApiQueries.PaginatedCursorLimitList'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+    post:
+      tags:
+      - Limits
+      summary: Create a Limit
+      operationId: createLimit
+      requestBody:
+        description: Limit configuration
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PayI.Common.Models.BudgetManagement.CreateLimit'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/PayI.Common.Models.BudgetManagement.CreateLimit'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.BudgetManagement.Models.LimitResponse'
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.BudgetManagement.Models.LimitResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+  /api/v1/limits/{limit_id}:
+    get:
+      tags:
+      - Limits
+      summary: Get Limit details
+      operationId: getLimit
+      parameters:
+      - name: limit_id
+        in: path
+        description: Limit Id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.BudgetManagement.Models.LimitResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+    put:
+      tags:
+      - Limits
+      summary: Update a Limit
+      operationId: updateLimit
+      parameters:
+      - name: limit_id
+        in: path
+        description: Limit Id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Limit configuration to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PayI.Common.Models.BudgetManagement.UpdateLimit'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/PayI.Common.Models.BudgetManagement.UpdateLimit'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.BudgetManagement.Models.LimitResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+    delete:
+      tags:
+      - Limits
+      summary: Delete a Limit
+      operationId: deleteLimit
+      parameters:
+      - name: limit_id
+        in: path
+        description: Limit Id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.BudgetManagement.Models.DefaultResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+  /api/v1/limits/{limit_id}/properties:
+    put:
+      tags:
+      - Limits
+      summary: Update a Limit Properties
+      operationId: updateLimitProperties
+      parameters:
+      - name: limit_id
+        in: path
+        description: Limit Id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Limit Properties to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PayI.Common.Models.PropertiesRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/PayI.Common.Models.PropertiesRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PayI.BudgetManagement.Models.LimitResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+  /api/v1/limits/{limit_id}/reset:
+    post:
+      tags:
+      - Limits
+      summary: Reset a Limit
+      operationId: resetLimit
+      parameters:
+      - name: limit_id
+        in: path
+        description: Limit Id
+        required: true
+        schema:
+          type: string
+      - name: resetDate
+        in: query
+        description: Effective reset date
+        schema:
+          type: string
+          format: date-time
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.BudgetManagement.Models.LimitHistoryResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+  /api/v1/proxy/openai/v1/chat/completions:
+    post:
+      tags:
+      - OpenAI Requests
+      summary: Chat Completions
+      operationId: requests.OpenAI.ChatCompletionsAPIV1
+      parameters:
+      - name: Authorization
+        in: header
+        description: Provider Authentication
+        required: true
+        schema:
+          type: string
+      - name: xProxy-PriceAs-Category
+        in: header
+        description: Price as category
+        schema:
+          type: string
+        example: category_name
+      - name: xProxy-PriceAs-Resource
+        in: header
+        description: Price as resource
+        schema:
+          type: string
+        example: resource_name
+      - name: xProxy-Resource-Scope
+        in: header
+        description: Resource scope
+        schema:
+          type: string
+        example: datazone
+      - name: xProxy-Limit-IDs
+        in: header
+        description: Comma separated list of limit ID strings
+        schema:
+          type: string
+        example: limitId1, limitId_2
+      - name: xProxy-User-ID
+        in: header
+        description: User ID
+        schema:
+          type: string
+        example: UserName123
+      - name: xProxy-UseCase-ID
+        in: header
+        description: Use Case ID
+        schema:
+          type: string
+        example: use_case_id
+      - name: xProxy-UseCase-Name
+        in: header
+        description: Use Case Name
+        schema:
+          type: string
+        example: use_case_name
+      - name: xProxy-UseCase-Version
+        in: header
+        description: Use Case Version
+        schema:
+          type: integer
+        example: '1'
+      - name: xProxy-UseCase-Step
+        in: header
+        description: Use Case Step
+        schema:
+          type: string
+        example: step_1
+      - name: xProxy-UseCase-Properties
+        in: header
+        description: Use Case Properties as a Base64 encoded JSON string
+        schema:
+          type: string
+        example: eyJwcm9wZXJ0eTEiOiJ2YWx1ZTEiLCJwcm9wZXJ0eTIiOiJ2YWx1ZTIifQ==
+      - name: xProxy-Request-Properties
+        in: header
+        description: Request Properties as a Base64 encoded JSON string
+        schema:
+          type: string
+        example: eyJwcm9wZXJ0eTEiOiJ2YWx1ZTEiLCJwcm9wZXJ0eTIiOiJ2YWx1ZTIifQ==
+      - name: xProxy-Account-Name
+        in: header
+        description: Account Name
+        schema:
+          type: string
+        example: account_name
+      - name: xProxy-Logging-Disable
+        in: header
+        description: Disable Logging
+        schema:
+          type: string
+      - name: xProxy-Provider-BaseUri
+        in: header
+        description: Provider URI
+        schema:
+          type: string
+        example: https://api.provider.com
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.OpenAIResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ProxyApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+  /api/v1/proxy/openai/v1/embeddings:
+    post:
+      tags:
+      - OpenAI Requests
+      summary: Embeddings
+      operationId: requests.OpenAI.EmbeddingsAPIV1
+      parameters:
+      - name: Authorization
+        in: header
+        description: Provider Authentication
+        required: true
+        schema:
+          type: string
+      - name: xProxy-PriceAs-Category
+        in: header
+        description: Price as category
+        schema:
+          type: string
+        example: category_name
+      - name: xProxy-PriceAs-Resource
+        in: header
+        description: Price as resource
+        schema:
+          type: string
+        example: resource_name
+      - name: xProxy-Resource-Scope
+        in: header
+        description: Resource scope
+        schema:
+          type: string
+        example: datazone
+      - name: xProxy-Limit-IDs
+        in: header
+        description: Comma separated list of limit ID strings
+        schema:
+          type: string
+        example: limitId1, limitId_2
+      - name: xProxy-User-ID
+        in: header
+        description: User ID
+        schema:
+          type: string
+        example: UserName123
+      - name: xProxy-UseCase-ID
+        in: header
+        description: Use Case ID
+        schema:
+          type: string
+        example: use_case_id
+      - name: xProxy-UseCase-Name
+        in: header
+        description: Use Case Name
+        schema:
+          type: string
+        example: use_case_name
+      - name: xProxy-UseCase-Version
+        in: header
+        description: Use Case Version
+        schema:
+          type: integer
+        example: '1'
+      - name: xProxy-UseCase-Step
+        in: header
+        description: Use Case Step
+        schema:
+          type: string
+        example: step_1
+      - name: xProxy-UseCase-Properties
+        in: header
+        description: Use Case Properties as a Base64 encoded JSON string
+        schema:
+          type: string
+        example: eyJwcm9wZXJ0eTEiOiJ2YWx1ZTEiLCJwcm9wZXJ0eTIiOiJ2YWx1ZTIifQ==
+      - name: xProxy-Request-Properties
+        in: header
+        description: Request Properties as a Base64 encoded JSON string
+        schema:
+          type: string
+        example: eyJwcm9wZXJ0eTEiOiJ2YWx1ZTEiLCJwcm9wZXJ0eTIiOiJ2YWx1ZTIifQ==
+      - name: xProxy-Account-Name
+        in: header
+        description: Account Name
+        schema:
+          type: string
+        example: account_name
+      - name: xProxy-Logging-Disable
+        in: header
+        description: Disable Logging
+        schema:
+          type: string
+      - name: xProxy-Provider-BaseUri
+        in: header
+        description: Provider URI
+        schema:
+          type: string
+        example: https://api.provider.com
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.OpenAIResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ProxyApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+  /api/v1/proxy/openai/v1/images/generations:
+    post:
+      tags:
+      - OpenAI Requests
+      summary: Generations
+      operationId: requests.OpenAI.ImagesGenerationsAPIV1
+      parameters:
+      - name: Authorization
+        in: header
+        description: Provider Authentication
+        required: true
+        schema:
+          type: string
+      - name: xProxy-PriceAs-Category
+        in: header
+        description: Price as category
+        schema:
+          type: string
+        example: category_name
+      - name: xProxy-PriceAs-Resource
+        in: header
+        description: Price as resource
+        schema:
+          type: string
+        example: resource_name
+      - name: xProxy-Resource-Scope
+        in: header
+        description: Resource scope
+        schema:
+          type: string
+        example: datazone
+      - name: xProxy-Limit-IDs
+        in: header
+        description: Comma separated list of limit ID strings
+        schema:
+          type: string
+        example: limitId1, limitId_2
+      - name: xProxy-User-ID
+        in: header
+        description: User ID
+        schema:
+          type: string
+        example: UserName123
+      - name: xProxy-UseCase-ID
+        in: header
+        description: Use Case ID
+        schema:
+          type: string
+        example: use_case_id
+      - name: xProxy-UseCase-Name
+        in: header
+        description: Use Case Name
+        schema:
+          type: string
+        example: use_case_name
+      - name: xProxy-UseCase-Version
+        in: header
+        description: Use Case Version
+        schema:
+          type: integer
+        example: '1'
+      - name: xProxy-UseCase-Step
+        in: header
+        description: Use Case Step
+        schema:
+          type: string
+        example: step_1
+      - name: xProxy-UseCase-Properties
+        in: header
+        description: Use Case Properties as a Base64 encoded JSON string
+        schema:
+          type: string
+        example: eyJwcm9wZXJ0eTEiOiJ2YWx1ZTEiLCJwcm9wZXJ0eTIiOiJ2YWx1ZTIifQ==
+      - name: xProxy-Request-Properties
+        in: header
+        description: Request Properties as a Base64 encoded JSON string
+        schema:
+          type: string
+        example: eyJwcm9wZXJ0eTEiOiJ2YWx1ZTEiLCJwcm9wZXJ0eTIiOiJ2YWx1ZTIifQ==
+      - name: xProxy-Account-Name
+        in: header
+        description: Account Name
+        schema:
+          type: string
+        example: account_name
+      - name: xProxy-Logging-Disable
+        in: header
+        description: Disable Logging
+        schema:
+          type: string
+      - name: xProxy-Provider-BaseUri
+        in: header
+        description: Provider URI
+        schema:
+          type: string
+        example: https://api.provider.com
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.OpenAIResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ProxyApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+  /api/v1/proxy/openai/v1/responses:
+    post:
+      tags:
+      - OpenAI Requests
+      summary: Responses
+      operationId: requests.OpenAI.ResponsesAPIV1
+      parameters:
+      - name: Authorization
+        in: header
+        description: Provider Authentication
+        required: true
+        schema:
+          type: string
+      - name: xProxy-PriceAs-Category
+        in: header
+        description: Price as category
+        schema:
+          type: string
+        example: category_name
+      - name: xProxy-PriceAs-Resource
+        in: header
+        description: Price as resource
+        schema:
+          type: string
+        example: resource_name
+      - name: xProxy-Resource-Scope
+        in: header
+        description: Resource scope
+        schema:
+          type: string
+        example: datazone
+      - name: xProxy-Limit-IDs
+        in: header
+        description: Comma separated list of limit ID strings
+        schema:
+          type: string
+        example: limitId1, limitId_2
+      - name: xProxy-User-ID
+        in: header
+        description: User ID
+        schema:
+          type: string
+        example: UserName123
+      - name: xProxy-UseCase-ID
+        in: header
+        description: Use Case ID
+        schema:
+          type: string
+        example: use_case_id
+      - name: xProxy-UseCase-Name
+        in: header
+        description: Use Case Name
+        schema:
+          type: string
+        example: use_case_name
+      - name: xProxy-UseCase-Version
+        in: header
+        description: Use Case Version
+        schema:
+          type: integer
+        example: '1'
+      - name: xProxy-UseCase-Step
+        in: header
+        description: Use Case Step
+        schema:
+          type: string
+        example: step_1
+      - name: xProxy-UseCase-Properties
+        in: header
+        description: Use Case Properties as a Base64 encoded JSON string
+        schema:
+          type: string
+        example: eyJwcm9wZXJ0eTEiOiJ2YWx1ZTEiLCJwcm9wZXJ0eTIiOiJ2YWx1ZTIifQ==
+      - name: xProxy-Request-Properties
+        in: header
+        description: Request Properties as a Base64 encoded JSON string
+        schema:
+          type: string
+        example: eyJwcm9wZXJ0eTEiOiJ2YWx1ZTEiLCJwcm9wZXJ0eTIiOiJ2YWx1ZTIifQ==
+      - name: xProxy-Account-Name
+        in: header
+        description: Account Name
+        schema:
+          type: string
+        example: account_name
+      - name: xProxy-Logging-Disable
+        in: header
+        description: Disable Logging
+        schema:
+          type: string
+      - name: xProxy-Provider-BaseUri
+        in: header
+        description: Provider URI
+        schema:
+          type: string
+        example: https://api.provider.com
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.OpenAIResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ProxyApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+  /api/v1/reports/{report_id}:
+    get:
+      tags:
+      - Reports
+      summary: Retrieve report data by report ID, optionally filtered to a date range.
+      operationId: getReport
+      parameters:
+      - name: report_id
+        in: path
+        description: The report identifier.
+        required: true
+        schema:
+          type: string
+      - name: from
+        in: query
+        description: Optional start date filter (ISO 8601, e.g. 2024-01-01T00:00:00Z).
+        schema:
+          type: string
+          format: date-time
+      - name: to
+        in: query
+        description: Optional end date filter (ISO 8601, e.g. 2024-12-31T23:59:59Z).
+        schema:
+          type: string
+          format: date-time
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '424':
+          description: Failed Dependency
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+  /api/v1/requests/{request_id}/properties:
+    put:
+      tags:
+      - Requests
+      summary: Update a Request properties
+      operationId: updateRequestProperties
+      parameters:
+      - name: request_id
+        in: path
+        description: Request Id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Properties
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PayI.Common.Models.PropertiesRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/PayI.Common.Models.PropertiesRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Calculator.Models.PropertiesResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+  /api/v1/requests/{request_id}/result:
+    get:
+      tags:
+      - Requests
+      summary: Get a Request results
+      operationId: getRequestResult
+      parameters:
+      - name: request_id
+        in: path
+        description: Request Id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Calculator.Models.RequestResultResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+  /api/v1/requests/provider/{category}/{provider_response_id}/properties:
+    put:
+      tags:
+      - Requests
+      summary: Update a Request properties
+      operationId: updateRequestPropertiesProvider
+      parameters:
+      - name: category
+        in: path
+        description: Category
+        required: true
+        schema:
+          type: string
+      - name: provider_response_id
+        in: path
+        description: Provider Response Id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Properties
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PayI.Common.Models.PropertiesRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/PayI.Common.Models.PropertiesRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Calculator.Models.PropertiesResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+  /api/v1/requests/provider/{category}/{provider_response_id}/result:
+    get:
+      tags:
+      - Requests
+      summary: Get a Request results
+      operationId: getRequestResultProvider
+      parameters:
+      - name: category
+        in: path
+        description: Category
+        required: true
+        schema:
+          type: string
+      - name: provider_response_id
+        in: path
+        description: Provider Response Id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Calculator.Models.RequestResultResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+  /api/v1/categories/{category}/resources/{resource}/{resource_id}:
+    get:
+      tags:
+      - Resources
+      summary: Get a Resource version details
+      operationId: getResource
+      parameters:
+      - name: category
+        in: path
+        description: Category
+        required: true
+        schema:
+          type: string
+      - name: resource
+        in: path
+        description: Resource
+        required: true
+        schema:
+          type: string
+      - name: resource_id
+        in: path
+        description: Resource Id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.CategoryResource.CategoryResourceResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+    delete:
+      tags:
+      - Resources
+      summary: Delete a version of the Resource
+      operationId: deleteResource
+      parameters:
+      - name: category
+        in: path
+        description: Category
+        required: true
+        schema:
+          type: string
+      - name: resource
+        in: path
+        description: Resource
+        required: true
+        schema:
+          type: string
+      - name: resource_id
+        in: path
+        description: Resource Id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.CategoryResource.CategoryResourceResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+  /api/v1/use_cases/definitions:
+    get:
+      tags:
+      - Use Cases
+      summary: Get all Use Cases
+      operationId: getUseCases
+      parameters:
+      - name: use_case_name
+        in: query
+        schema:
+          type: string
+      - name: sort_ascending
+        in: query
+        schema:
+          type: boolean
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: cursor
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Calculator.Models.ApiQueries.PaginatedCursorUseCaseDefinitionResponseList'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+    post:
+      tags:
+      - Use Cases
+      summary: Create a new Use Case
+      operationId: createUseCase
+      requestBody:
+        description: Use Case configuration
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PayI.Calculator.Models.UseCaseDefinitionRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/PayI.Calculator.Models.UseCaseDefinitionRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Calculator.Models.UseCaseDefinitionResponse'
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Calculator.Models.UseCaseDefinitionResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+  /api/v1/use_cases/definitions/{use_case_name}:
+    get:
+      tags:
+      - Use Cases
+      summary: Get Use Case details
+      operationId: getUseCase
+      parameters:
+      - name: use_case_name
+        in: path
+        description: Use Case Name
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Calculator.Models.UseCaseDefinitionResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+    put:
+      tags:
+      - Use Cases
+      summary: Update a Use Case definition
+      operationId: updateUseCase
+      parameters:
+      - name: use_case_name
+        in: path
+        description: Use Case name
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Use Case definition
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PayI.Calculator.Models.UpdateUseCaseDefinitionRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/PayI.Calculator.Models.UpdateUseCaseDefinitionRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Calculator.Models.UseCaseDefinitionResponse'
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+    delete:
+      tags:
+      - Use Cases
+      summary: Delete a Use Case
+      operationId: deleteUseCase
+      parameters:
+      - name: use_case_name
+        in: path
+        description: Use Case name
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Calculator.Models.UseCaseDefinitionResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+  /api/v1/use_cases/definitions/{use_case_name}/increment_version:
+    post:
+      tags:
+      - Use Cases
+      summary: Increment a Use Case version
+      operationId: incrementUseCaseVersion
+      parameters:
+      - name: use_case_name
+        in: path
+        description: Use Case name
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Calculator.Models.UseCaseDefinitionResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+  /api/v1/use_cases/definitions/{use_case_name}/limit_config:
+    post:
+      tags:
+      - Use Cases
+      summary: Create a new Use Case default limit configuration
+      operationId: createUseCaseLimitConfig
+      parameters:
+      - name: use_case_name
+        in: path
+        description: Use Case name
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Limit configuration
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PayI.Common.Models.BudgetManagement.CreateLimitBase'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/PayI.Common.Models.BudgetManagement.CreateLimitBase'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Calculator.Models.UseCaseDefinitionResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+    delete:
+      tags:
+      - Use Cases
+      summary: Delete a Use Case default limit configuration
+      operationId: deleteUseCaseLimitConfig
+      parameters:
+      - name: use_case_name
+        in: path
+        description: Use Case name
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Calculator.Models.UseCaseDefinitionResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+  /api/v1/use_cases/instances/{use_case_name}/{use_case_id}:
+    get:
+      tags:
+      - Use Cases
+      summary: Get a Use Case instance details
+      operationId: getUseCaseInstance
+      parameters:
+      - name: use_case_name
+        in: path
+        description: Use Case name
+        required: true
+        schema:
+          type: string
+      - name: use_case_id
+        in: path
+        description: Use Case Id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Calculator.Models.UseCaseInstanceResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+    delete:
+      tags:
+      - Use Cases
+      summary: Delete a Use Case instance
+      operationId: deleteUseCaseInstance
+      parameters:
+      - name: use_case_name
+        in: path
+        description: Use Case name
+        required: true
+        schema:
+          type: string
+      - name: use_case_id
+        in: path
+        description: Use Case Id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Calculator.Models.UseCaseInstanceResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+  /api/v1/use_cases/instances/{use_case_name}:
+    post:
+      tags:
+      - Use Cases
+      summary: Create a Use Case instance
+      operationId: newUseCaseInstance
+      parameters:
+      - name: use_case_name
+        in: path
+        description: Use Case name
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Calculator.Models.UseCaseInstanceResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+  /api/v1/use_cases/instances/{use_case_name}/{use_case_id}/properties:
+    put:
+      tags:
+      - Use Cases
+      summary: Update a Use Case instance properties
+      operationId: updateUseCaseInstanceProperties
+      parameters:
+      - name: use_case_name
+        in: path
+        description: Use Case Name
+        required: true
+        schema:
+          type: string
+      - name: use_case_id
+        in: path
+        description: Use Case Id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Use Case properties
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PayI.Common.Models.PropertiesRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/PayI.Common.Models.PropertiesRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Calculator.Models.UseCaseInstanceResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+components:
+  schemas:
+    Microsoft.AspNetCore.Mvc.ProblemDetails:
+      type: object
+      properties:
+        type:
+          type: string
+          nullable: true
+        title:
+          type: string
+          nullable: true
+        status:
+          type: integer
+          format: int32
+          nullable: true
+        detail:
+          type: string
+          nullable: true
+        instance:
+          type: string
+          nullable: true
+      additionalProperties: {}
+    PayI.BudgetManagement.Models.ApiQueries.PaginatedCursorLimitList:
+      type: object
+      properties:
+        request_id:
+          type: string
+          nullable: true
+        cursor:
+          type: string
+          nullable: true
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/PayI.BudgetManagement.Models.Limit'
+          nullable: true
+      additionalProperties: false
+    PayI.BudgetManagement.Models.CostData:
+      required:
+      - input
+      - output
+      - total
+      type: object
+      properties:
+        input:
+          $ref: '#/components/schemas/PayI.Common.Models.BudgetManagement.CostDetailsBase'
+        output:
+          $ref: '#/components/schemas/PayI.Common.Models.BudgetManagement.CostDetailsBase'
+        total:
+          $ref: '#/components/schemas/PayI.Common.Models.BudgetManagement.CostDetails'
+      additionalProperties: false
+    PayI.BudgetManagement.Models.DefaultResponse:
+      required:
+      - request_id
+      type: object
+      properties:
+        request_id:
+          minLength: 1
+          type: string
+        message:
+          type: string
+          nullable: true
+      additionalProperties: false
+    PayI.BudgetManagement.Models.Limit:
+      required:
+      - limit_creation_timestamp
+      - limit_id
+      - limit_name
+      - limit_type
+      - limit_update_timestamp
+      - max
+      - totals
+      type: object
+      properties:
+        limit_id:
+          minLength: 1
+          type: string
+        limit_name:
+          minLength: 1
+          type: string
+        max:
+          type: number
+          format: double
+        threshold:
+          type: number
+          format: double
+          nullable: true
+        limit_type:
+          $ref: '#/components/schemas/PayI.Common.Data.BudgetManagement.Enums.LimitType'
+        limit_creation_timestamp:
+          type: string
+          format: date-time
+        totals:
+          $ref: '#/components/schemas/PayI.BudgetManagement.Models.TotalCostData'
+        limit_update_timestamp:
+          type: string
+          format: date-time
+      additionalProperties: false
+    PayI.BudgetManagement.Models.LimitHistory:
+      required:
+      - limit_id
+      - limit_name
+      - totals
+      type: object
+      properties:
+        limit_id:
+          type: string
+          nullable: true
+        limit_name:
+          type: string
+          nullable: true
+        limit_reset_timestamp:
+          type: string
+          format: date-time
+        limit_tags:
+          type: array
+          items:
+            type: string
+          nullable: true
+        limit_type:
+          $ref: '#/components/schemas/PayI.Common.Data.BudgetManagement.Enums.LimitType'
+        max:
+          type: number
+          format: double
+        totals:
+          $ref: '#/components/schemas/PayI.BudgetManagement.Models.TotalCostData'
+      additionalProperties: false
+    PayI.BudgetManagement.Models.LimitHistoryResponse:
+      required:
+      - limit_history
+      - request_id
+      type: object
+      properties:
+        request_id:
+          minLength: 1
+          type: string
+        message:
+          type: string
+          nullable: true
+        limit_history:
+          $ref: '#/components/schemas/PayI.BudgetManagement.Models.LimitHistory'
+      additionalProperties: false
+    PayI.BudgetManagement.Models.LimitResponse:
+      required:
+      - limit
+      - request_id
+      type: object
+      properties:
+        request_id:
+          minLength: 1
+          type: string
+        message:
+          type: string
+          nullable: true
+        limit:
+          $ref: '#/components/schemas/PayI.BudgetManagement.Models.Limit'
+      additionalProperties: false
+    PayI.BudgetManagement.Models.RequestsData:
+      required:
+      - blocked
+      - blocked_external
+      - exceeded
+      - failed
+      - ok
+      - overrun
+      - total
+      type: object
+      properties:
+        ok:
+          type: integer
+          format: int32
+        exceeded:
+          type: integer
+          format: int32
+        overrun:
+          type: integer
+          format: int32
+        blocked:
+          type: integer
+          format: int32
+        blocked_external:
+          type: integer
+          format: int32
+        failed:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int32
+      additionalProperties: false
+    PayI.BudgetManagement.Models.TotalCostData:
+      required:
+      - cost
+      - requests
+      type: object
+      properties:
+        cost:
+          $ref: '#/components/schemas/PayI.BudgetManagement.Models.CostData'
+        requests:
+          $ref: '#/components/schemas/PayI.BudgetManagement.Models.RequestsData'
+      additionalProperties: false
+    PayI.Calculator.Models.ApiQueries.PaginatedCursorCategoryResourceResponseList:
+      type: object
+      properties:
+        request_id:
+          type: string
+          nullable: true
+        cursor:
+          type: string
+          nullable: true
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/PayI.Common.Models.CategoryResource.CategoryResourceResponse'
+          nullable: true
+      additionalProperties: false
+    PayI.Calculator.Models.ApiQueries.PaginatedCursorCategoryResponseList:
+      type: object
+      properties:
+        request_id:
+          type: string
+          nullable: true
+        cursor:
+          type: string
+          nullable: true
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/PayI.Calculator.Models.CategoryResponse'
+          nullable: true
+      additionalProperties: false
+    PayI.Calculator.Models.ApiQueries.PaginatedCursorKpiResponseList:
+      type: object
+      properties:
+        request_id:
+          type: string
+          nullable: true
+        cursor:
+          type: string
+          nullable: true
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/PayI.Calculator.Models.KpiResponse'
+          nullable: true
+      additionalProperties: false
+    PayI.Calculator.Models.ApiQueries.PaginatedCursorUseCaseDefinitionResponseList:
+      type: object
+      properties:
+        request_id:
+          type: string
+          nullable: true
+        cursor:
+          type: string
+          nullable: true
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/PayI.Calculator.Models.UseCaseDefinitionResponse'
+          nullable: true
+      additionalProperties: false
+    PayI.Calculator.Models.ApiQueries.PaginatedKpiScoreResponseList:
+      type: object
+      properties:
+        request_id:
+          type: string
+          nullable: true
+        cursor:
+          type: string
+          nullable: true
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/PayI.Calculator.Models.KpiScoreResponse'
+          nullable: true
+      additionalProperties: false
+    PayI.Calculator.Models.CategoryResponse:
+      required:
+      - category
+      type: object
+      properties:
+        category:
+          minLength: 1
+          type: string
+      additionalProperties: false
+    PayI.Calculator.Models.CreateKpiRequest:
+      required:
+      - description
+      - goal
+      - kpi_type
+      - name
+      type: object
+      properties:
+        name:
+          minLength: 1
+          type: string
+        description:
+          minLength: 1
+          type: string
+        kpi_type:
+          $ref: '#/components/schemas/PayI.Calculator.Models.KpiType'
+        goal:
+          type: number
+          format: double
+      additionalProperties: false
+    PayI.Calculator.Models.KpiResponse:
+      required:
+      - description
+      - name
+      - request_id
+      type: object
+      properties:
+        request_id:
+          minLength: 1
+          type: string
+        name:
+          minLength: 1
+          type: string
+        description:
+          minLength: 1
+          type: string
+        kpi_type:
+          $ref: '#/components/schemas/PayI.Calculator.Models.KpiType'
+        goal:
+          type: number
+          format: double
+        created_timestamp:
+          type: string
+          format: date-time
+        updated_timestamp:
+          type: string
+          format: date-time
+          nullable: true
+      additionalProperties: false
+    PayI.Calculator.Models.KpiScoreRequest:
+      type: object
+      properties:
+        score:
+          oneOf:
+          - type: boolean
+          - type: integer
+          - type: number
+          nullable: true
+      additionalProperties: false
+    PayI.Calculator.Models.KpiScoreResponse:
+      required:
+      - kpi_name
+      type: object
+      properties:
+        kpi_name:
+          type: string
+          nullable: true
+        kpi_type:
+          $ref: '#/components/schemas/PayI.Calculator.Models.KpiType'
+        score:
+          type: number
+          format: double
+        create_timestamp:
+          type: string
+          format: date-time
+        update_timestamp:
+          type: string
+          format: date-time
+          nullable: true
+      additionalProperties: false
+    PayI.Calculator.Models.KpiType:
+      enum:
+      - boolean
+      - number
+      - percentage
+      - likert5
+      - likert7
+      - likert10
+      type: string
+    PayI.Calculator.Models.PropertiesResponse:
+      required:
+      - request_id
+      type: object
+      properties:
+        request_id:
+          type: string
+          nullable: true
+      additionalProperties: false
+    PayI.Calculator.Models.RequestResultResponse:
+      required:
+      - xproxy_result
+      type: object
+      properties:
+        xproxy_result:
+          $ref: '#/components/schemas/PayI.Common.Models.Proxy.ProxyResult'
+      additionalProperties: false
+    PayI.Calculator.Models.UpdateKpiRequest:
+      type: object
+      properties:
+        description:
+          type: string
+          nullable: true
+        goal:
+          type: number
+          format: double
+          nullable: true
+      additionalProperties: false
+    PayI.Calculator.Models.UpdateUseCaseDefinitionRequest:
+      type: object
+      properties:
+        description:
+          type: string
+          nullable: true
+        logging_enabled:
+          type: boolean
+          nullable: true
+      additionalProperties: false
+    PayI.Calculator.Models.UseCaseDefinitionRequest:
+      required:
+      - description
+      - name
+      type: object
+      properties:
+        name:
+          minLength: 1
+          type: string
+        description:
+          minLength: 1
+          type: string
+        limit_config:
+          type: object
+          allOf:
+          - $ref: '#/components/schemas/PayI.Common.Models.BudgetManagement.CreateLimitBase'
+          nullable: true
+        logging_enabled:
+          type: boolean
+          nullable: true
+      additionalProperties: false
+    PayI.Calculator.Models.UseCaseDefinitionResponse:
+      required:
+      - description
+      - name
+      - request_id
+      type: object
+      properties:
+        request_id:
+          minLength: 1
+          type: string
+        name:
+          minLength: 1
+          type: string
+        description:
+          minLength: 1
+          type: string
+        logging_enabled:
+          type: boolean
+          nullable: true
+        limit_config:
+          type: object
+          allOf:
+          - $ref: '#/components/schemas/PayI.Common.Models.BudgetManagement.CreateLimitBase'
+          nullable: true
+        type_version:
+          type: integer
+          format: int32
+      additionalProperties: false
+    PayI.Calculator.Models.UseCaseInstanceResponse:
+      required:
+      - use_case_id
+      - use_case_name
+      type: object
+      properties:
+        use_case_id:
+          minLength: 1
+          type: string
+        limit_id:
+          type: string
+          nullable: true
+        type_version:
+          type: integer
+          format: int32
+        use_case_name:
+          minLength: 1
+          type: string
+      additionalProperties: false
+    PayI.Calculator.Models.ValueScoreResponse:
+      type: object
+      properties:
+        money:
+          type: number
+          format: double
+          nullable: true
+        time:
+          type: number
+          format: double
+          nullable: true
+      additionalProperties: false
+    PayI.Common.Data.BudgetManagement.Enums.LimitStatus:
+      enum:
+      - ok
+      - blocked
+      - blocked_external
+      - exceeded
+      - overrun
+      - failed
+      type: string
+    PayI.Common.Data.BudgetManagement.Enums.LimitType:
+      enum:
+      - block
+      - allow
+      type: string
+    PayI.Common.Enums.Currency:
+      enum:
+      - usd
+      type: string
+    PayI.Common.Models.ApiError:
+      required:
+      - message
+      - statusCode
+      type: object
+      properties:
+        message:
+          minLength: 1
+          type: string
+        statusCode:
+          type: integer
+          format: int32
+        xproxy_error:
+          $ref: '#/components/schemas/PayI.Common.Models.ProxyError'
+      additionalProperties: false
+    PayI.Common.Models.ApiRouter.AnthropicResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          nullable: true
+        type:
+          type: string
+          nullable: true
+        model:
+          type: string
+          nullable: true
+        proxy_result:
+          $ref: '#/components/schemas/PayI.Common.Models.Proxy.ProxyResult'
+      additionalProperties: false
+    PayI.Common.Models.ApiRouter.AwsBedrockResponse:
+      type: object
+      properties:
+        proxy_result:
+          $ref: '#/components/schemas/PayI.Common.Models.Proxy.ProxyResult'
+      additionalProperties: false
+    PayI.Common.Models.ApiRouter.BulkIngestRequest:
+      required:
+      - category
+      - units
+      type: object
+      properties:
+        category:
+          minLength: 1
+          type: string
+        resource:
+          type: string
+          nullable: true
+        event_timestamp:
+          type: string
+          format: date-time
+          nullable: true
+        units:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.IngestUnits'
+        end_to_end_latency_ms:
+          type: integer
+          format: int32
+          nullable: true
+        time_to_first_token_ms:
+          type: integer
+          format: int32
+          nullable: true
+        time_to_first_completion_token_ms:
+          type: integer
+          format: int32
+          nullable: true
+        http_status_code:
+          type: integer
+          format: int32
+          nullable: true
+        provider_uri:
+          type: string
+          nullable: true
+        provider_request_reasoning_json:
+          type: string
+          nullable: true
+        provider_request_json:
+          type: string
+          nullable: true
+        provider_request_headers:
+          type: array
+          items:
+            $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.HeaderInfo'
+          nullable: true
+        provider_response_json:
+          oneOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+          nullable: true
+        provider_response_headers:
+          type: array
+          items:
+            $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.HeaderInfo'
+          nullable: true
+        provider_response_function_calls:
+          type: array
+          items:
+            $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.FunctionCallInfo'
+          nullable: true
+        provider_response_id:
+          type: string
+          nullable: true
+        properties:
+          type: object
+          additionalProperties:
+            type: string
+            nullable: true
+          nullable: true
+        use_case_properties:
+          type: object
+          additionalProperties:
+            type: string
+            nullable: true
+          nullable: true
+        limit_ids:
+          type: array
+          items:
+            type: string
+          nullable: true
+        request_tags:
+          type: array
+          items:
+            type: string
+          nullable: true
+        user_id:
+          type: string
+          nullable: true
+        use_case_id:
+          type: string
+          nullable: true
+        use_case_name:
+          type: string
+          nullable: true
+        use_case_version:
+          type: integer
+          format: int32
+          nullable: true
+        use_case_step:
+          type: string
+          nullable: true
+        account_name:
+          type: string
+          nullable: true
+        scope:
+          type: string
+          nullable: true
+      additionalProperties: false
+    PayI.Common.Models.ApiRouter.Copilot.CopilotActivity:
+      type: object
+      properties:
+        id:
+          type: string
+          nullable: true
+        valueType:
+          type: string
+          nullable: true
+        type:
+          type: string
+          nullable: true
+        timestamp:
+          type: integer
+          format: int64
+        from:
+          type: object
+          allOf:
+          - $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.Copilot.CopilotActivityFrom'
+          nullable: true
+        name:
+          type: string
+          nullable: true
+        channelId:
+          type: string
+          nullable: true
+        text:
+          type: string
+          nullable: true
+        replyToId:
+          type: string
+          nullable: true
+        value:
+          nullable: true
+      additionalProperties: false
+    PayI.Common.Models.ApiRouter.Copilot.CopilotActivityFrom:
+      type: object
+      properties:
+        id:
+          type: string
+          nullable: true
+        role:
+          type: integer
+          format: int32
+        aadObjectId:
+          type: string
+          nullable: true
+      additionalProperties: false
+    PayI.Common.Models.ApiRouter.Copilot.CopilotLicensingIngestRequest:
+      required:
+      - billing_date_utc
+      - resource
+      type: object
+      properties:
+        billing_date_utc:
+          type: string
+          format: date-time
+        resource:
+          $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.Copilot.CopilotLicensingRecord'
+        fetched_at:
+          type: string
+          format: date-time
+          nullable: true
+      additionalProperties: false
+    PayI.Common.Models.ApiRouter.Copilot.CopilotLicensingMetadata:
+      required:
+      - FeatureName
+      type: object
+      properties:
+        ProductName:
+          type: string
+          nullable: true
+        FeatureName:
+          type: string
+          nullable: true
+        ResourceName:
+          type: string
+          nullable: true
+        ToolInvoked:
+          type: string
+          nullable: true
+        KnowledgeSources:
+          type: string
+          nullable: true
+        LLMModel:
+          type: string
+          nullable: true
+        ChannelId:
+          type: string
+          nullable: true
+        NonBillableQuantity:
+          type: number
+          format: double
+      additionalProperties: false
+    PayI.Common.Models.ApiRouter.Copilot.CopilotLicensingRecord:
+      required:
+      - metadata
+      - resourceId
+      type: object
+      properties:
+        resourceId:
+          type: string
+          nullable: true
+        consumed:
+          type: number
+          format: double
+        unit:
+          type: string
+          nullable: true
+        agent_name:
+          type: string
+          nullable: true
+        metadata:
+          $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.Copilot.CopilotLicensingMetadata'
+        date:
+          type: string
+          format: date-time
+          nullable: true
+      additionalProperties: false
+    PayI.Common.Models.ApiRouter.Copilot.CopilotTranscript:
+      required:
+      - conversation_id
+      - created_on
+      - transcript_id
+      type: object
+      properties:
+        agent_name:
+          type: string
+          nullable: true
+        conversation_id:
+          type: string
+          nullable: true
+        transcript_id:
+          type: string
+          nullable: true
+        created_on:
+          type: string
+          format: date-time
+        metadata:
+          type: string
+          nullable: true
+        metrics:
+          type: object
+          allOf:
+          - $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.Copilot.CopilotTranscriptMetrics'
+          nullable: true
+        activities:
+          type: array
+          items:
+            $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.Copilot.CopilotActivity'
+          nullable: true
+        _bot_conversationtranscriptid_value:
+          type: string
+          nullable: true
+      additionalProperties: false
+    PayI.Common.Models.ApiRouter.Copilot.CopilotTranscriptIngestRequest:
+      required:
+      - transcript
+      type: object
+      properties:
+        transcript:
+          $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.Copilot.CopilotTranscript'
+      additionalProperties: false
+    PayI.Common.Models.ApiRouter.Copilot.CopilotTranscriptMetrics:
+      type: object
+      properties:
+        total_activities:
+          type: integer
+          format: int32
+        user_messages:
+          type: integer
+          format: int32
+        bot_messages:
+          type: integer
+          format: int32
+        total_turns:
+          type: integer
+          format: int32
+      additionalProperties: false
+    PayI.Common.Models.ApiRouter.FunctionCallInfo:
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          minLength: 1
+          type: string
+        arguments:
+          type: string
+          nullable: true
+      additionalProperties: false
+    PayI.Common.Models.ApiRouter.GoogleVertexResponse:
+      type: object
+      properties:
+        proxy_result:
+          $ref: '#/components/schemas/PayI.Common.Models.Proxy.ProxyResult'
+      additionalProperties: false
+    PayI.Common.Models.ApiRouter.HeaderInfo:
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          minLength: 1
+          type: string
+        value:
+          type: string
+          nullable: true
+      additionalProperties: false
+    PayI.Common.Models.ApiRouter.IngestRequest:
+      required:
+      - category
+      - units
+      type: object
+      properties:
+        category:
+          minLength: 1
+          type: string
+        resource:
+          type: string
+          nullable: true
+        event_timestamp:
+          type: string
+          format: date-time
+          nullable: true
+        units:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.IngestUnits'
+        end_to_end_latency_ms:
+          type: integer
+          format: int32
+          nullable: true
+        time_to_first_token_ms:
+          type: integer
+          format: int32
+          nullable: true
+        time_to_first_completion_token_ms:
+          type: integer
+          format: int32
+          nullable: true
+        http_status_code:
+          type: integer
+          format: int32
+          nullable: true
+        provider_uri:
+          type: string
+          nullable: true
+        provider_request_reasoning_json:
+          type: string
+          nullable: true
+        provider_request_json:
+          type: string
+          nullable: true
+        provider_request_headers:
+          type: array
+          items:
+            $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.HeaderInfo'
+          nullable: true
+        provider_response_json:
+          oneOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+          nullable: true
+        provider_response_headers:
+          type: array
+          items:
+            $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.HeaderInfo'
+          nullable: true
+        provider_response_function_calls:
+          type: array
+          items:
+            $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.FunctionCallInfo'
+          nullable: true
+        provider_response_id:
+          type: string
+          nullable: true
+        properties:
+          type: object
+          additionalProperties:
+            type: string
+            nullable: true
+          nullable: true
+        use_case_properties:
+          type: object
+          additionalProperties:
+            type: string
+            nullable: true
+          nullable: true
+      additionalProperties: false
+    PayI.Common.Models.ApiRouter.IngestUnits:
+      type: object
+      properties:
+        input:
+          maximum: 2147483647
+          minimum: 0
+          type: integer
+          format: int32
+        output:
+          maximum: 2147483647
+          minimum: 0
+          type: integer
+          format: int32
+      additionalProperties: false
+    PayI.Common.Models.ApiRouter.OpenAIResponse:
+      type: object
+      properties:
+        created:
+          type: integer
+          format: int32
+        id:
+          type: string
+          nullable: true
+        model:
+          type: string
+          nullable: true
+        proxy_result:
+          $ref: '#/components/schemas/PayI.Common.Models.Proxy.ProxyResult'
+      additionalProperties: false
+    PayI.Common.Models.BudgetManagement.CostDetails:
+      required:
+      - base
+      type: object
+      properties:
+        base:
+          type: number
+          format: double
+        overrun_base:
+          type: number
+          format: double
+          nullable: true
+      additionalProperties: false
+    PayI.Common.Models.BudgetManagement.CostDetailsBase:
+      required:
+      - base
+      type: object
+      properties:
+        base:
+          type: number
+          format: double
+      additionalProperties: false
+    PayI.Common.Models.BudgetManagement.CreateLimit:
+      required:
+      - limit_name
+      - max
+      type: object
+      properties:
+        properties:
+          type: object
+          additionalProperties:
+            type: string
+            nullable: true
+          nullable: true
+        max:
+          type: number
+          format: double
+        threshold:
+          type: number
+          format: double
+          nullable: true
+        limit_type:
+          $ref: '#/components/schemas/PayI.Common.Data.BudgetManagement.Enums.LimitType'
+        limit_name:
+          minLength: 1
+          type: string
+        limit_id:
+          type: string
+          nullable: true
+      additionalProperties: false
+    PayI.Common.Models.BudgetManagement.CreateLimitBase:
+      required:
+      - max
+      type: object
+      properties:
+        properties:
+          type: object
+          additionalProperties:
+            type: string
+            nullable: true
+          nullable: true
+        max:
+          type: number
+          format: double
+        threshold:
+          type: number
+          format: double
+          nullable: true
+        limit_type:
+          $ref: '#/components/schemas/PayI.Common.Data.BudgetManagement.Enums.LimitType'
+      additionalProperties: false
+    PayI.Common.Models.BudgetManagement.UpdateLimit:
+      type: object
+      properties:
+        max:
+          type: number
+          format: double
+          nullable: true
+        limit_name:
+          type: string
+          nullable: true
+      additionalProperties: false
+    PayI.Common.Models.BulkIngestResponse:
+      required:
+      - ingest_count
+      - ingest_timestamp
+      - request_id
+      type: object
+      properties:
+        request_id:
+          minLength: 1
+          type: string
+        ingest_timestamp:
+          type: string
+          format: date-time
+        ingest_count:
+          type: integer
+          format: int32
+        error_count:
+          type: integer
+          format: int32
+          readOnly: true
+        item_error_count:
+          type: integer
+          format: int32
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/PayI.Common.Models.IndexApiError'
+          nullable: true
+        total_count:
+          type: integer
+          format: int32
+          readOnly: true
+      additionalProperties: false
+    PayI.Common.Models.CategoryResource.CategoryResourceRequest:
+      required:
+      - units
+      type: object
+      properties:
+        max_input_units:
+          type: integer
+          format: int32
+          nullable: true
+        max_output_units:
+          type: integer
+          format: int32
+          nullable: true
+        max_total_units:
+          type: integer
+          format: int32
+          nullable: true
+        units:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/PayI.Common.Models.CategoryResource.ResourcePriceUnits'
+        start_timestamp:
+          type: string
+          format: date-time
+          nullable: true
+      additionalProperties: false
+    PayI.Common.Models.CategoryResource.CategoryResourceResponse:
+      required:
+      - active
+      - category
+      - proxy_allowed
+      - resource
+      - resource_id
+      - start_timestamp
+      - units
+      type: object
+      properties:
+        max_input_units:
+          type: integer
+          format: int32
+          nullable: true
+        max_output_units:
+          type: integer
+          format: int32
+          nullable: true
+        max_total_units:
+          type: integer
+          format: int32
+          nullable: true
+        units:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/PayI.Common.Models.CategoryResource.ResourcePriceUnits'
+        resource_id:
+          minLength: 1
+          type: string
+        start_timestamp:
+          type: string
+          format: date-time
+        end_timestamp:
+          type: string
+          format: date-time
+          nullable: true
+        category:
+          minLength: 1
+          type: string
+        resource:
+          minLength: 1
+          type: string
+        active:
+          type: boolean
+        description:
+          type: string
+          nullable: true
+        deprecated_timestamp:
+          type: string
+          format: date-time
+          nullable: true
+        proxy_allowed:
+          type: boolean
+        mapped_resource:
+          type: object
+          allOf:
+          - $ref: '#/components/schemas/PayI.Common.Models.CategoryResource.MappedResourceResponse'
+          nullable: true
+        cost_per_hour:
+          type: number
+          format: double
+          nullable: true
+        character_billing:
+          type: boolean
+          nullable: true
+        large_context_threshold:
+          type: integer
+          format: int32
+          nullable: true
+        aliased_resource:
+          type: string
+          nullable: true
+        reservation_id:
+          type: string
+          nullable: true
+        azure_resource:
+          type: object
+          allOf:
+          - $ref: '#/components/schemas/PayI.Common.Models.Reservation.AzureReservationResource'
+          nullable: true
+        aws_bedrock_resource:
+          type: object
+          allOf:
+          - $ref: '#/components/schemas/PayI.Common.Models.Reservation.AwsBedrockReservationResource'
+          nullable: true
+        google_vertex_resource:
+          type: object
+          allOf:
+          - $ref: '#/components/schemas/PayI.Common.Models.Reservation.GoogleVertexReservationResource'
+          nullable: true
+      additionalProperties: false
+    PayI.Common.Models.CategoryResource.MappedResourceResponse:
+      required:
+      - category
+      - host_name
+      - mapping_name
+      - resource
+      type: object
+      properties:
+        host_name:
+          type: string
+          nullable: true
+        mapping_name:
+          type: string
+          nullable: true
+        resource:
+          type: string
+          nullable: true
+        category:
+          type: string
+          nullable: true
+        scope:
+          allOf:
+          - $ref: '#/components/schemas/PayI.Common.Models.CategoryResource.SystemResourceScope'
+          nullable: true
+        sub_scope:
+          type: string
+          nullable: true
+      additionalProperties: false
+    PayI.Common.Models.CategoryResource.ResourcePriceUnits:
+      type: object
+      properties:
+        input_price:
+          type: number
+          format: double
+        output_price:
+          type: number
+          format: double
+      additionalProperties: false
+    PayI.Common.Models.CategoryResource.SystemResourceScope:
+      enum:
+      - global
+      - datazone
+      - region
+      type: string
+    PayI.Common.Models.CopilotLicensingIngestResponse:
+      required:
+      - ingest_timestamp
+      - records_ingested
+      - request_id
+      type: object
+      properties:
+        request_id:
+          minLength: 1
+          type: string
+        ingest_timestamp:
+          type: string
+          format: date-time
+        records_ingested:
+          type: integer
+          format: int32
+        error_count:
+          type: integer
+          format: int32
+          readOnly: true
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/PayI.Common.Models.IndexApiError'
+          nullable: true
+      additionalProperties: false
+    PayI.Common.Models.CopilotTranscriptIngestResponse:
+      required:
+      - ingest_timestamp
+      - request_id
+      - requests_created
+      type: object
+      properties:
+        request_id:
+          minLength: 1
+          type: string
+        ingest_timestamp:
+          type: string
+          format: date-time
+        requests_created:
+          type: integer
+          format: int32
+        error_count:
+          type: integer
+          format: int32
+          readOnly: true
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/PayI.Common.Models.IndexApiError'
+          nullable: true
+      additionalProperties: false
+    PayI.Common.Models.IndexApiError:
+      type: object
+      properties:
+        item_index:
+          type: integer
+          format: int32
+        xproxy_result:
+          $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+      additionalProperties: false
+    PayI.Common.Models.IngestResponse:
+      required:
+      - event_timestamp
+      - ingest_timestamp
+      - request_id
+      - xproxy_result
+      type: object
+      properties:
+        request_id:
+          minLength: 1
+          type: string
+        ingest_timestamp:
+          type: string
+          format: date-time
+        event_timestamp:
+          type: string
+          format: date-time
+        xproxy_result:
+          $ref: '#/components/schemas/PayI.Common.Models.Proxy.ProxyResult'
+      additionalProperties: false
+    PayI.Common.Models.PropertiesRequest:
+      required:
+      - properties
+      type: object
+      properties:
+        properties:
+          type: object
+          additionalProperties:
+            type: string
+            nullable: true
+      additionalProperties: false
+    PayI.Common.Models.Proxy.ProxyLimitStatus:
+      type: object
+      properties:
+        state:
+          $ref: '#/components/schemas/PayI.Common.Data.BudgetManagement.Enums.LimitStatus'
+      additionalProperties: false
+    PayI.Common.Models.Proxy.ProxyResult:
+      type: object
+      properties:
+        request_id:
+          type: string
+          nullable: true
+        request_tags:
+          type: array
+          items:
+            type: string
+          nullable: true
+          example:
+          - requestTag1
+          - request_tag_2
+        limits:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/PayI.Common.Models.Proxy.ProxyLimitStatus'
+          nullable: true
+          example:
+            limitId1:
+              State: OK
+            limitId_2:
+              State: Exceeeded
+        use_case_name:
+          type: string
+          nullable: true
+        use_case_id:
+          type: string
+          nullable: true
+        use_case_step:
+          type: string
+          nullable: true
+        resource_id:
+          type: string
+          nullable: true
+        user_id:
+          type: string
+          nullable: true
+        account_name:
+          type: string
+          nullable: true
+        blocked_limit_ids:
+          type: array
+          items:
+            type: string
+          nullable: true
+          example:
+          - limitId_2
+        cost:
+          type: object
+          allOf:
+          - $ref: '#/components/schemas/PayI.Common.Models.Proxy.RequestCost'
+          nullable: true
+        unknown_units:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.IngestUnits'
+          nullable: true
+        duplicate_request:
+          type: boolean
+          nullable: true
+        warnings:
+          type: array
+          items:
+            type: string
+          nullable: true
+        actions:
+          type: array
+          items:
+            type: string
+          nullable: true
+        queued:
+          type: boolean
+          nullable: true
+      additionalProperties: false
+    PayI.Common.Models.Proxy.RequestCost:
+      type: object
+      properties:
+        currency:
+          allOf:
+          - $ref: '#/components/schemas/PayI.Common.Enums.Currency'
+          nullable: true
+        input:
+          type: object
+          allOf:
+          - $ref: '#/components/schemas/PayI.Common.Models.BudgetManagement.CostDetailsBase'
+          nullable: true
+        output:
+          type: object
+          allOf:
+          - $ref: '#/components/schemas/PayI.Common.Models.BudgetManagement.CostDetailsBase'
+          nullable: true
+        total:
+          type: object
+          allOf:
+          - $ref: '#/components/schemas/PayI.Common.Models.BudgetManagement.CostDetails'
+          nullable: true
+      additionalProperties: false
+    PayI.Common.Models.ProxyApiError:
+      required:
+      - message
+      - statusCode
+      type: object
+      properties:
+        message:
+          minLength: 1
+          type: string
+        statusCode:
+          type: integer
+          format: int32
+        xproxy_error:
+          $ref: '#/components/schemas/PayI.Common.Models.ProxyError'
+        xproxy_result:
+          $ref: '#/components/schemas/PayI.Common.Models.Proxy.ProxyResult'
+      additionalProperties: false
+    PayI.Common.Models.ProxyError:
+      type: object
+      properties:
+        code:
+          type: string
+          nullable: true
+        message:
+          type: string
+          nullable: true
+      additionalProperties: false
+    PayI.Common.Models.Reservation.AwsBedrockReservationResource:
+      required:
+      - model_units
+      type: object
+      properties:
+        model_units:
+          type: integer
+          format: int32
+      additionalProperties: false
+    PayI.Common.Models.Reservation.AzureReservationResource:
+      required:
+      - ptus
+      type: object
+      properties:
+        ptus:
+          type: integer
+          format: int32
+      additionalProperties: false
+    PayI.Common.Models.Reservation.GoogleVertexReservationResource:
+      required:
+      - gsus
+      type: object
+      properties:
+        gsus:
+          type: integer
+          format: int32
+      additionalProperties: false
+  securitySchemes:
+    Pay_I_API_Key:
+      type: apiKey
+      description: 'Pay-I API Key. Example: "{apikey}"'
+      name: xProxy-api-key
+      in: header
+security:
+- Pay_I_API_Key: []
+tags:
+- name: OpenAI Requests
+  description: OpenAI Requests
+- name: Azure OpenAI Requests
+  description: Azure OpenAI Requests
+- name: Anthropic Requests
+  description: Anthropic Requests
+- name: Azure Anthropic Requests
+  description: Azure Anthropic Requests
+- name: AWS Bedrock Requests
+  description: AWS Bedrock Requests
+- name: Google Vertex Requests
+  description: Google Vertex Requests
+- name: Limits
+  description: Limits
+- name: Ingest Events
+  description: Ingest Requests
+- name: Categories
+  description: System and Custom Categories
+- name: Resources
+  description: Resources
+- name: Use Cases
+  description: Use Cases
+- name: KPIs
+  description: KPIs
+- name: Requests
+  description: Requests
+- name: Reports
+  description: Reports
+- name: Reports
+  description: Public API for retrieving reports.
+servers:
+- url: https://api.pay-i.com

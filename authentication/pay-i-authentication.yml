@@ -1,0 +1,17 @@
+generated: '2026-08-26'
+method: derived
+source: openapi/pay-i-openapi-original.json, openapi/pay-i-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: Pay_I_API_Key
+  type: apiKey
+  in: header
+  parameter: xProxy-api-key
+  description: 'Pay-I API Key. Example: "{apikey}"'
+  sources:
+  - openapi/pay-i-openapi-original.json
+  - openapi/pay-i-openapi.yml

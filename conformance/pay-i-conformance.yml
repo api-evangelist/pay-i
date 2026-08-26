@@ -1,0 +1,66 @@
+generated: '2026-08-26'
+method: derived
+source: openapi/pay-i-openapi-original.json + https://docs.pay-i.com/docs/
+standards:
+- id: openapi-3.0
+  conforms: true
+  evidence: openapi/pay-i-openapi.yml declares openapi 3.0.3 with 49 paths / 63 operations
+- id: rfc7807-problem-details
+  conforms: partial
+  evidence: >-
+    All 4xx responses reference the Microsoft.AspNetCore.Mvc.ProblemDetails schema (type, title,
+    status, detail, instance) but are served as application/json, not application/problem+json.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: No application/problem+json media type appears anywhere in the spec.
+- id: oauth2
+  conforms: false
+  evidence: securitySchemes declares a single apiKey scheme (xProxy-api-key header); no oauth2 flows.
+- id: oidc
+  conforms: false
+  evidence: /.well-known/openid-configuration returned 404 on all Pay-i hosts.
+- id: api-key-auth
+  conforms: true
+  evidence: components.securitySchemes.Pay_I_API_Key — apiKey in header, name xProxy-api-key
+- id: cursor-pagination
+  conforms: true
+  evidence: >-
+    Seven collection operations accept cursor + limit + sort_ascending query params and return
+    PaginatedCursor*List envelopes carrying a cursor field.
+- id: idempotency
+  conforms: false
+  evidence: >-
+    No Idempotency-Key header and no idempotency semantics appear in the spec or the header cheat
+    sheet. Write operations are not documented as safely retryable.
+- id: json-api
+  conforms: false
+  evidence: Response envelopes are bespoke; no application/vnd.api+json.
+- id: odata
+  conforms: false
+- id: scim
+  conforms: false
+- id: mcp
+  conforms: true
+  evidence: >-
+    A JSON-RPC 2.0 MCP server answers tools/list anonymously at https://docs.pay-i.com/mcp
+    (probed 2026-08-26, HTTP 200, 4 tools). See mcp/pay-i-mcp.yml.
+- id: llms-txt
+  conforms: true
+  evidence: >-
+    /llms.txt served on two hosts — docs.pay-i.com (9,964 bytes, full guide + API reference index)
+    and pay-i.com (5,632 bytes, marketing pages). Docs pages additionally expose a .md twin.
+domain_standard:
+  applicable: false
+  note: >-
+    REWARD-ONLY, and correctly unscored here. GenAI cost/FinOps metering has no ratified
+    interchange standard for inference cost events. The FinOps Foundation's FOCUS specification is
+    the nearest candidate for cloud cost data, but the Pay-i contract declares no FOCUS columns,
+    no FOCUS media type and no FOCUS export operation, so no domain-standard conformance is
+    asserted. Pay-i's proxy paths instead mirror the de-facto provider wire formats (OpenAI
+    /v1/chat/completions, Anthropic /v1/messages, Bedrock converse/invoke, Vertex
+    :generateContent), which is vendor-shape compatibility rather than a domain standard.
+compliance_published: false
+compliance_note: >-
+  No trust center, no published SOC 2 / ISO 27001 / PCI / HIPAA / FedRAMP certification page, and
+  no security page was found on any Pay-i host (pay-i.com/security and pay-i.com/trust both 404).
+  No Compliance pointer is emitted.

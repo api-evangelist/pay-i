@@ -1,0 +1,22 @@
+generated: '2026-08-26'
+method: searched
+source: https://www.pay-i.com/ (llms.txt page inventory) and probe of https://www.pay-i.com/pricing
+plan_count: 0
+pricing_model: undisclosed — sales-gated
+plans: []
+evidence:
+- url: https://www.pay-i.com/pricing
+  status: 404
+- url: https://www.pay-i.com/llms.txt
+  status: 200
+  detail: >-
+    The site's own llms.txt enumerates every public page (Main Pages, Blog, Press, Products,
+    Solutions, White-papers) and lists no pricing page.
+- url: https://www.pay-i.com/book-a-demo
+  status: 200
+  detail: The commercial path Pay-i publishes instead of pricing.
+note: >-
+  Pay-i publishes no plans, tiers, list prices or quota table. The only commercial call to action
+  is "Book a demo", making this an enterprise sales-gated product. This is a recorded zero, not a
+  gap in the pass — the pricing page genuinely does not exist. No Pricing pointer is emitted in
+  apis.yml because there is no pricing page to point at.

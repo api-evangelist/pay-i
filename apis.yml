@@ -1,18 +1,69 @@
 aid: pay-i
 name: Pay-i
-description: 'Pay-i is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: >-
+  Pay-i is a GenAI cost, capacity and ROI optimization platform founded by Microsoft veterans. It
+  instruments generative-AI applications so enterprises can prove the business value of their AI
+  spend. Pay-i exposes a REST API at api.pay-i.com built around three surfaces: a metering proxy that
+  fronts OpenAI, Azure OpenAI, Anthropic, Azure Anthropic, AWS Bedrock and Google Vertex and records
+  cost, latency and failure metadata for every inference request; an ingest API for submitting events
+  from providers Pay-i does not proxy; and a management API covering Limits (spend budgets with risk
+  thresholds and blocking states), Use Cases and their versions and instances, KPIs and value
+  policies, Categories and Resources for model and price catalogs, and Reports. Instrumentation is
+  driven by a family of xProxy-* request headers and first-party Python and TypeScript SDKs, plus an
+  n8n community node and a Databricks integration.
 url: https://raw.githubusercontent.com/api-evangelist/pay-i/refs/heads/main/apis.yml
+image: https://cdn.prod.website-files.com/698b13d019d0be64f91a6ae7/69a72aad61995c2a45243b2e_open-graph.png
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
 specificationVersion: '0.20'
 created: '2026-08-26'
 modified: '2026-08-26'
 tags:
 - Company
-apis: []
+- Artificial Intelligence
+- FinOps
+- Observability
+- Cost Management
+- Generative AI
+- LLM
+- Analytics
+- Governance
+- Metering
+apis:
+- aid: pay-i-api
+  name: Pay-i API
+  description: >-
+    The Pay-i REST API. A metering proxy in front of the major GenAI providers plus management
+    endpoints for spend limits, use cases, KPIs, categories/resources, requests and reports.
+    63 operations across 49 paths, secured with a Pay-i application API key in the
+    xProxy-api-key header.
+  humanURL: https://docs.pay-i.com/reference/getlimits
+  baseURL: https://api.pay-i.com
+  tags:
+  - FinOps
+  - Generative AI
+  - Metering
+  - Limits
+  - Observability
+  properties:
+  - type: OpenAPI
+    url: openapi/pay-i-openapi.yml
+  - type: Documentation
+    url: https://docs.pay-i.com/docs/getting-started
+  - type: APIReference
+    url: https://docs.pay-i.com/reference/getlimits
+  - type: Overlay
+    url: overlays/pay-i-openapi-overlay.yaml
+  - type: Authentication
+    url: authentication/pay-i-authentication.yml
+  - type: ErrorCatalog
+    url: errors/pay-i-problem-types.yml
+  - type: DataModel
+    url: data-model/pay-i-data-model.yml
+  - type: Conventions
+    url: conventions/pay-i-conventions.yml
+  - type: RateLimits
+    url: rate-limits/pay-i-rate-limits.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -20,4 +71,51 @@ maintainers:
   email: info@apis.io
 common:
 - type: Website
-  url: https://www.nasdaqprivatemarket.com/
+  url: https://www.pay-i.com/
+- type: DeveloperPortal
+  url: https://developer.pay-i.com
+- type: Documentation
+  url: https://docs.pay-i.com/docs/getting-started
+- type: APIReference
+  url: https://docs.pay-i.com/reference/getlimits
+- type: GettingStarted
+  url: https://docs.pay-i.com/docs/getting-started
+- type: SignUp
+  url: https://developer.pay-i.com/login
+- type: TermsOfService
+  url: https://www.pay-i.com/tos
+- type: PrivacyPolicy
+  url: https://www.pay-i.com/privacy
+- type: GitHubOrganization
+  url: https://github.com/Pay-i
+- type: Blog
+  url: https://www.pay-i.com/resources
+- type: Packages
+  url: packages/pay-i-packages.yml
+- type: SDKs
+  url: packages/pay-i-packages.yml
+- type: MCPServer
+  url: mcp/pay-i-mcp.yml
+- type: ToolCrosswalk
+  url: mcp/pay-i-tool-crosswalk.yml
+- type: LLMsTxt
+  url: llms/pay-i-llms.txt
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Conformance
+  url: conformance/pay-i-conformance.yml
+- type: ErrorCatalog
+  url: errors/pay-i-error-codes.yml
+- type: Lifecycle
+  url: lifecycle/pay-i-lifecycle.yml
+- type: DomainSecurity
+  url: security/pay-i-domain-security.yml
+- type: Plans
+  url: plans/pay-i-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/pay-i-rate-limits.yml
+x-enrichment:
+  date: '2026-08-26'
+  status: enriched
+  artifacts_added: 20
+  pass: local-v1

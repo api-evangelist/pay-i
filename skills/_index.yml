@@ -1,0 +1,36 @@
+generated: '2026-08-26'
+method: generated
+source: Generated from openapi/pay-i-openapi-original.json (all operationIds verified against the spec) plus https://docs.pay-i.com/docs/
+  guides. No provider-published skills or AGENTS.md were found on any Pay-i host.
+note: Every operationId referenced in these skills was grepped from the harvested OpenAPI; none are invented. Skills
+  also carry the conventions/errors/reversibility cautions from conventions/pay-i-conventions.yml — notably that
+  Pay-i publishes no idempotency key on any write operation.
+skills:
+- name: pay-i-enforce-spend-limit
+  file: pay-i-enforce-spend-limit.md
+  description: Create, inspect, reset and retire a Pay-i spend Limit, and read the per-limit state returned on every
+    proxied GenAI request.
+  api: Pay-i API
+  operations: 7
+  operations_verified: true
+- name: pay-i-ingest-cost-events
+  file: pay-i-ingest-cost-events.md
+  description: Submit GenAI cost and usage events to Pay-i for providers it does not proxy, including bulk and upsert
+    paths and Microsoft Copilot transcripts and licensing.
+  api: Pay-i API
+  operations: 5
+  operations_verified: true
+- name: pay-i-instrument-genai-requests
+  file: pay-i-instrument-genai-requests.md
+  description: Route a GenAI provider call through the Pay-i metering proxy and attribute its cost to a user, account
+    and use case using the xProxy-* headers.
+  api: Pay-i API
+  operations: 7
+  operations_verified: true
+- name: pay-i-measure-use-case-value
+  file: pay-i-measure-use-case-value.md
+  description: Define a Pay-i Use Case, attach KPI definitions, score instances, and read back the money and time
+    value of a GenAI use case.
+  api: Pay-i API
+  operations: 15
+  operations_verified: true

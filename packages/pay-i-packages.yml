@@ -1,0 +1,60 @@
+generated: '2026-08-26'
+method: searched
+source: >-
+  registry.npmjs.org, pypi.org/pypi/payi/json, github.com/Pay-i, and
+  https://docs.pay-i.com/llms.txt (Instrumentation + n8n guides)
+packages:
+- language: python
+  registry: pypi
+  name: payi
+  url: https://pypi.org/project/payi/
+  install: pip install payi
+  official: true
+  version: 0.1.0a183
+  published: '2026-06-16'
+  repository: https://github.com/Pay-i/pay-i-python
+  note: >-
+    "The official Python library for the payi API". Carries the payi_instrument(), @track and
+    track_context() instrumentation surface documented at docs.pay-i.com. Still on an alpha
+    version string (0.1.0aNNN) despite 183 pre-releases; repo last pushed 2026-08-20.
+- language: typescript
+  registry: npm
+  name: payi
+  url: https://www.npmjs.com/package/payi
+  install: npm install payi
+  official: true
+  version: 0.0.2
+  published: '2026-01-29'
+  repository: https://github.com/Pay-i/pay-i-typescript
+  note: >-
+    "The official TypeScript library for the Payi API". Last published 2026-01-29 at 0.0.2 —
+    roughly seven months behind the Python SDK and behind the API surface it wraps. The backing
+    repo Pay-i/pay-i-typescript is not among the three public repos on the Pay-i GitHub org.
+- language: typescript
+  registry: npm
+  name: n8n-nodes-payi
+  url: https://www.npmjs.com/package/n8n-nodes-payi
+  install: npm install n8n-nodes-payi
+  official: true
+  version: 1.0.5
+  published: '2026-06-05'
+  repository: https://github.com/Pay-i/n8n-nodes-payi
+  note: >-
+    n8n community node routing LLM requests through the Pay-i proxy. First-party — published from
+    the Pay-i GitHub org and documented at docs.pay-i.com/docs/pay-i-n8n-community-node.
+    Integration node rather than a general-purpose client SDK.
+absent:
+- registry: maven
+  note: no first-party Java/Kotlin artifact found
+- registry: nuget
+  note: no first-party .NET artifact found despite the API being an ASP.NET Core service
+- registry: rubygems
+  note: none found
+- registry: crates.io
+  note: none found
+- registry: pkg.go.dev
+  note: none found
+x-findings:
+- >-
+  The TypeScript SDK (0.0.2, 2026-01-29) is a currency risk: it predates the Python SDK's latest
+  release by ~5 months and sits at a 0.0.x version, while the API it wraps carries 63 operations.

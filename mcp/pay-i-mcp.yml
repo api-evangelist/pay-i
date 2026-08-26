@@ -1,0 +1,56 @@
+generated: '2026-08-26'
+method: probed
+source: https://docs.pay-i.com/mcp
+status: published
+deployment:
+  mode: remote
+  endpoint: https://docs.pay-i.com/mcp
+  auth: none
+  verified: probed
+server:
+  name: pay-i-docs
+  transport: http
+  url: https://docs.pay-i.com/mcp
+  protocol: JSON-RPC 2.0 over HTTP with SSE responses
+x-evidence:
+  fetched: '2026-08-26'
+  url: https://docs.pay-i.com/mcp
+  method: 'POST {"jsonrpc":"2.0","id":1,"method":"tools/list"}'
+  http_status: 200
+  content_type: text/event-stream
+  tools_returned: 4
+  raw: mcp/pay-i-mcp-tools.json
+note: >-
+  This is a live, anonymous, remotely reachable MCP endpoint served from Pay-i's own docs host — an
+  agent can POST to it today with no credentials. It is the ReadMe SuperHub built-in documentation
+  MCP server (ReadMe release 5.862.1), not a bespoke Pay-i business-domain server: the four tools
+  navigate and execute against Pay-i's OpenAPI rather than exposing Pay-i domain nouns such as
+  limits, use cases or KPIs as first-class tools. execute-request is a generic HAR-request proxy,
+  so calling any real Pay-i operation through it still requires the caller to supply their own
+  xProxy-api-key header. Recorded as published-remote because the endpoint genuinely answers; the
+  ReadMe provenance is recorded so the surface is not mistaken for a hand-built Pay-i tool server.
+tools:
+- name: list-endpoints
+  title: List API Endpoints
+  description: Lists all API paths and their HTTP methods with summaries, organized by path.
+  input_schema_properties: []
+  read_only: true
+- name: get-endpoint
+  title: Get Endpoint Details
+  description: Gets detailed information about a specific API endpoint, including security schemes and servers.
+  input_schema_properties:
+  - path
+  - method
+  read_only: true
+- name: search-endpoints
+  title: Search API Endpoints
+  description: Deep search through paths, operations and parameters to discover relevant API endpoints.
+  input_schema_properties:
+  - pattern
+  read_only: true
+- name: execute-request
+  title: Execute API Request
+  description: Executes an API request with a given HAR request object.
+  input_schema_properties:
+  - harRequest
+  read_only: false

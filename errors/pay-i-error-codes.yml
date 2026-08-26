@@ -1,0 +1,55 @@
+generated: '2026-08-26'
+method: searched
+source: https://docs.pay-i.com/docs/error-code-strings.md
+docs: https://docs.pay-i.com/docs/error-code-strings
+note: >-
+  Pay-i publishes a stable, machine-readable error `code` alongside a human-readable `message`.
+  The docs state explicitly that a change to a `code` is a BREAKING CHANGE while `message` values
+  are expected to drift — that is a genuine, publisher-stated contract on the error surface and is
+  the strongest versioning commitment Pay-i makes anywhere in its documentation.
+envelope:
+  fields:
+  - name: code
+    stability: stable — a change is documented as a breaking change
+    use: control flow, retry decisions
+  - name: message
+    stability: unstable — "subject to change at any time"
+    use: human diagnosis only
+groups:
+- group: All APIs
+  codes:
+  - code: invalid_api_key
+    message: Your api key is invalid, missing, or expired.
+    action: Re-issue or rotate the application API key in the Pay-i developer portal.
+  - code: unexpected_error
+    message: The system has encountered an unexpected error
+    action: Retry with backoff; contact support@pay-i.com if persistent.
+  - code: request_processing_error
+    message: An error occurred while validating the request
+    action: Inspect request body/headers against the OpenAPI schema.
+  - code: header_is_missing
+    message: Required header {header} is missing from the request
+    action: Supply the named xProxy-* header. See https://docs.pay-i.com/docs/list-of-all-supported-headers
+- group: Ingest API calls
+  codes:
+  - code: invalid_ingest_event_timestamp
+    message: Ingest event_timestamp {0} cannot be greater than 5 minutes into the future {1}
+    action: Clamp event_timestamp to within 5 minutes of now.
+  - code: blocking_limit_not_allowed
+    message: Block limits cannot be used for ingest requests
+    action: Use a non-blocking (allow) limit for ingest; blocking limits apply to proxied requests only.
+- group: Limit APIs
+  codes:
+  - code: limit_not_found
+    message: Limit Id '{0}' not found
+    action: Verify the limit_id, or list limits via getLimits.
+  - code: create_limit_validation_failed
+    message: A error message for the specific validation that failed
+    action: Inspect the message; correct the limit definition.
+  - code: update_limit_validation_failed
+    message: A error message for the specific validation that failed
+    action: Inspect the message; correct the limit update payload.
+x-coverage-note: >-
+  Captured verbatim for the "All APIs", "Ingest" and "Limit" groups. The published reference is
+  organized by API group and additional groups may exist further down the page; only the groups
+  read directly are recorded here rather than inferred.

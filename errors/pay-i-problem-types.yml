@@ -1,0 +1,63 @@
+generated: '2026-08-26'
+method: derived
+source: openapi/pay-i-openapi-original.json (4xx/5xx responses), enriched from https://docs.pay-i.com/docs/error-code-strings.md
+format: rfc7807-shaped
+note: 'Every error response references Microsoft.AspNetCore.Mvc.ProblemDetails (RFC 7807 members: type,
+  title, status, detail, instance) but is served as application/json, not application/problem+json. Pay-i
+  additionally documents a stable machine-readable "code" string alongside a human "message" — that registry
+  is captured in errors/pay-i-error-codes.yml.'
+problems:
+- status: 400
+  title: Bad Request
+  detail: Request failed validation. Pay-i returns a code/message pair in the body; see errors/pay-i-error-codes.yml
+    for the code registry.
+  media_type: application/json
+  schema: PayI.Common.Models.ApiError
+  occurrences: 54
+  source_operations:
+  - openapi/pay-i-openapi.yml#requests.Anthropic.MessagesAPIV1
+  - openapi/pay-i-openapi.yml#requests.AwsBedrock.Converse
+  - openapi/pay-i-openapi.yml#requests.AwsBedrock.ConverseStream
+  - openapi/pay-i-openapi.yml#requests.AwsBedrock.InvokeModel
+- status: 401
+  title: Unauthorized
+  detail: The Pay-i API key in the xProxy-api-key header is invalid, missing or expired (code invalid_api_key).
+  media_type: application/json
+  schema: PayI.Common.Models.ApiError
+  occurrences: 63
+  source_operations:
+  - openapi/pay-i-openapi.yml#requests.Anthropic.MessagesAPIV1
+  - openapi/pay-i-openapi.yml#requests.AwsBedrock.Converse
+  - openapi/pay-i-openapi.yml#requests.AwsBedrock.ConverseStream
+  - openapi/pay-i-openapi.yml#requests.AwsBedrock.InvokeModel
+- status: 403
+  title: Forbidden
+  detail: The API key is valid but not authorized for this organization/application scope.
+  media_type: application/json
+  schema: PayI.Common.Models.ApiError
+  occurrences: 6
+  source_operations:
+  - openapi/pay-i-openapi.yml#deleteCategoryResources
+  - openapi/pay-i-openapi.yml#deleteCategoryResource
+  - openapi/pay-i-openapi.yml#createResource
+  - openapi/pay-i-openapi.yml#createUseCaseKpiDefinition
+- status: 404
+  title: Not Found
+  detail: The addressed Limit, Use Case, Category, Resource, KPI or Request does not exist.
+  media_type: application/json
+  schema: PayI.Common.Models.ApiError
+  occurrences: 30
+  source_operations:
+  - openapi/pay-i-openapi.yml#getResourcesList
+  - openapi/pay-i-openapi.yml#deleteCategoryResources
+  - openapi/pay-i-openapi.yml#deleteCategoryResource
+  - openapi/pay-i-openapi.yml#getResources
+- status: 424
+  title: Failed Dependency
+  detail: Returned by the metering proxy when a blocking spend Limit has been exceeded, so the upstream
+    GenAI provider call was not made. This is Pay-i s spend-control signal, not an HTTP rate limit.
+  media_type: application/json
+  schema: PayI.Common.Models.ApiError
+  occurrences: 1
+  source_operations:
+  - openapi/pay-i-openapi.yml#getReport

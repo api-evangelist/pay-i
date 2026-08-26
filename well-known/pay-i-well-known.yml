@@ -1,0 +1,72 @@
+generated: '2026-08-26'
+method: probed
+source: direct HTTP probes of /.well-known/* on every Pay-i host
+note: >-
+  Every /.well-known/ path probed returned 404 on all four Pay-i hosts. No WellKnown, SecurityTxt
+  or APICatalog pointer is emitted in apis.yml, because none of these surfaces is served. This
+  file is the recorded absence, not a presence.
+hit_count: 0
+hosts:
+- host: https://api.pay-i.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: https://www.pay-i.com
+  note: >-
+    Webflow-hosted marketing site. Returns an 88-byte "Invalid .well-known request" body with a
+    404 status for every path — an explicit negative, not a catch-all 200.
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: https://docs.pay-i.com
+  note: >-
+    ReadMe-hosted docs. Some paths answer 404 with an ~80KB SPA shell body; those are misses, not
+    documents. /.well-known/oauth-protected-resource also 404s, so the MCP server at
+    https://docs.pay-i.com/mcp is unauthenticated rather than OAuth-protected.
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: https://developer.pay-i.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404

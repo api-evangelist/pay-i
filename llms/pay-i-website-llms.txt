@@ -1,0 +1,46 @@
+# pay-i.com
+
+> pay-i.com website pages and resources.
+
+## Main Pages
+
+- [Pay-i: GenAI ROI Optimization & Capacity Management](https://www.pay-i.com/): Transform AI spend into auditable ROI. Track GenAI costs, measure business impact, and optimize capacity with the world's most accurate GenAI system of record.
+- [About Us | Pay-i - GenAI ROI & Economics Platform](https://www.pay-i.com/about-us): Meet the Pay-i team. Former Azure GenAI leaders helping enterprises connect AI spend to business outcomes with real-time ROI measurement.
+- [Schedule a Demo to See Pay-i GenAI ROI Platform](https://www.pay-i.com/book-a-demo): Book a demo to see how Pay-i connects GenAI spend to business KPIs with board-ready reporting, real-time ROI measurement, and comprehensive cost accounting.
+- [Privacy Policy | Pay-i](https://www.pay-i.com/privacy): Learn how Pay-i collects, uses, and protects your personal information. Our privacy policy details your rights and our commitment to data security.
+- [GenAI Resources: Insights, Case Studies & Whitepapers](https://www.pay-i.com/resources): Explore Pay-i's resource hub for GenAI ROI insights, FinOps best practices, case studies, and whitepapers on measuring AI business value.
+- [Terms of Service | Pay-i Subscription Agreement](https://www.pay-i.com/tos): Read Pay-i's Terms of Service and Subscription Agreement. Understand the terms governing your use of our GenAI FinOps platform and services.
+
+## Blog
+
+- [AI Cost As A First-Class Metric — Our Conversation With David Tepper, CEO And Cofounder Of Pay-i](https://www.pay-i.com/blog/ai-cost-as-a-first-class-metric----our-conversation-with-david-tepper-ceo-and-cofounder-of-pay-i): The economics of AI are uniquely volatile, shaped by dynamic usage patterns, evolving model architectures, and opaque pricing structures.
+- [Board Meeting in 30 Days: Can You Prove Your GenAI Spend Wasn’t a Science Project?](https://www.pay-i.com/blog/board-meeting-in-30-days-can-you-prove-your-genai-spend-wasnt-a-science-project): Pay-i shows, in real time, the impact of GenAI investments on business results, connecting AI usage to metrics such as revenue, efficiency, and margin.
+- [From PoCs to real results: Scaling GenAI with measurable impact](https://www.pay-i.com/blog/from-pocs-to-real-results-scaling-genai-with-measurable-impact): As organizations move beyond experimentation with generative AI (GenAI), a new set of challenges emerges — ones that traditional software operating models aren’t built for.
+- [The Next Token: Humanity’s Last Mote](https://www.pay-i.com/blog/the-next-token-humanitys-last-mote): The essay argues tokens are becoming a core unit of value in the AI era, shaping how knowledge, labor, and decisions are produced through human-model interaction.
+- [The Next Token: Vibe Coding](https://www.pay-i.com/blog/the-next-token-vibe-coding): Vibe coding is an AI-driven approach where developers describe intent in natural language and the model generates code, speeding prototyping but increasing maintenance risks.
+
+## Press
+
+- [Pay-i](https://www.pay-i.com/press/exclusive-ai-value-startup-pay-i-lands-4-9m-seed)
+- [Pay-i](https://www.pay-i.com/press/pay-i-lands-4-9m-to-answer-the-question-every-enterprise-is-asking-does-this-genai-investment-have-actual-roi)
+- [Pay-i](https://www.pay-i.com/press/roi-on-generative-ai-microsoft-vets-raise-4-9m-to-quantify-business-value-of-ai-investments)
+- [Pay-i](https://www.pay-i.com/press/when-will-genai-finally-deliver-returns-on-investment)
+
+## Products
+
+- [Provisioned Capacity Optimizer | Pay-i Platform](https://www.pay-i.com/products/provisioned-capacity-optimizer): Optimize GPU and hyperscaler capacity with real-time usage attribution by team and agent. Track utilization, cut waste, and justify every capacity investment.
+- [ROI Optimization Platform | Connect GenAI to Business KPIs](https://www.pay-i.com/products/roi-optimization-platform): Map GenAI costs to business outcomes at the use-case level. Prove ROI, identify high-value initiatives, and scale with confidence using board-ready reporting.
+
+## Solutions
+
+- [C-Level GenAI ROI Reporting | Pay-i Executive Solutions](https://www.pay-i.com/solutions/c-level): Track costs, budgets, and ROI across every GenAI initiative. Board-ready reports that prove which AI investments deliver value and forecast costs as you scale.
+- [GenAI Performance Control for Engineers | Pay-i](https://www.pay-i.com/solutions/engineers): Track cost, latency, and failures by workflow. Compare versions, catch regressions, and optimize agent performance with real-time visibility.
+- [Enterprise GenAI ROI Platform | Pay-i](https://www.pay-i.com/solutions/enterprise): See every GenAI initiative in one view. Track costs and ROI by business unit, forecast budgets accurately, and prove value to the board with real data.
+- [ISV AI Unit Economics & Pricing | Pay-i Solutions](https://www.pay-i.com/solutions/isv): Protect margins with true unit economics for every AI feature. See cost per customer, identify waste spend, and price profitably with data-driven insights.
+- [AI ROI Solutions for Product & Strategy Leaders | Pay-i](https://www.pay-i.com/solutions/practitioners): Track ROI, adoption, and business KPIs by AI use case. Own the P&L for your GenAI initiatives with clear visibility into what's delivering value.
+
+## White-papers
+
+- [Pay-i](https://www.pay-i.com/white-papers/genai-finops-how-token-pricing-really-works)
+- [Pay-i](https://www.pay-i.com/white-papers/genai-finops-vs-cloud-finops-similar-roots-different-challenges)
+- [Pay-i](https://www.pay-i.com/white-papers/navigating-genai-capacity-options)

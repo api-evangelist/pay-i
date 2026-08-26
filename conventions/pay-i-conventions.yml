@@ -1,0 +1,205 @@
+generated: '2026-08-26'
+method: searched
+source: >-
+  https://docs.pay-i.com/docs/list-of-all-supported-headers,
+  https://docs.pay-i.com/docs/error-code-strings, https://docs.pay-i.com/docs/limit-states,
+  https://docs.pay-i.com/docs/pay-i-api-keys, derived from openapi/pay-i-openapi-original.json
+authentication:
+  style: api-key-header
+  header: xProxy-api-key
+  scheme: "Pay_I_API_Key (apiKey, in: header)"
+  levels:
+  - Application-level keys — used for AI spend/usage tracking and programmatic API access
+  - Organization-level keys — manage organization settings only; cannot be used for spend tracking
+  rotation: Two keys per application, regenerable independently (primary/secondary rotation pattern)
+  docs: https://docs.pay-i.com/docs/pay-i-api-keys
+  see: authentication/pay-i-authentication.yml
+request_headers:
+  convention: >-
+    Pay-i's instrumentation contract is carried almost entirely in a family of xProxy-* request
+    headers rather than in request bodies, so the same headers apply across every proxied provider.
+    Multi-value headers are a single comma-separated header, not repeated headers.
+  docs: https://docs.pay-i.com/docs/list-of-all-supported-headers
+  headers:
+  - name: xProxy-api-key
+    purpose: Authentication
+  - name: xProxy-Limit-IDs
+    purpose: Declares which limits are charged for the request (comma-separated)
+  - name: xProxy-User-ID
+    purpose: Free-form user attribution
+  - name: xProxy-Account-Name
+    purpose: Account attribution
+  - name: xProxy-UseCase-Name
+    purpose: Use case attribution
+  - name: xProxy-UseCase-ID
+    purpose: Use case instance attribution
+  - name: xProxy-UseCase-Version
+    purpose: Use case version pinning
+  - name: xProxy-UseCase-Step
+    purpose: Step within a multi-step use case
+  - name: xProxy-UseCase-Properties
+    purpose: Property bag attached to the use case
+  - name: xProxy-Request-Properties
+    purpose: Property bag attached to the request
+  - name: xProxy-Resource-Scope
+    purpose: Scopes the resource/model catalog used for pricing
+  - name: xProxy-PriceAs-Category
+    purpose: Override the pricing category
+  - name: xProxy-PriceAs-Resource
+    purpose: Override the pricing resource/model
+  - name: xProxy-Provider-BaseUri
+    purpose: Target upstream provider base URI for the proxy
+  - name: xProxy-Logging-Disable
+    purpose: >-
+      When True, request/response detail is not logged while cost, error, latency and other
+      metadata are still accounted. Privacy control for sensitive payloads.
+pagination:
+  style: cursor
+  params:
+  - cursor
+  - limit
+  - sort_ascending
+  response_fields:
+  - cursor
+  - items
+  - request_id
+  envelope: PaginatedCursor<Entity>List
+  applies_to: 7 collection operations (limits, categories, resources, use cases, KPIs)
+error_envelope:
+  shape: >-
+    RFC 7807-shaped ProblemDetails (type/title/status/detail/instance) served as application/json,
+    plus a Pay-i code/message pair where code is contract-stable and message is not.
+  see:
+  - errors/pay-i-problem-types.yml
+  - errors/pay-i-error-codes.yml
+request_id_tracing:
+  supported: true
+  field: request_id
+  note: >-
+    Paginated and request-result responses carry a request_id. Requests can subsequently be
+    addressed either by Pay-i request_id or by the upstream provider's response id via
+    /api/v1/requests/provider/{category}/{provider_response_id}/result.
+versioning:
+  style: uri-path
+  current: /api/v1
+  spec_version: v1 (info.version)
+  note: >-
+    Version is pinned in the path. No published deprecation policy, no Sunset/Deprecation header
+    support found. The only stated breaking-change commitment anywhere in Pay-i's documentation is
+    on error `code` strings.
+rate_limit_signaling:
+  http_rate_limits: undocumented
+  note: >-
+    No X-RateLimit-*/RateLimit-* headers, no 429 response and no Retry-After appear anywhere in
+    the 63-operation spec or the header cheat sheet. Pay-i's throttling concept is economic rather
+    than request-rate based — see spend_limits below.
+  see: rate-limits/pay-i-rate-limits.yml
+spend_limits:
+  note: >-
+    Pay-i's control plane is spend limits, not request quotas. Each proxied response carries an
+    xproxy_result object with a per-limit `state`.
+  states:
+  - state: ok
+    meaning: spend < max * threshold — below the limit's risk threshold
+  - state: exceeded
+    meaning: spend >= max * threshold AND spend <= max — over the risk threshold but NOT blocked; requests still allowed
+  blocked_status: 424
+  blocked_meaning: >-
+    A blocking limit was exceeded, so the upstream GenAI provider call was never made. HTTP 424
+    Failed Dependency is Pay-i's spend-block signal.
+  docs: https://docs.pay-i.com/docs/limit-states
+idempotency:
+  supported: false
+  status: absent
+  evidence: >-
+    No Idempotency-Key header, no idempotency-key query parameter, and no idempotency language in
+    the spec, the header cheat sheet, or the request-handling guides. Checked 2026-08-26.
+  impact: >-
+    The ingest endpoints (/api/v1/ingest, /ingest/bulk, /ingest/bulk-upsert) are the write surface
+    most exposed by this: a retried ingest after a timeout has no documented dedupe key, so an
+    agent cannot safely retry without risking double-counted cost events — in a product whose
+    entire value is accurate spend attribution. /ingest/bulk-upsert implies upsert semantics keyed
+    on caller-supplied identifiers, but the docs do not state that this makes retries safe.
+  note: >-
+    NO Idempotency pointer is emitted in apis.yml. The Conventions artifact exists, but asserting
+    an Idempotency type here would credit Pay-i with a surface it does not publish.
+dry_run_mode:
+  supported: false
+  evidence: No dry-run, preview, simulate or validate-only parameter found in any of the 63 operations.
+reversibility:
+  grade: documented
+  summary: >-
+    Reversal paths exist and are first-class operations, but Pay-i publishes no time window for any
+    of them, so this grades `documented` rather than `verified`.
+  surfaces:
+  - operation: resetLimit
+    method: POST
+    path: /api/v1/limits/{limit_id}/reset
+    reverses: Accumulated spend against a limit
+    window: not stated in the documentation
+    docs: https://docs.pay-i.com/docs/limit-apis
+    note: >-
+      The closest thing to an undo in the API — it returns a limit to a non-exceeded state so
+      blocked traffic can flow again. No window or restriction on reset is published.
+  - operation: deleteLimit
+    method: DELETE
+    path: /api/v1/limits/{limit_id}
+    reverses: Limit creation
+    window: not stated
+    restorable: not documented
+  - operation: deleteUseCase
+    method: DELETE
+    path: /api/v1/use_cases/definitions/{use_case_name}
+    reverses: Use case definition creation
+    window: not stated
+    restorable: not documented
+  - operation: deleteUseCaseInstance
+    method: DELETE
+    path: /api/v1/use_cases/instances/{use_case_name}/{use_case_id}
+    reverses: Use case instance creation
+    window: not stated
+    restorable: not documented
+  - operation: deleteUseCaseLimitConfig
+    method: DELETE
+    path: /api/v1/use_cases/definitions/{use_case_name}/limit_config
+    reverses: Use case default limit configuration
+    window: not stated
+  - operation: deleteUseCaseKpiDefinition
+    method: DELETE
+    path: /api/v1/use_cases/definitions/{use_case_name}/kpis/{kpi_name}
+    reverses: KPI definition creation
+    window: not stated
+  - operation: deleteCategoryResources
+    method: DELETE
+    path: /api/v1/categories/{category}
+    reverses: Category and ALL of its resources
+    window: not stated
+    note: Broadest blast radius in the API — deletes a category and every resource under it.
+  - operation: deleteCategoryResource
+    method: DELETE
+    path: /api/v1/categories/{category}/resources/{resource}
+    reverses: All versions of a resource in a category
+    window: not stated
+  - operation: deleteResource
+    method: DELETE
+    path: /api/v1/categories/{category}/resources/{resource}/{resource_id}
+    reverses: A single resource version
+    window: not stated
+  non_reversible:
+  - surface: Ingested events
+    operations:
+    - requestsIngest
+    - ingest/bulk
+    - ingest/bulk-upsert
+    note: >-
+      No delete, void or reverse operation exists for an ingested cost event. Combined with the
+      absence of idempotency, a double-submitted ingest batch has no documented remediation path
+      through the API.
+  - surface: Use case version increments
+    operations:
+    - incrementUseCaseVersion
+    note: No decrement or rollback operation is published.
+  gap: >-
+    No reversal window is stated anywhere in Pay-i's documentation. Recording a window would be an
+    invention; this is the single change that would move reversibility from `documented` to
+    `verified`.

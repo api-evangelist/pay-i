@@ -1,0 +1,34 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Pay-i
+  version: 1.0.0
+extends: openapi/pay-i-openapi.yml
+actions:
+- target: $.info
+  update:
+    x-apievangelist-profile: https://apis.io/provider/pay-i
+    x-apievangelist-enriched: '2026-08-26'
+    x-spec-provenance: Extracted verbatim from the OpenAPI 3.0.3 document embedded in the ReadMe reference page
+      at https://docs.pay-i.com/reference/getlimits; the direct spec download at /branches/3.1/apis/pay-i.json is
+      not publicly served.
+    x-contact-support: support@pay-i.com
+- target: $.info
+  update:
+    x-authentication-artifact: authentication/pay-i-authentication.yml
+    x-conventions-artifact: conventions/pay-i-conventions.yml
+    x-error-catalog-artifact: errors/pay-i-error-codes.yml
+    x-data-model-artifact: data-model/pay-i-data-model.yml
+- target: $.components.securitySchemes.Pay_I_API_Key
+  update:
+    x-key-levels: Application-level keys authorize spend tracking and API access; Organization-level keys manage
+      org settings only.
+    x-rotation: Two keys per application, independently regenerable.
+    x-docs: https://docs.pay-i.com/docs/pay-i-api-keys
+- target: $
+  update:
+    x-agent-readiness:
+      idempotency: absent — no Idempotency-Key on any write operation, including ingest
+      rate_limit_signal: absent — no 429 and no RateLimit headers documented
+      reversibility: documented — 9 reversal operations exist, no window is published for any of them
+      spend_control: present — xproxy_result limit states and HTTP 424 on a blocking limit
+      mcp: https://docs.pay-i.com/mcp (anonymous, ReadMe documentation server, 4 meta-tools)

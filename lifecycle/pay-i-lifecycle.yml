@@ -1,0 +1,68 @@
+generated: '2026-08-26'
+method: searched
+source: >-
+  https://docs.pay-i.com/docs/, https://docs.pay-i.com/docs/error-code-strings,
+  https://docs.pay-i.com/docs/use-case-versioning, probes of status.pay-i.com and
+  docs.pay-i.com/changelog, derived from openapi/pay-i-openapi-original.json
+versioning:
+  api_style: uri-path
+  current: /api/v1
+  spec_version: v1
+  note: Every one of the 49 paths is under /api/v1. No /v2 surface is served (docs.pay-i.com/v2/reference returned 404).
+breaking_change_policy:
+  published: true
+  scope: error codes only
+  statement: >-
+    "A change to a `code` is considered a breaking change." — https://docs.pay-i.com/docs/error-code-strings
+  note: >-
+    This is the only explicit breaking-change commitment Pay-i publishes. There is no
+    corresponding statement covering endpoints, schemas or headers.
+deprecation_policy:
+  published: false
+  sunset_header: not documented
+  deprecation_header: not documented
+  rfc8594: false
+  deprecated_operations: 0
+  evidence: >-
+    No operation in openapi/pay-i-openapi-original.json carries `deprecated: true`. No deprecation
+    or sunset policy page exists in https://docs.pay-i.com/llms.txt.
+  note: No Deprecation pointer is emitted in apis.yml — Pay-i publishes no deprecation policy.
+status_page:
+  published: false
+  probes:
+  - url: https://status.pay-i.com/
+    status: <no response>
+    detail: DNS does not resolve (NXDOMAIN)
+  note: >-
+    No status page found on any expected host. No StatusPage pointer is emitted in apis.yml.
+changelog:
+  published: false
+  probes:
+  - url: https://docs.pay-i.com/changelog
+    status: 404
+  note: >-
+    ReadMe ships a changelog module and Pay-i has not enabled it. Individual docs pages do carry
+    an `updatedAt` timestamp in their markdown twin (e.g. error-code-strings updatedAt
+    2025-10-30, getting-started updatedAt 2026-04-02), which is per-page freshness metadata but
+    not a dated release log. No ChangeLog pointer is emitted.
+sla:
+  published: false
+  note: No SLA or uptime commitment found on pay-i.com or docs.pay-i.com.
+resource_versioning:
+  note: >-
+    Pay-i versions its own domain objects even though it does not version its API surface beyond
+    /v1. Use Cases carry explicit versions with an incrementUseCaseVersion operation and an
+    xProxy-UseCase-Version header; Resources are versioned with per-version get and delete
+    operations; model versions are managed per
+    https://docs.pay-i.com/docs/managing-model-versions.
+  operations:
+  - incrementUseCaseVersion
+  - getResources
+  - getResource
+  - deleteResource
+support:
+  email: support@pay-i.com
+  source: https://docs.pay-i.com/docs/getting-started
+  note: >-
+    Support is an email address stated in the getting-started guide. No help center, community
+    forum or ticketing portal was found, so no Support pointer is emitted in apis.yml.
