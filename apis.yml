@@ -12,6 +12,18 @@ description: >-
   driven by a family of xProxy-* request headers and first-party Python and TypeScript SDKs, plus an
   n8n community node and a Databricks integration.
 url: https://raw.githubusercontent.com/api-evangelist/pay-i/refs/heads/main/apis.yml
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://cdn.prod.website-files.com/698b13d019d0be64f91a6ae7/69a72aad61995c2a45243b2e_open-graph.png
 x-type: company
 x-source: harvest:secondary-market
