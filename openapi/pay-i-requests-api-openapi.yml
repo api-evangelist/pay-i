@@ -1,0 +1,444 @@
+openapi: 3.2.0
+info:
+  title: Pay I Requests API
+  version: v1
+  description: 'Operations tagged Requests across 2 of this provider''s published API definitions: pay-i-openapi-original.json, pay-i-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api.pay-i.com
+security:
+- Pay_I_API_Key: []
+tags:
+- name: Requests
+  description: Requests
+paths:
+  /api/v1/requests/{request_id}/properties:
+    put:
+      tags:
+      - Requests
+      summary: Update a Request properties
+      operationId: updateRequestProperties
+      parameters:
+      - name: request_id
+        in: path
+        description: Request Id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Properties
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PayI.Common.Models.PropertiesRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/PayI.Common.Models.PropertiesRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Calculator.Models.PropertiesResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+    servers:
+    - url: https://api.pay-i.com
+  /api/v1/requests/{request_id}/result:
+    get:
+      tags:
+      - Requests
+      summary: Get a Request results
+      operationId: getRequestResult
+      parameters:
+      - name: request_id
+        in: path
+        description: Request Id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Calculator.Models.RequestResultResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+    servers:
+    - url: https://api.pay-i.com
+  /api/v1/requests/provider/{category}/{provider_response_id}/properties:
+    put:
+      tags:
+      - Requests
+      summary: Update a Request properties
+      operationId: updateRequestPropertiesProvider
+      parameters:
+      - name: category
+        in: path
+        description: Category
+        required: true
+        schema:
+          type: string
+      - name: provider_response_id
+        in: path
+        description: Provider Response Id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Properties
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PayI.Common.Models.PropertiesRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/PayI.Common.Models.PropertiesRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Calculator.Models.PropertiesResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+    servers:
+    - url: https://api.pay-i.com
+  /api/v1/requests/provider/{category}/{provider_response_id}/result:
+    get:
+      tags:
+      - Requests
+      summary: Get a Request results
+      operationId: getRequestResultProvider
+      parameters:
+      - name: category
+        in: path
+        description: Category
+        required: true
+        schema:
+          type: string
+      - name: provider_response_id
+        in: path
+        description: Provider Response Id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Calculator.Models.RequestResultResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+    servers:
+    - url: https://api.pay-i.com
+components:
+  schemas:
+    PayI.Common.Models.ApiRouter.IngestUnits:
+      type: object
+      properties:
+        input:
+          maximum: 2147483647
+          minimum: 0
+          type: integer
+          format: int32
+        output:
+          maximum: 2147483647
+          minimum: 0
+          type: integer
+          format: int32
+      additionalProperties: false
+    PayI.Common.Data.BudgetManagement.Enums.LimitStatus:
+      enum:
+      - ok
+      - blocked
+      - blocked_external
+      - exceeded
+      - overrun
+      - failed
+      type: string
+    PayI.Calculator.Models.PropertiesResponse:
+      required:
+      - request_id
+      type: object
+      properties:
+        request_id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    PayI.Common.Models.PropertiesRequest:
+      required:
+      - properties
+      type: object
+      properties:
+        properties:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+      additionalProperties: false
+    PayI.Common.Models.Proxy.ProxyResult:
+      type: object
+      properties:
+        request_id:
+          type:
+          - string
+          - 'null'
+        request_tags:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          example:
+          - requestTag1
+          - request_tag_2
+        limits:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            $ref: '#/components/schemas/PayI.Common.Models.Proxy.ProxyLimitStatus'
+          example:
+            limitId1:
+              State: OK
+            limitId_2:
+              State: Exceeeded
+        use_case_name:
+          type:
+          - string
+          - 'null'
+        use_case_id:
+          type:
+          - string
+          - 'null'
+        use_case_step:
+          type:
+          - string
+          - 'null'
+        resource_id:
+          type:
+          - string
+          - 'null'
+        user_id:
+          type:
+          - string
+          - 'null'
+        account_name:
+          type:
+          - string
+          - 'null'
+        blocked_limit_ids:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          example:
+          - limitId_2
+        cost:
+          type:
+          - object
+          - 'null'
+          allOf:
+          - $ref: '#/components/schemas/PayI.Common.Models.Proxy.RequestCost'
+        unknown_units:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.IngestUnits'
+        duplicate_request:
+          type:
+          - boolean
+          - 'null'
+        warnings:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        actions:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        queued:
+          type:
+          - boolean
+          - 'null'
+      additionalProperties: false
+    PayI.Common.Models.ApiError:
+      required:
+      - message
+      - statusCode
+      type: object
+      properties:
+        message:
+          minLength: 1
+          type: string
+        statusCode:
+          type: integer
+          format: int32
+        xproxy_error:
+          $ref: '#/components/schemas/PayI.Common.Models.ProxyError'
+      additionalProperties: false
+    PayI.Common.Models.Proxy.RequestCost:
+      type: object
+      properties:
+        currency:
+          allOf:
+          - $ref: '#/components/schemas/PayI.Common.Enums.Currency'
+        input:
+          type:
+          - object
+          - 'null'
+          allOf:
+          - $ref: '#/components/schemas/PayI.Common.Models.BudgetManagement.CostDetailsBase'
+        output:
+          type:
+          - object
+          - 'null'
+          allOf:
+          - $ref: '#/components/schemas/PayI.Common.Models.BudgetManagement.CostDetailsBase'
+        total:
+          type:
+          - object
+          - 'null'
+          allOf:
+          - $ref: '#/components/schemas/PayI.Common.Models.BudgetManagement.CostDetails'
+      additionalProperties: false
+    PayI.Common.Models.ProxyError:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    PayI.Common.Models.Proxy.ProxyLimitStatus:
+      type: object
+      properties:
+        state:
+          $ref: '#/components/schemas/PayI.Common.Data.BudgetManagement.Enums.LimitStatus'
+      additionalProperties: false
+    PayI.Calculator.Models.RequestResultResponse:
+      required:
+      - xproxy_result
+      type: object
+      properties:
+        xproxy_result:
+          $ref: '#/components/schemas/PayI.Common.Models.Proxy.ProxyResult'
+      additionalProperties: false
+    PayI.Common.Models.BudgetManagement.CostDetailsBase:
+      required:
+      - base
+      type: object
+      properties:
+        base:
+          type: number
+          format: double
+      additionalProperties: false
+    PayI.Common.Enums.Currency:
+      enum:
+      - usd
+      type: string
+    PayI.Common.Models.BudgetManagement.CostDetails:
+      required:
+      - base
+      type: object
+      properties:
+        base:
+          type: number
+          format: double
+        overrun_base:
+          type:
+          - number
+          - 'null'
+          format: double
+      additionalProperties: false
+  securitySchemes:
+    Pay_I_API_Key:
+      type: apiKey
+      description: 'Pay-I API Key. Example: "{apikey}"'
+      name: xProxy-api-key
+      in: header
+x-refined-from:
+- pay-i-openapi-original.json
+- pay-i-openapi.yml

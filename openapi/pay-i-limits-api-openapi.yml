@@ -1,0 +1,605 @@
+openapi: 3.2.0
+info:
+  title: Pay I Limits API
+  version: v1
+  description: 'Operations tagged Limits across 2 of this provider''s published API definitions: pay-i-openapi-original.json, pay-i-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api.pay-i.com
+security:
+- Pay_I_API_Key: []
+tags:
+- name: Limits
+  description: Limits
+paths:
+  /api/v1/limits:
+    get:
+      tags:
+      - Limits
+      summary: Get all Limits
+      operationId: getLimits
+      parameters:
+      - name: limit_name
+        in: query
+        schema:
+          type: string
+      - name: sort_ascending
+        in: query
+        schema:
+          type: boolean
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: cursor
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.BudgetManagement.Models.ApiQueries.PaginatedCursorLimitList'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+    post:
+      tags:
+      - Limits
+      summary: Create a Limit
+      operationId: createLimit
+      requestBody:
+        description: Limit configuration
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PayI.Common.Models.BudgetManagement.CreateLimit'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/PayI.Common.Models.BudgetManagement.CreateLimit'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.BudgetManagement.Models.LimitResponse'
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.BudgetManagement.Models.LimitResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+    servers:
+    - url: https://api.pay-i.com
+  /api/v1/limits/{limit_id}:
+    get:
+      tags:
+      - Limits
+      summary: Get Limit details
+      operationId: getLimit
+      parameters:
+      - name: limit_id
+        in: path
+        description: Limit Id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.BudgetManagement.Models.LimitResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+    put:
+      tags:
+      - Limits
+      summary: Update a Limit
+      operationId: updateLimit
+      parameters:
+      - name: limit_id
+        in: path
+        description: Limit Id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Limit configuration to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PayI.Common.Models.BudgetManagement.UpdateLimit'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/PayI.Common.Models.BudgetManagement.UpdateLimit'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.BudgetManagement.Models.LimitResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+    delete:
+      tags:
+      - Limits
+      summary: Delete a Limit
+      operationId: deleteLimit
+      parameters:
+      - name: limit_id
+        in: path
+        description: Limit Id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.BudgetManagement.Models.DefaultResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+    servers:
+    - url: https://api.pay-i.com
+  /api/v1/limits/{limit_id}/properties:
+    put:
+      tags:
+      - Limits
+      summary: Update a Limit Properties
+      operationId: updateLimitProperties
+      parameters:
+      - name: limit_id
+        in: path
+        description: Limit Id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Limit Properties to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PayI.Common.Models.PropertiesRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/PayI.Common.Models.PropertiesRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PayI.BudgetManagement.Models.LimitResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+    servers:
+    - url: https://api.pay-i.com
+  /api/v1/limits/{limit_id}/reset:
+    post:
+      tags:
+      - Limits
+      summary: Reset a Limit
+      operationId: resetLimit
+      parameters:
+      - name: limit_id
+        in: path
+        description: Limit Id
+        required: true
+        schema:
+          type: string
+      - name: resetDate
+        in: query
+        description: Effective reset date
+        schema:
+          type: string
+          format: date-time
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.BudgetManagement.Models.LimitHistoryResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+    servers:
+    - url: https://api.pay-i.com
+components:
+  schemas:
+    PayI.BudgetManagement.Models.TotalCostData:
+      required:
+      - cost
+      - requests
+      type: object
+      properties:
+        cost:
+          $ref: '#/components/schemas/PayI.BudgetManagement.Models.CostData'
+        requests:
+          $ref: '#/components/schemas/PayI.BudgetManagement.Models.RequestsData'
+      additionalProperties: false
+    PayI.Common.Models.BudgetManagement.CreateLimit:
+      required:
+      - limit_name
+      - max
+      type: object
+      properties:
+        properties:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        max:
+          type: number
+          format: double
+        threshold:
+          type:
+          - number
+          - 'null'
+          format: double
+        limit_type:
+          $ref: '#/components/schemas/PayI.Common.Data.BudgetManagement.Enums.LimitType'
+        limit_name:
+          minLength: 1
+          type: string
+        limit_id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    PayI.BudgetManagement.Models.Limit:
+      required:
+      - limit_creation_timestamp
+      - limit_id
+      - limit_name
+      - limit_type
+      - limit_update_timestamp
+      - max
+      - totals
+      type: object
+      properties:
+        limit_id:
+          minLength: 1
+          type: string
+        limit_name:
+          minLength: 1
+          type: string
+        max:
+          type: number
+          format: double
+        threshold:
+          type:
+          - number
+          - 'null'
+          format: double
+        limit_type:
+          $ref: '#/components/schemas/PayI.Common.Data.BudgetManagement.Enums.LimitType'
+        limit_creation_timestamp:
+          type: string
+          format: date-time
+        totals:
+          $ref: '#/components/schemas/PayI.BudgetManagement.Models.TotalCostData'
+        limit_update_timestamp:
+          type: string
+          format: date-time
+      additionalProperties: false
+    PayI.Common.Models.PropertiesRequest:
+      required:
+      - properties
+      type: object
+      properties:
+        properties:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+      additionalProperties: false
+    PayI.Common.Models.BudgetManagement.CostDetails:
+      required:
+      - base
+      type: object
+      properties:
+        base:
+          type: number
+          format: double
+        overrun_base:
+          type:
+          - number
+          - 'null'
+          format: double
+      additionalProperties: false
+    PayI.Common.Models.ApiError:
+      required:
+      - message
+      - statusCode
+      type: object
+      properties:
+        message:
+          minLength: 1
+          type: string
+        statusCode:
+          type: integer
+          format: int32
+        xproxy_error:
+          $ref: '#/components/schemas/PayI.Common.Models.ProxyError'
+      additionalProperties: false
+    PayI.BudgetManagement.Models.CostData:
+      required:
+      - input
+      - output
+      - total
+      type: object
+      properties:
+        input:
+          $ref: '#/components/schemas/PayI.Common.Models.BudgetManagement.CostDetailsBase'
+        output:
+          $ref: '#/components/schemas/PayI.Common.Models.BudgetManagement.CostDetailsBase'
+        total:
+          $ref: '#/components/schemas/PayI.Common.Models.BudgetManagement.CostDetails'
+      additionalProperties: false
+    PayI.BudgetManagement.Models.LimitHistory:
+      required:
+      - limit_id
+      - limit_name
+      - totals
+      type: object
+      properties:
+        limit_id:
+          type:
+          - string
+          - 'null'
+        limit_name:
+          type:
+          - string
+          - 'null'
+        limit_reset_timestamp:
+          type: string
+          format: date-time
+        limit_tags:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        limit_type:
+          $ref: '#/components/schemas/PayI.Common.Data.BudgetManagement.Enums.LimitType'
+        max:
+          type: number
+          format: double
+        totals:
+          $ref: '#/components/schemas/PayI.BudgetManagement.Models.TotalCostData'
+      additionalProperties: false
+    PayI.BudgetManagement.Models.ApiQueries.PaginatedCursorLimitList:
+      type: object
+      properties:
+        request_id:
+          type:
+          - string
+          - 'null'
+        cursor:
+          type:
+          - string
+          - 'null'
+        items:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PayI.BudgetManagement.Models.Limit'
+      additionalProperties: false
+    PayI.Common.Data.BudgetManagement.Enums.LimitType:
+      enum:
+      - block
+      - allow
+      type: string
+    PayI.BudgetManagement.Models.DefaultResponse:
+      required:
+      - request_id
+      type: object
+      properties:
+        request_id:
+          minLength: 1
+          type: string
+        message:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    PayI.Common.Models.BudgetManagement.UpdateLimit:
+      type: object
+      properties:
+        max:
+          type:
+          - number
+          - 'null'
+          format: double
+        limit_name:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    PayI.BudgetManagement.Models.LimitResponse:
+      required:
+      - limit
+      - request_id
+      type: object
+      properties:
+        request_id:
+          minLength: 1
+          type: string
+        message:
+          type:
+          - string
+          - 'null'
+        limit:
+          $ref: '#/components/schemas/PayI.BudgetManagement.Models.Limit'
+      additionalProperties: false
+    PayI.Common.Models.ProxyError:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    PayI.Common.Models.BudgetManagement.CostDetailsBase:
+      required:
+      - base
+      type: object
+      properties:
+        base:
+          type: number
+          format: double
+      additionalProperties: false
+    PayI.BudgetManagement.Models.LimitHistoryResponse:
+      required:
+      - limit_history
+      - request_id
+      type: object
+      properties:
+        request_id:
+          minLength: 1
+          type: string
+        message:
+          type:
+          - string
+          - 'null'
+        limit_history:
+          $ref: '#/components/schemas/PayI.BudgetManagement.Models.LimitHistory'
+      additionalProperties: false
+    PayI.BudgetManagement.Models.RequestsData:
+      required:
+      - blocked
+      - blocked_external
+      - exceeded
+      - failed
+      - ok
+      - overrun
+      - total
+      type: object
+      properties:
+        ok:
+          type: integer
+          format: int32
+        exceeded:
+          type: integer
+          format: int32
+        overrun:
+          type: integer
+          format: int32
+        blocked:
+          type: integer
+          format: int32
+        blocked_external:
+          type: integer
+          format: int32
+        failed:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int32
+      additionalProperties: false
+  securitySchemes:
+    Pay_I_API_Key:
+      type: apiKey
+      description: 'Pay-I API Key. Example: "{apikey}"'
+      name: xProxy-api-key
+      in: header
+x-refined-from:
+- pay-i-openapi-original.json
+- pay-i-openapi.yml

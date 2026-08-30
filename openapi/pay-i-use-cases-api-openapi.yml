@@ -1,0 +1,720 @@
+openapi: 3.2.0
+info:
+  title: Pay I Use Cases API
+  version: v1
+  description: 'Operations tagged Use Cases across 2 of this provider''s published API definitions: pay-i-openapi-original.json, pay-i-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api.pay-i.com
+security:
+- Pay_I_API_Key: []
+tags:
+- name: Use Cases
+  description: Use Cases
+paths:
+  /api/v1/use_cases/definitions:
+    get:
+      tags:
+      - Use Cases
+      summary: Get all Use Cases
+      operationId: getUseCases
+      parameters:
+      - name: use_case_name
+        in: query
+        schema:
+          type: string
+      - name: sort_ascending
+        in: query
+        schema:
+          type: boolean
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: cursor
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Calculator.Models.ApiQueries.PaginatedCursorUseCaseDefinitionResponseList'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+    post:
+      tags:
+      - Use Cases
+      summary: Create a new Use Case
+      operationId: createUseCase
+      requestBody:
+        description: Use Case configuration
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PayI.Calculator.Models.UseCaseDefinitionRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/PayI.Calculator.Models.UseCaseDefinitionRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Calculator.Models.UseCaseDefinitionResponse'
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Calculator.Models.UseCaseDefinitionResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+    servers:
+    - url: https://api.pay-i.com
+  /api/v1/use_cases/definitions/{use_case_name}:
+    get:
+      tags:
+      - Use Cases
+      summary: Get Use Case details
+      operationId: getUseCase
+      parameters:
+      - name: use_case_name
+        in: path
+        description: Use Case Name
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Calculator.Models.UseCaseDefinitionResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+    put:
+      tags:
+      - Use Cases
+      summary: Update a Use Case definition
+      operationId: updateUseCase
+      parameters:
+      - name: use_case_name
+        in: path
+        description: Use Case name
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Use Case definition
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PayI.Calculator.Models.UpdateUseCaseDefinitionRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/PayI.Calculator.Models.UpdateUseCaseDefinitionRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Calculator.Models.UseCaseDefinitionResponse'
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+    delete:
+      tags:
+      - Use Cases
+      summary: Delete a Use Case
+      operationId: deleteUseCase
+      parameters:
+      - name: use_case_name
+        in: path
+        description: Use Case name
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Calculator.Models.UseCaseDefinitionResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+    servers:
+    - url: https://api.pay-i.com
+  /api/v1/use_cases/definitions/{use_case_name}/increment_version:
+    post:
+      tags:
+      - Use Cases
+      summary: Increment a Use Case version
+      operationId: incrementUseCaseVersion
+      parameters:
+      - name: use_case_name
+        in: path
+        description: Use Case name
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Calculator.Models.UseCaseDefinitionResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+    servers:
+    - url: https://api.pay-i.com
+  /api/v1/use_cases/definitions/{use_case_name}/limit_config:
+    post:
+      tags:
+      - Use Cases
+      summary: Create a new Use Case default limit configuration
+      operationId: createUseCaseLimitConfig
+      parameters:
+      - name: use_case_name
+        in: path
+        description: Use Case name
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Limit configuration
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PayI.Common.Models.BudgetManagement.CreateLimitBase'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/PayI.Common.Models.BudgetManagement.CreateLimitBase'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Calculator.Models.UseCaseDefinitionResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+    delete:
+      tags:
+      - Use Cases
+      summary: Delete a Use Case default limit configuration
+      operationId: deleteUseCaseLimitConfig
+      parameters:
+      - name: use_case_name
+        in: path
+        description: Use Case name
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Calculator.Models.UseCaseDefinitionResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+    servers:
+    - url: https://api.pay-i.com
+  /api/v1/use_cases/instances/{use_case_name}/{use_case_id}:
+    get:
+      tags:
+      - Use Cases
+      summary: Get a Use Case instance details
+      operationId: getUseCaseInstance
+      parameters:
+      - name: use_case_name
+        in: path
+        description: Use Case name
+        required: true
+        schema:
+          type: string
+      - name: use_case_id
+        in: path
+        description: Use Case Id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Calculator.Models.UseCaseInstanceResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+    delete:
+      tags:
+      - Use Cases
+      summary: Delete a Use Case instance
+      operationId: deleteUseCaseInstance
+      parameters:
+      - name: use_case_name
+        in: path
+        description: Use Case name
+        required: true
+        schema:
+          type: string
+      - name: use_case_id
+        in: path
+        description: Use Case Id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Calculator.Models.UseCaseInstanceResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+    servers:
+    - url: https://api.pay-i.com
+  /api/v1/use_cases/instances/{use_case_name}:
+    post:
+      tags:
+      - Use Cases
+      summary: Create a Use Case instance
+      operationId: newUseCaseInstance
+      parameters:
+      - name: use_case_name
+        in: path
+        description: Use Case name
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Calculator.Models.UseCaseInstanceResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+    servers:
+    - url: https://api.pay-i.com
+  /api/v1/use_cases/instances/{use_case_name}/{use_case_id}/properties:
+    put:
+      tags:
+      - Use Cases
+      summary: Update a Use Case instance properties
+      operationId: updateUseCaseInstanceProperties
+      parameters:
+      - name: use_case_name
+        in: path
+        description: Use Case Name
+        required: true
+        schema:
+          type: string
+      - name: use_case_id
+        in: path
+        description: Use Case Id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Use Case properties
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PayI.Common.Models.PropertiesRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/PayI.Common.Models.PropertiesRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Calculator.Models.UseCaseInstanceResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+    servers:
+    - url: https://api.pay-i.com
+components:
+  schemas:
+    PayI.Calculator.Models.UpdateUseCaseDefinitionRequest:
+      type: object
+      properties:
+        description:
+          type:
+          - string
+          - 'null'
+        logging_enabled:
+          type:
+          - boolean
+          - 'null'
+      additionalProperties: false
+    PayI.Calculator.Models.UseCaseDefinitionResponse:
+      required:
+      - description
+      - name
+      - request_id
+      type: object
+      properties:
+        request_id:
+          minLength: 1
+          type: string
+        name:
+          minLength: 1
+          type: string
+        description:
+          minLength: 1
+          type: string
+        logging_enabled:
+          type:
+          - boolean
+          - 'null'
+        limit_config:
+          type:
+          - object
+          - 'null'
+          allOf:
+          - $ref: '#/components/schemas/PayI.Common.Models.BudgetManagement.CreateLimitBase'
+        type_version:
+          type: integer
+          format: int32
+      additionalProperties: false
+    PayI.Common.Models.PropertiesRequest:
+      required:
+      - properties
+      type: object
+      properties:
+        properties:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+      additionalProperties: false
+    PayI.Calculator.Models.ApiQueries.PaginatedCursorUseCaseDefinitionResponseList:
+      type: object
+      properties:
+        request_id:
+          type:
+          - string
+          - 'null'
+        cursor:
+          type:
+          - string
+          - 'null'
+        items:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PayI.Calculator.Models.UseCaseDefinitionResponse'
+      additionalProperties: false
+    PayI.Common.Models.ApiError:
+      required:
+      - message
+      - statusCode
+      type: object
+      properties:
+        message:
+          minLength: 1
+          type: string
+        statusCode:
+          type: integer
+          format: int32
+        xproxy_error:
+          $ref: '#/components/schemas/PayI.Common.Models.ProxyError'
+      additionalProperties: false
+    PayI.Common.Data.BudgetManagement.Enums.LimitType:
+      enum:
+      - block
+      - allow
+      type: string
+    PayI.Common.Models.ProxyError:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    PayI.Calculator.Models.UseCaseDefinitionRequest:
+      required:
+      - description
+      - name
+      type: object
+      properties:
+        name:
+          minLength: 1
+          type: string
+        description:
+          minLength: 1
+          type: string
+        limit_config:
+          type:
+          - object
+          - 'null'
+          allOf:
+          - $ref: '#/components/schemas/PayI.Common.Models.BudgetManagement.CreateLimitBase'
+        logging_enabled:
+          type:
+          - boolean
+          - 'null'
+      additionalProperties: false
+    PayI.Common.Models.BudgetManagement.CreateLimitBase:
+      required:
+      - max
+      type: object
+      properties:
+        properties:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        max:
+          type: number
+          format: double
+        threshold:
+          type:
+          - number
+          - 'null'
+          format: double
+        limit_type:
+          $ref: '#/components/schemas/PayI.Common.Data.BudgetManagement.Enums.LimitType'
+      additionalProperties: false
+    PayI.Calculator.Models.UseCaseInstanceResponse:
+      required:
+      - use_case_id
+      - use_case_name
+      type: object
+      properties:
+        use_case_id:
+          minLength: 1
+          type: string
+        limit_id:
+          type:
+          - string
+          - 'null'
+        type_version:
+          type: integer
+          format: int32
+        use_case_name:
+          minLength: 1
+          type: string
+      additionalProperties: false
+  securitySchemes:
+    Pay_I_API_Key:
+      type: apiKey
+      description: 'Pay-I API Key. Example: "{apikey}"'
+      name: xProxy-api-key
+      in: header
+x-refined-from:
+- pay-i-openapi-original.json
+- pay-i-openapi.yml

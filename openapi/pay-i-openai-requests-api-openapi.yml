@@ -1,0 +1,726 @@
+openapi: 3.2.0
+info:
+  title: Pay I OpenAI Requests API
+  version: v1
+  description: 'Operations tagged OpenAI Requests across 2 of this provider''s published API definitions: pay-i-openapi-original.json, pay-i-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api.pay-i.com
+security:
+- Pay_I_API_Key: []
+tags:
+- name: OpenAI Requests
+  description: OpenAI Requests
+paths:
+  /api/v1/proxy/openai/v1/chat/completions:
+    post:
+      tags:
+      - OpenAI Requests
+      summary: Chat Completions
+      operationId: requests.OpenAI.ChatCompletionsAPIV1
+      parameters:
+      - name: Authorization
+        in: header
+        description: Provider Authentication
+        required: true
+        schema:
+          type: string
+      - name: xProxy-PriceAs-Category
+        in: header
+        description: Price as category
+        schema:
+          type: string
+        example: category_name
+      - name: xProxy-PriceAs-Resource
+        in: header
+        description: Price as resource
+        schema:
+          type: string
+        example: resource_name
+      - name: xProxy-Resource-Scope
+        in: header
+        description: Resource scope
+        schema:
+          type: string
+        example: datazone
+      - name: xProxy-Limit-IDs
+        in: header
+        description: Comma separated list of limit ID strings
+        schema:
+          type: string
+        example: limitId1, limitId_2
+      - name: xProxy-User-ID
+        in: header
+        description: User ID
+        schema:
+          type: string
+        example: UserName123
+      - name: xProxy-UseCase-ID
+        in: header
+        description: Use Case ID
+        schema:
+          type: string
+        example: use_case_id
+      - name: xProxy-UseCase-Name
+        in: header
+        description: Use Case Name
+        schema:
+          type: string
+        example: use_case_name
+      - name: xProxy-UseCase-Version
+        in: header
+        description: Use Case Version
+        schema:
+          type: integer
+        example: '1'
+      - name: xProxy-UseCase-Step
+        in: header
+        description: Use Case Step
+        schema:
+          type: string
+        example: step_1
+      - name: xProxy-UseCase-Properties
+        in: header
+        description: Use Case Properties as a Base64 encoded JSON string
+        schema:
+          type: string
+        example: eyJwcm9wZXJ0eTEiOiJ2YWx1ZTEiLCJwcm9wZXJ0eTIiOiJ2YWx1ZTIifQ==
+      - name: xProxy-Request-Properties
+        in: header
+        description: Request Properties as a Base64 encoded JSON string
+        schema:
+          type: string
+        example: eyJwcm9wZXJ0eTEiOiJ2YWx1ZTEiLCJwcm9wZXJ0eTIiOiJ2YWx1ZTIifQ==
+      - name: xProxy-Account-Name
+        in: header
+        description: Account Name
+        schema:
+          type: string
+        example: account_name
+      - name: xProxy-Logging-Disable
+        in: header
+        description: Disable Logging
+        schema:
+          type: string
+      - name: xProxy-Provider-BaseUri
+        in: header
+        description: Provider URI
+        schema:
+          type: string
+        example: https://api.provider.com
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.OpenAIResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ProxyApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+    servers:
+    - url: https://api.pay-i.com
+  /api/v1/proxy/openai/v1/embeddings:
+    post:
+      tags:
+      - OpenAI Requests
+      summary: Embeddings
+      operationId: requests.OpenAI.EmbeddingsAPIV1
+      parameters:
+      - name: Authorization
+        in: header
+        description: Provider Authentication
+        required: true
+        schema:
+          type: string
+      - name: xProxy-PriceAs-Category
+        in: header
+        description: Price as category
+        schema:
+          type: string
+        example: category_name
+      - name: xProxy-PriceAs-Resource
+        in: header
+        description: Price as resource
+        schema:
+          type: string
+        example: resource_name
+      - name: xProxy-Resource-Scope
+        in: header
+        description: Resource scope
+        schema:
+          type: string
+        example: datazone
+      - name: xProxy-Limit-IDs
+        in: header
+        description: Comma separated list of limit ID strings
+        schema:
+          type: string
+        example: limitId1, limitId_2
+      - name: xProxy-User-ID
+        in: header
+        description: User ID
+        schema:
+          type: string
+        example: UserName123
+      - name: xProxy-UseCase-ID
+        in: header
+        description: Use Case ID
+        schema:
+          type: string
+        example: use_case_id
+      - name: xProxy-UseCase-Name
+        in: header
+        description: Use Case Name
+        schema:
+          type: string
+        example: use_case_name
+      - name: xProxy-UseCase-Version
+        in: header
+        description: Use Case Version
+        schema:
+          type: integer
+        example: '1'
+      - name: xProxy-UseCase-Step
+        in: header
+        description: Use Case Step
+        schema:
+          type: string
+        example: step_1
+      - name: xProxy-UseCase-Properties
+        in: header
+        description: Use Case Properties as a Base64 encoded JSON string
+        schema:
+          type: string
+        example: eyJwcm9wZXJ0eTEiOiJ2YWx1ZTEiLCJwcm9wZXJ0eTIiOiJ2YWx1ZTIifQ==
+      - name: xProxy-Request-Properties
+        in: header
+        description: Request Properties as a Base64 encoded JSON string
+        schema:
+          type: string
+        example: eyJwcm9wZXJ0eTEiOiJ2YWx1ZTEiLCJwcm9wZXJ0eTIiOiJ2YWx1ZTIifQ==
+      - name: xProxy-Account-Name
+        in: header
+        description: Account Name
+        schema:
+          type: string
+        example: account_name
+      - name: xProxy-Logging-Disable
+        in: header
+        description: Disable Logging
+        schema:
+          type: string
+      - name: xProxy-Provider-BaseUri
+        in: header
+        description: Provider URI
+        schema:
+          type: string
+        example: https://api.provider.com
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.OpenAIResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ProxyApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+    servers:
+    - url: https://api.pay-i.com
+  /api/v1/proxy/openai/v1/images/generations:
+    post:
+      tags:
+      - OpenAI Requests
+      summary: Generations
+      operationId: requests.OpenAI.ImagesGenerationsAPIV1
+      parameters:
+      - name: Authorization
+        in: header
+        description: Provider Authentication
+        required: true
+        schema:
+          type: string
+      - name: xProxy-PriceAs-Category
+        in: header
+        description: Price as category
+        schema:
+          type: string
+        example: category_name
+      - name: xProxy-PriceAs-Resource
+        in: header
+        description: Price as resource
+        schema:
+          type: string
+        example: resource_name
+      - name: xProxy-Resource-Scope
+        in: header
+        description: Resource scope
+        schema:
+          type: string
+        example: datazone
+      - name: xProxy-Limit-IDs
+        in: header
+        description: Comma separated list of limit ID strings
+        schema:
+          type: string
+        example: limitId1, limitId_2
+      - name: xProxy-User-ID
+        in: header
+        description: User ID
+        schema:
+          type: string
+        example: UserName123
+      - name: xProxy-UseCase-ID
+        in: header
+        description: Use Case ID
+        schema:
+          type: string
+        example: use_case_id
+      - name: xProxy-UseCase-Name
+        in: header
+        description: Use Case Name
+        schema:
+          type: string
+        example: use_case_name
+      - name: xProxy-UseCase-Version
+        in: header
+        description: Use Case Version
+        schema:
+          type: integer
+        example: '1'
+      - name: xProxy-UseCase-Step
+        in: header
+        description: Use Case Step
+        schema:
+          type: string
+        example: step_1
+      - name: xProxy-UseCase-Properties
+        in: header
+        description: Use Case Properties as a Base64 encoded JSON string
+        schema:
+          type: string
+        example: eyJwcm9wZXJ0eTEiOiJ2YWx1ZTEiLCJwcm9wZXJ0eTIiOiJ2YWx1ZTIifQ==
+      - name: xProxy-Request-Properties
+        in: header
+        description: Request Properties as a Base64 encoded JSON string
+        schema:
+          type: string
+        example: eyJwcm9wZXJ0eTEiOiJ2YWx1ZTEiLCJwcm9wZXJ0eTIiOiJ2YWx1ZTIifQ==
+      - name: xProxy-Account-Name
+        in: header
+        description: Account Name
+        schema:
+          type: string
+        example: account_name
+      - name: xProxy-Logging-Disable
+        in: header
+        description: Disable Logging
+        schema:
+          type: string
+      - name: xProxy-Provider-BaseUri
+        in: header
+        description: Provider URI
+        schema:
+          type: string
+        example: https://api.provider.com
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.OpenAIResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ProxyApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+    servers:
+    - url: https://api.pay-i.com
+  /api/v1/proxy/openai/v1/responses:
+    post:
+      tags:
+      - OpenAI Requests
+      summary: Responses
+      operationId: requests.OpenAI.ResponsesAPIV1
+      parameters:
+      - name: Authorization
+        in: header
+        description: Provider Authentication
+        required: true
+        schema:
+          type: string
+      - name: xProxy-PriceAs-Category
+        in: header
+        description: Price as category
+        schema:
+          type: string
+        example: category_name
+      - name: xProxy-PriceAs-Resource
+        in: header
+        description: Price as resource
+        schema:
+          type: string
+        example: resource_name
+      - name: xProxy-Resource-Scope
+        in: header
+        description: Resource scope
+        schema:
+          type: string
+        example: datazone
+      - name: xProxy-Limit-IDs
+        in: header
+        description: Comma separated list of limit ID strings
+        schema:
+          type: string
+        example: limitId1, limitId_2
+      - name: xProxy-User-ID
+        in: header
+        description: User ID
+        schema:
+          type: string
+        example: UserName123
+      - name: xProxy-UseCase-ID
+        in: header
+        description: Use Case ID
+        schema:
+          type: string
+        example: use_case_id
+      - name: xProxy-UseCase-Name
+        in: header
+        description: Use Case Name
+        schema:
+          type: string
+        example: use_case_name
+      - name: xProxy-UseCase-Version
+        in: header
+        description: Use Case Version
+        schema:
+          type: integer
+        example: '1'
+      - name: xProxy-UseCase-Step
+        in: header
+        description: Use Case Step
+        schema:
+          type: string
+        example: step_1
+      - name: xProxy-UseCase-Properties
+        in: header
+        description: Use Case Properties as a Base64 encoded JSON string
+        schema:
+          type: string
+        example: eyJwcm9wZXJ0eTEiOiJ2YWx1ZTEiLCJwcm9wZXJ0eTIiOiJ2YWx1ZTIifQ==
+      - name: xProxy-Request-Properties
+        in: header
+        description: Request Properties as a Base64 encoded JSON string
+        schema:
+          type: string
+        example: eyJwcm9wZXJ0eTEiOiJ2YWx1ZTEiLCJwcm9wZXJ0eTIiOiJ2YWx1ZTIifQ==
+      - name: xProxy-Account-Name
+        in: header
+        description: Account Name
+        schema:
+          type: string
+        example: account_name
+      - name: xProxy-Logging-Disable
+        in: header
+        description: Disable Logging
+        schema:
+          type: string
+      - name: xProxy-Provider-BaseUri
+        in: header
+        description: Provider URI
+        schema:
+          type: string
+        example: https://api.provider.com
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.OpenAIResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ProxyApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+    servers:
+    - url: https://api.pay-i.com
+components:
+  schemas:
+    PayI.Common.Models.ApiRouter.IngestUnits:
+      type: object
+      properties:
+        input:
+          maximum: 2147483647
+          minimum: 0
+          type: integer
+          format: int32
+        output:
+          maximum: 2147483647
+          minimum: 0
+          type: integer
+          format: int32
+      additionalProperties: false
+    PayI.Common.Data.BudgetManagement.Enums.LimitStatus:
+      enum:
+      - ok
+      - blocked
+      - blocked_external
+      - exceeded
+      - overrun
+      - failed
+      type: string
+    PayI.Common.Models.Proxy.ProxyResult:
+      type: object
+      properties:
+        request_id:
+          type:
+          - string
+          - 'null'
+        request_tags:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          example:
+          - requestTag1
+          - request_tag_2
+        limits:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            $ref: '#/components/schemas/PayI.Common.Models.Proxy.ProxyLimitStatus'
+          example:
+            limitId1:
+              State: OK
+            limitId_2:
+              State: Exceeeded
+        use_case_name:
+          type:
+          - string
+          - 'null'
+        use_case_id:
+          type:
+          - string
+          - 'null'
+        use_case_step:
+          type:
+          - string
+          - 'null'
+        resource_id:
+          type:
+          - string
+          - 'null'
+        user_id:
+          type:
+          - string
+          - 'null'
+        account_name:
+          type:
+          - string
+          - 'null'
+        blocked_limit_ids:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          example:
+          - limitId_2
+        cost:
+          type:
+          - object
+          - 'null'
+          allOf:
+          - $ref: '#/components/schemas/PayI.Common.Models.Proxy.RequestCost'
+        unknown_units:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.IngestUnits'
+        duplicate_request:
+          type:
+          - boolean
+          - 'null'
+        warnings:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        actions:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        queued:
+          type:
+          - boolean
+          - 'null'
+      additionalProperties: false
+    PayI.Common.Models.Proxy.RequestCost:
+      type: object
+      properties:
+        currency:
+          allOf:
+          - $ref: '#/components/schemas/PayI.Common.Enums.Currency'
+        input:
+          type:
+          - object
+          - 'null'
+          allOf:
+          - $ref: '#/components/schemas/PayI.Common.Models.BudgetManagement.CostDetailsBase'
+        output:
+          type:
+          - object
+          - 'null'
+          allOf:
+          - $ref: '#/components/schemas/PayI.Common.Models.BudgetManagement.CostDetailsBase'
+        total:
+          type:
+          - object
+          - 'null'
+          allOf:
+          - $ref: '#/components/schemas/PayI.Common.Models.BudgetManagement.CostDetails'
+      additionalProperties: false
+    PayI.Common.Models.ApiError:
+      required:
+      - message
+      - statusCode
+      type: object
+      properties:
+        message:
+          minLength: 1
+          type: string
+        statusCode:
+          type: integer
+          format: int32
+        xproxy_error:
+          $ref: '#/components/schemas/PayI.Common.Models.ProxyError'
+      additionalProperties: false
+    PayI.Common.Models.ProxyApiError:
+      required:
+      - message
+      - statusCode
+      type: object
+      properties:
+        message:
+          minLength: 1
+          type: string
+        statusCode:
+          type: integer
+          format: int32
+        xproxy_error:
+          $ref: '#/components/schemas/PayI.Common.Models.ProxyError'
+        xproxy_result:
+          $ref: '#/components/schemas/PayI.Common.Models.Proxy.ProxyResult'
+      additionalProperties: false
+    PayI.Common.Models.ProxyError:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    PayI.Common.Models.Proxy.ProxyLimitStatus:
+      type: object
+      properties:
+        state:
+          $ref: '#/components/schemas/PayI.Common.Data.BudgetManagement.Enums.LimitStatus'
+      additionalProperties: false
+    PayI.Common.Models.BudgetManagement.CostDetailsBase:
+      required:
+      - base
+      type: object
+      properties:
+        base:
+          type: number
+          format: double
+      additionalProperties: false
+    PayI.Common.Enums.Currency:
+      enum:
+      - usd
+      type: string
+    PayI.Common.Models.ApiRouter.OpenAIResponse:
+      type: object
+      properties:
+        created:
+          type: integer
+          format: int32
+        id:
+          type:
+          - string
+          - 'null'
+        model:
+          type:
+          - string
+          - 'null'
+        proxy_result:
+          $ref: '#/components/schemas/PayI.Common.Models.Proxy.ProxyResult'
+      additionalProperties: false
+    PayI.Common.Models.BudgetManagement.CostDetails:
+      required:
+      - base
+      type: object
+      properties:
+        base:
+          type: number
+          format: double
+        overrun_base:
+          type:
+          - number
+          - 'null'
+          format: double
+      additionalProperties: false
+  securitySchemes:
+    Pay_I_API_Key:
+      type: apiKey
+      description: 'Pay-I API Key. Example: "{apikey}"'
+      name: xProxy-api-key
+      in: header
+x-refined-from:
+- pay-i-openapi-original.json
+- pay-i-openapi.yml

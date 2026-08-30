@@ -1,0 +1,646 @@
+openapi: 3.2.0
+info:
+  title: Pay I KP Is API
+  version: v1
+  description: 'Operations tagged KPIs across 2 of this provider''s published API definitions: pay-i-openapi-original.json, pay-i-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api.pay-i.com
+security:
+- Pay_I_API_Key: []
+tags:
+- name: KPIs
+  description: KPIs
+paths:
+  /api/v1/use_cases/definitions/{use_case_name}/kpis:
+    get:
+      tags:
+      - KPIs
+      summary: Get all KPIs for a Use Case
+      operationId: getKpi
+      parameters:
+      - name: use_case_name
+        in: path
+        description: Use case
+        required: true
+        schema:
+          type: string
+      - name: kpi_name
+        in: query
+        schema:
+          type: string
+      - name: sort_ascending
+        in: query
+        schema:
+          type: boolean
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: cursor
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Calculator.Models.ApiQueries.PaginatedCursorKpiResponseList'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+    post:
+      tags:
+      - KPIs
+      summary: Create a new KPI definition for a Use Case
+      operationId: createUseCaseKpiDefinition
+      parameters:
+      - name: use_case_name
+        in: path
+        description: Use case
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: New KPI definition
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PayI.Calculator.Models.CreateKpiRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/PayI.Calculator.Models.CreateKpiRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Calculator.Models.KpiResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+    servers:
+    - url: https://api.pay-i.com
+  /api/v1/use_cases/definitions/{use_case_name}/kpis/{kpi_name}:
+    get:
+      tags:
+      - KPIs
+      summary: Get a KPI definition for a Use Case
+      operationId: getUseCaseKpiDetails
+      parameters:
+      - name: use_case_name
+        in: path
+        description: Use case
+        required: true
+        schema:
+          type: string
+      - name: kpi_name
+        in: path
+        description: KPI definition name
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Calculator.Models.KpiResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+    delete:
+      tags:
+      - KPIs
+      summary: Delete a KPI definition for a Use Case
+      operationId: deleteUseCaseKpiDefinition
+      parameters:
+      - name: use_case_name
+        in: path
+        description: Use case
+        required: true
+        schema:
+          type: string
+      - name: kpi_name
+        in: path
+        description: KPI definition to delete
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Calculator.Models.KpiResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+    put:
+      tags:
+      - KPIs
+      summary: Update a KPI definition for a Use Case
+      operationId: updateUseCaseKpiDefinition
+      parameters:
+      - name: use_case_name
+        in: path
+        description: Use case
+        required: true
+        schema:
+          type: string
+      - name: kpi_name
+        in: path
+        description: KPI definition to update
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: KPI definition
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PayI.Calculator.Models.UpdateKpiRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/PayI.Calculator.Models.UpdateKpiRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Calculator.Models.KpiResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+    servers:
+    - url: https://api.pay-i.com
+  /api/v1/use_cases/instances/{use_case_name}/{use_case_id}/kpis/{kpi_name}:
+    put:
+      tags:
+      - KPIs
+      summary: Update a KPI on a Use Case instance
+      operationId: updateUseCaseInstanceKpi
+      parameters:
+      - name: use_case_name
+        in: path
+        description: Use Case name
+        required: true
+        schema:
+          type: string
+      - name: use_case_id
+        in: path
+        description: Use case instance ID
+        required: true
+        schema:
+          type: string
+      - name: kpi_name
+        in: path
+        description: Name of KPI definition
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: The KPI score
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PayI.Calculator.Models.KpiScoreRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/PayI.Calculator.Models.KpiScoreRequest'
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Microsoft.AspNetCore.Mvc.ProblemDetails'
+    servers:
+    - url: https://api.pay-i.com
+  /api/v1/use_cases/instances/{use_case_name}/{use_case_id}/kpis:
+    get:
+      tags:
+      - KPIs
+      summary: Return all KPI scores for a Use Case instance
+      operationId: getUseCaseInstanceKpis
+      parameters:
+      - name: use_case_name
+        in: path
+        description: Use Case name
+        required: true
+        schema:
+          type: string
+      - name: use_case_id
+        in: path
+        description: Use case instance ID
+        required: true
+        schema:
+          type: string
+      - name: kpi_name
+        in: query
+        schema:
+          type: string
+      - name: sort_ascending
+        in: query
+        schema:
+          type: boolean
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: cursor
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Calculator.Models.ApiQueries.PaginatedKpiScoreResponseList'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+    servers:
+    - url: https://api.pay-i.com
+  /api/v1/use_cases/instances/{use_case_name}/{use_case_id}/value:
+    get:
+      tags:
+      - KPIs
+      summary: Get the value score (money and/or time) for a Use Case instance
+      operationId: getUseCaseInstanceValue
+      parameters:
+      - name: use_case_name
+        in: path
+        description: Use Case name
+        required: true
+        schema:
+          type: string
+      - name: use_case_id
+        in: path
+        description: Use case instance ID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Calculator.Models.ValueScoreResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+    servers:
+    - url: https://api.pay-i.com
+components:
+  schemas:
+    Microsoft.AspNetCore.Mvc.ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+      additionalProperties: {}
+    PayI.Calculator.Models.UpdateKpiRequest:
+      type: object
+      properties:
+        description:
+          type:
+          - string
+          - 'null'
+        goal:
+          type:
+          - number
+          - 'null'
+          format: double
+      additionalProperties: false
+    PayI.Calculator.Models.KpiType:
+      enum:
+      - boolean
+      - number
+      - percentage
+      - likert5
+      - likert7
+      - likert10
+      type: string
+    PayI.Calculator.Models.KpiScoreResponse:
+      required:
+      - kpi_name
+      type: object
+      properties:
+        kpi_name:
+          type:
+          - string
+          - 'null'
+        kpi_type:
+          $ref: '#/components/schemas/PayI.Calculator.Models.KpiType'
+        score:
+          type: number
+          format: double
+        create_timestamp:
+          type: string
+          format: date-time
+        update_timestamp:
+          type:
+          - string
+          - 'null'
+          format: date-time
+      additionalProperties: false
+    PayI.Common.Models.ApiError:
+      required:
+      - message
+      - statusCode
+      type: object
+      properties:
+        message:
+          minLength: 1
+          type: string
+        statusCode:
+          type: integer
+          format: int32
+        xproxy_error:
+          $ref: '#/components/schemas/PayI.Common.Models.ProxyError'
+      additionalProperties: false
+    PayI.Calculator.Models.KpiResponse:
+      required:
+      - description
+      - name
+      - request_id
+      type: object
+      properties:
+        request_id:
+          minLength: 1
+          type: string
+        name:
+          minLength: 1
+          type: string
+        description:
+          minLength: 1
+          type: string
+        kpi_type:
+          $ref: '#/components/schemas/PayI.Calculator.Models.KpiType'
+        goal:
+          type: number
+          format: double
+        created_timestamp:
+          type: string
+          format: date-time
+        updated_timestamp:
+          type:
+          - string
+          - 'null'
+          format: date-time
+      additionalProperties: false
+    PayI.Calculator.Models.ApiQueries.PaginatedCursorKpiResponseList:
+      type: object
+      properties:
+        request_id:
+          type:
+          - string
+          - 'null'
+        cursor:
+          type:
+          - string
+          - 'null'
+        items:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PayI.Calculator.Models.KpiResponse'
+      additionalProperties: false
+    PayI.Calculator.Models.KpiScoreRequest:
+      type: object
+      properties:
+        score:
+          oneOf:
+          - type: boolean
+          - type: integer
+          - type: number
+      additionalProperties: false
+    PayI.Calculator.Models.CreateKpiRequest:
+      required:
+      - description
+      - goal
+      - kpi_type
+      - name
+      type: object
+      properties:
+        name:
+          minLength: 1
+          type: string
+        description:
+          minLength: 1
+          type: string
+        kpi_type:
+          $ref: '#/components/schemas/PayI.Calculator.Models.KpiType'
+        goal:
+          type: number
+          format: double
+      additionalProperties: false
+    PayI.Common.Models.ProxyError:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    PayI.Calculator.Models.ApiQueries.PaginatedKpiScoreResponseList:
+      type: object
+      properties:
+        request_id:
+          type:
+          - string
+          - 'null'
+        cursor:
+          type:
+          - string
+          - 'null'
+        items:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PayI.Calculator.Models.KpiScoreResponse'
+      additionalProperties: false
+    PayI.Calculator.Models.ValueScoreResponse:
+      type: object
+      properties:
+        money:
+          type:
+          - number
+          - 'null'
+          format: double
+        time:
+          type:
+          - number
+          - 'null'
+          format: double
+      additionalProperties: false
+  securitySchemes:
+    Pay_I_API_Key:
+      type: apiKey
+      description: 'Pay-I API Key. Example: "{apikey}"'
+      name: xProxy-api-key
+      in: header
+x-refined-from:
+- pay-i-openapi-original.json
+- pay-i-openapi.yml
