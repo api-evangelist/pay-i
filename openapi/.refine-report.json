@@ -1,0 +1,48 @@
+{
+  "provider": "pay-i",
+  "sources": [
+    "_original/pay-i-openapi-original.json"
+  ],
+  "outputs": [
+    "pay-i-aws-bedrock-requests-api-openapi.yml",
+    "pay-i-anthropic-requests-api-openapi.yml",
+    "pay-i-azure-anthropic-requests-api-openapi.yml",
+    "pay-i-azure-openai-requests-api-openapi.yml",
+    "pay-i-categories-api-openapi.yml",
+    "pay-i-google-vertex-requests-api-openapi.yml",
+    "pay-i-ingest-events-api-openapi.yml",
+    "pay-i-kpis-api-openapi.yml",
+    "pay-i-limits-api-openapi.yml",
+    "pay-i-openai-requests-api-openapi.yml",
+    "pay-i-reports-api-openapi.yml",
+    "pay-i-requests-api-openapi.yml",
+    "pay-i-resources-api-openapi.yml",
+    "pay-i-use-cases-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "1 archived document(s) dropped as subsets of other archived documents",
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "pay-i-openapi-original.json: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "_original/pay-i-openapi.yml: archived document superseded by a larger archived document",
+    "pay-i-anthropic-requests-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pay-i-aws-bedrock-requests-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pay-i-azure-anthropic-requests-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pay-i-azure-openai-requests-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pay-i-categories-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pay-i-google-vertex-requests-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pay-i-ingest-events-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pay-i-kpis-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pay-i-limits-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pay-i-openai-requests-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pay-i-reports-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pay-i-requests-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pay-i-resources-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pay-i-use-cases-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
+}

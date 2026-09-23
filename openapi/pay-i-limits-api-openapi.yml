@@ -1,8 +1,8 @@
 openapi: 3.2.0
 info:
-  title: Pay I Limits API
+  title: Pay-i Limits API
+  description: Pay-i API
   version: v1
-  description: 'Operations tagged Limits across 2 of this provider''s published API definitions: pay-i-openapi-original.json, pay-i-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://api.pay-i.com
 security:
@@ -93,8 +93,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PayI.Common.Models.ApiError'
-    servers:
-    - url: https://api.pay-i.com
   /api/v1/limits/{limit_id}:
     get:
       tags:
@@ -198,8 +196,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PayI.Common.Models.ApiError'
-    servers:
-    - url: https://api.pay-i.com
   /api/v1/limits/{limit_id}/properties:
     put:
       tags:
@@ -249,8 +245,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PayI.Common.Models.ApiError'
-    servers:
-    - url: https://api.pay-i.com
   /api/v1/limits/{limit_id}/reset:
     post:
       tags:
@@ -289,21 +283,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PayI.Common.Models.ApiError'
-    servers:
-    - url: https://api.pay-i.com
 components:
   schemas:
-    PayI.BudgetManagement.Models.TotalCostData:
-      required:
-      - cost
-      - requests
-      type: object
-      properties:
-        cost:
-          $ref: '#/components/schemas/PayI.BudgetManagement.Models.CostData'
-        requests:
-          $ref: '#/components/schemas/PayI.BudgetManagement.Models.RequestsData'
-      additionalProperties: false
     PayI.Common.Models.BudgetManagement.CreateLimit:
       required:
       - limit_name
@@ -332,6 +313,73 @@ components:
           minLength: 1
           type: string
         limit_id:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    PayI.Common.Models.BudgetManagement.CostDetailsBase:
+      required:
+      - base
+      type: object
+      properties:
+        base:
+          type: number
+          format: double
+      additionalProperties: false
+    PayI.BudgetManagement.Models.RequestsData:
+      required:
+      - blocked
+      - blocked_external
+      - exceeded
+      - failed
+      - ok
+      - overrun
+      - total
+      type: object
+      properties:
+        ok:
+          type: integer
+          format: int32
+        exceeded:
+          type: integer
+          format: int32
+        overrun:
+          type: integer
+          format: int32
+        blocked:
+          type: integer
+          format: int32
+        blocked_external:
+          type: integer
+          format: int32
+        failed:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int32
+      additionalProperties: false
+    PayI.BudgetManagement.Models.DefaultResponse:
+      required:
+      - request_id
+      type: object
+      properties:
+        request_id:
+          minLength: 1
+          type: string
+        message:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    PayI.Common.Models.ProxyError:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
           type:
           - string
           - 'null'
@@ -372,6 +420,37 @@ components:
           type: string
           format: date-time
       additionalProperties: false
+    PayI.Common.Models.BudgetManagement.UpdateLimit:
+      type: object
+      properties:
+        max:
+          type:
+          - number
+          - 'null'
+          format: double
+        limit_name:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    PayI.BudgetManagement.Models.ApiQueries.PaginatedCursorLimitList:
+      type: object
+      properties:
+        request_id:
+          type:
+          - string
+          - 'null'
+        cursor:
+          type:
+          - string
+          - 'null'
+        items:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PayI.BudgetManagement.Models.Limit'
+      additionalProperties: false
     PayI.Common.Models.PropertiesRequest:
       required:
       - properties
@@ -384,19 +463,51 @@ components:
             - string
             - 'null'
       additionalProperties: false
-    PayI.Common.Models.BudgetManagement.CostDetails:
+    PayI.BudgetManagement.Models.CostData:
       required:
-      - base
+      - input
+      - output
+      - total
       type: object
       properties:
-        base:
-          type: number
-          format: double
-        overrun_base:
+        input:
+          $ref: '#/components/schemas/PayI.Common.Models.BudgetManagement.CostDetailsBase'
+        output:
+          $ref: '#/components/schemas/PayI.Common.Models.BudgetManagement.CostDetailsBase'
+        total:
+          $ref: '#/components/schemas/PayI.Common.Models.BudgetManagement.CostDetails'
+      additionalProperties: false
+    PayI.BudgetManagement.Models.LimitHistoryResponse:
+      required:
+      - limit_history
+      - request_id
+      type: object
+      properties:
+        request_id:
+          minLength: 1
+          type: string
+        message:
           type:
-          - number
+          - string
           - 'null'
-          format: double
+        limit_history:
+          $ref: '#/components/schemas/PayI.BudgetManagement.Models.LimitHistory'
+      additionalProperties: false
+    PayI.BudgetManagement.Models.LimitResponse:
+      required:
+      - limit
+      - request_id
+      type: object
+      properties:
+        request_id:
+          minLength: 1
+          type: string
+        message:
+          type:
+          - string
+          - 'null'
+        limit:
+          $ref: '#/components/schemas/PayI.BudgetManagement.Models.Limit'
       additionalProperties: false
     PayI.Common.Models.ApiError:
       required:
@@ -413,19 +524,19 @@ components:
         xproxy_error:
           $ref: '#/components/schemas/PayI.Common.Models.ProxyError'
       additionalProperties: false
-    PayI.BudgetManagement.Models.CostData:
+    PayI.Common.Models.BudgetManagement.CostDetails:
       required:
-      - input
-      - output
-      - total
+      - base
       type: object
       properties:
-        input:
-          $ref: '#/components/schemas/PayI.Common.Models.BudgetManagement.CostDetailsBase'
-        output:
-          $ref: '#/components/schemas/PayI.Common.Models.BudgetManagement.CostDetailsBase'
-        total:
-          $ref: '#/components/schemas/PayI.Common.Models.BudgetManagement.CostDetails'
+        base:
+          type: number
+          format: double
+        overrun_base:
+          type:
+          - number
+          - 'null'
+          format: double
       additionalProperties: false
     PayI.BudgetManagement.Models.LimitHistory:
       required:
@@ -459,140 +570,21 @@ components:
         totals:
           $ref: '#/components/schemas/PayI.BudgetManagement.Models.TotalCostData'
       additionalProperties: false
-    PayI.BudgetManagement.Models.ApiQueries.PaginatedCursorLimitList:
-      type: object
-      properties:
-        request_id:
-          type:
-          - string
-          - 'null'
-        cursor:
-          type:
-          - string
-          - 'null'
-        items:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/PayI.BudgetManagement.Models.Limit'
-      additionalProperties: false
     PayI.Common.Data.BudgetManagement.Enums.LimitType:
       enum:
       - block
       - allow
       type: string
-    PayI.BudgetManagement.Models.DefaultResponse:
+    PayI.BudgetManagement.Models.TotalCostData:
       required:
-      - request_id
+      - cost
+      - requests
       type: object
       properties:
-        request_id:
-          minLength: 1
-          type: string
-        message:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    PayI.Common.Models.BudgetManagement.UpdateLimit:
-      type: object
-      properties:
-        max:
-          type:
-          - number
-          - 'null'
-          format: double
-        limit_name:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    PayI.BudgetManagement.Models.LimitResponse:
-      required:
-      - limit
-      - request_id
-      type: object
-      properties:
-        request_id:
-          minLength: 1
-          type: string
-        message:
-          type:
-          - string
-          - 'null'
-        limit:
-          $ref: '#/components/schemas/PayI.BudgetManagement.Models.Limit'
-      additionalProperties: false
-    PayI.Common.Models.ProxyError:
-      type: object
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-        message:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    PayI.Common.Models.BudgetManagement.CostDetailsBase:
-      required:
-      - base
-      type: object
-      properties:
-        base:
-          type: number
-          format: double
-      additionalProperties: false
-    PayI.BudgetManagement.Models.LimitHistoryResponse:
-      required:
-      - limit_history
-      - request_id
-      type: object
-      properties:
-        request_id:
-          minLength: 1
-          type: string
-        message:
-          type:
-          - string
-          - 'null'
-        limit_history:
-          $ref: '#/components/schemas/PayI.BudgetManagement.Models.LimitHistory'
-      additionalProperties: false
-    PayI.BudgetManagement.Models.RequestsData:
-      required:
-      - blocked
-      - blocked_external
-      - exceeded
-      - failed
-      - ok
-      - overrun
-      - total
-      type: object
-      properties:
-        ok:
-          type: integer
-          format: int32
-        exceeded:
-          type: integer
-          format: int32
-        overrun:
-          type: integer
-          format: int32
-        blocked:
-          type: integer
-          format: int32
-        blocked_external:
-          type: integer
-          format: int32
-        failed:
-          type: integer
-          format: int32
-        total:
-          type: integer
-          format: int32
+        cost:
+          $ref: '#/components/schemas/PayI.BudgetManagement.Models.CostData'
+        requests:
+          $ref: '#/components/schemas/PayI.BudgetManagement.Models.RequestsData'
       additionalProperties: false
   securitySchemes:
     Pay_I_API_Key:
@@ -600,6 +592,3 @@ components:
       description: 'Pay-I API Key. Example: "{apikey}"'
       name: xProxy-api-key
       in: header
-x-refined-from:
-- pay-i-openapi-original.json
-- pay-i-openapi.yml

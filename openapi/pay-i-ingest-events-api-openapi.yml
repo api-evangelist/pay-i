@@ -1,8 +1,8 @@
 openapi: 3.2.0
 info:
-  title: Pay I Ingest Events API
+  title: Pay-i Ingest Events API
+  description: Pay-i API
   version: v1
-  description: 'Operations tagged Ingest Events across 2 of this provider''s published API definitions: pay-i-openapi-original.json, pay-i-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://api.pay-i.com
 security:
@@ -98,8 +98,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PayI.Common.Models.ApiError'
-    servers:
-    - url: https://api.pay-i.com
   /api/v1/ingest/bulk:
     post:
       tags:
@@ -137,13 +135,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PayI.Common.Models.ApiError'
-    servers:
-    - url: https://api.pay-i.com
   /api/v1/ingest/bulk-upsert:
     post:
       tags:
       - Ingest Events
-      summary: Bulk Upsert — insert or update records keyed by provider_response_id.
+      summary: Bulk Upsert — insert or update records keyed by provider_response_id
       operationId: requests.BulkUpsert
       requestBody:
         content:
@@ -176,8 +172,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PayI.Common.Models.ApiError'
-    servers:
-    - url: https://api.pay-i.com
   /api/v1/ingest/copilot/transcripts:
     post:
       tags:
@@ -204,8 +198,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PayI.Common.Models.ApiError'
-    servers:
-    - url: https://api.pay-i.com
+      summary: Requests copilot transcript ingest
+      x-summary-source: derived
   /api/v1/ingest/copilot/licensing:
     post:
       tags:
@@ -232,36 +226,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PayI.Common.Models.ApiError'
-    servers:
-    - url: https://api.pay-i.com
+      summary: Requests copilot licensing ingest
+      x-summary-source: derived
 components:
   schemas:
-    PayI.Common.Models.CopilotTranscriptIngestResponse:
+    PayI.Common.Models.BudgetManagement.CostDetailsBase:
       required:
-      - ingest_timestamp
-      - request_id
-      - requests_created
+      - base
       type: object
       properties:
-        request_id:
-          minLength: 1
-          type: string
-        ingest_timestamp:
-          type: string
-          format: date-time
-        requests_created:
-          type: integer
-          format: int32
-        error_count:
-          type: integer
-          format: int32
-          readOnly: true
-        errors:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/PayI.Common.Models.IndexApiError'
+        base:
+          type: number
+          format: double
       additionalProperties: false
     PayI.Common.Data.BudgetManagement.Enums.LimitStatus:
       enum:
@@ -272,85 +248,56 @@ components:
       - overrun
       - failed
       type: string
-    PayI.Common.Models.IndexApiError:
+    PayI.Common.Enums.Currency:
+      enum:
+      - usd
+      type: string
+    PayI.Common.Models.ApiRouter.Copilot.CopilotTranscriptMetrics:
       type: object
       properties:
-        item_index:
+        total_activities:
           type: integer
           format: int32
-        xproxy_result:
-          $ref: '#/components/schemas/PayI.Common.Models.ApiError'
-      additionalProperties: false
-    PayI.Common.Models.ApiRouter.Copilot.CopilotActivityFrom:
-      type: object
-      properties:
-        id:
-          type:
-          - string
-          - 'null'
-        role:
+        user_messages:
           type: integer
           format: int32
-        aadObjectId:
-          type:
-          - string
-          - 'null'
+        bot_messages:
+          type: integer
+          format: int32
+        total_turns:
+          type: integer
+          format: int32
       additionalProperties: false
-    PayI.Common.Models.ApiRouter.HeaderInfo:
-      required:
-      - name
+    PayI.Common.Models.ApiRouter.IngestUnits:
       type: object
       properties:
-        name:
-          minLength: 1
-          type: string
-        value:
-          type:
-          - string
-          - 'null'
+        input:
+          maximum: 2147483647
+          minimum: 0
+          type: integer
+          format: int32
+        output:
+          maximum: 2147483647
+          minimum: 0
+          type: integer
+          format: int32
       additionalProperties: false
-    PayI.Common.Models.ApiRouter.Copilot.CopilotTranscript:
+    PayI.Common.Models.ApiRouter.Copilot.CopilotLicensingIngestRequest:
       required:
-      - conversation_id
-      - created_on
-      - transcript_id
+      - billing_date_utc
+      - resource
       type: object
       properties:
-        agent_name:
-          type:
-          - string
-          - 'null'
-        conversation_id:
-          type:
-          - string
-          - 'null'
-        transcript_id:
-          type:
-          - string
-          - 'null'
-        created_on:
+        billing_date_utc:
           type: string
           format: date-time
-        metadata:
+        resource:
+          $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.Copilot.CopilotLicensingRecord'
+        fetched_at:
           type:
           - string
           - 'null'
-        metrics:
-          type:
-          - object
-          - 'null'
-          allOf:
-          - $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.Copilot.CopilotTranscriptMetrics'
-        activities:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.Copilot.CopilotActivity'
-        _bot_conversationtranscriptid_value:
-          type:
-          - string
-          - 'null'
+          format: date-time
       additionalProperties: false
     PayI.Common.Models.CopilotLicensingIngestResponse:
       required:
@@ -378,6 +325,51 @@ components:
           - 'null'
           items:
             $ref: '#/components/schemas/PayI.Common.Models.IndexApiError'
+      additionalProperties: false
+    PayI.Common.Models.IngestResponse:
+      required:
+      - event_timestamp
+      - ingest_timestamp
+      - request_id
+      - xproxy_result
+      type: object
+      properties:
+        request_id:
+          minLength: 1
+          type: string
+        ingest_timestamp:
+          type: string
+          format: date-time
+        event_timestamp:
+          type: string
+          format: date-time
+        xproxy_result:
+          $ref: '#/components/schemas/PayI.Common.Models.Proxy.ProxyResult'
+      additionalProperties: false
+    PayI.Common.Models.Proxy.RequestCost:
+      type: object
+      properties:
+        currency:
+          allOf:
+          - $ref: '#/components/schemas/PayI.Common.Enums.Currency'
+        input:
+          type:
+          - object
+          - 'null'
+          allOf:
+          - $ref: '#/components/schemas/PayI.Common.Models.BudgetManagement.CostDetailsBase'
+        output:
+          type:
+          - object
+          - 'null'
+          allOf:
+          - $ref: '#/components/schemas/PayI.Common.Models.BudgetManagement.CostDetailsBase'
+        total:
+          type:
+          - object
+          - 'null'
+          allOf:
+          - $ref: '#/components/schemas/PayI.Common.Models.BudgetManagement.CostDetails'
       additionalProperties: false
     PayI.Common.Models.ApiRouter.Copilot.CopilotLicensingMetadata:
       required:
@@ -416,152 +408,91 @@ components:
           type: number
           format: double
       additionalProperties: false
-    PayI.Common.Models.ApiRouter.IngestUnits:
+    PayI.Common.Models.ApiRouter.Copilot.CopilotActivity:
       type: object
       properties:
-        input:
-          maximum: 2147483647
-          minimum: 0
-          type: integer
-          format: int32
-        output:
-          maximum: 2147483647
-          minimum: 0
-          type: integer
-          format: int32
-      additionalProperties: false
-    PayI.Common.Models.ApiRouter.IngestRequest:
-      required:
-      - category
-      - units
-      type: object
-      properties:
-        category:
-          minLength: 1
-          type: string
-        resource:
+        id:
           type:
           - string
           - 'null'
-        event_timestamp:
+        valueType:
+          type:
+          - string
+          - 'null'
+        type:
+          type:
+          - string
+          - 'null'
+        timestamp:
+          type: integer
+          format: int64
+        from:
+          type:
+          - object
+          - 'null'
+          allOf:
+          - $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.Copilot.CopilotActivityFrom'
+        name:
+          type:
+          - string
+          - 'null'
+        channelId:
+          type:
+          - string
+          - 'null'
+        text:
+          type:
+          - string
+          - 'null'
+        replyToId:
+          type:
+          - string
+          - 'null'
+        value: {}
+      additionalProperties: false
+    PayI.Common.Models.ApiRouter.Copilot.CopilotActivityFrom:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+        role:
+          type: integer
+          format: int32
+        aadObjectId:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    PayI.Common.Models.ApiRouter.Copilot.CopilotLicensingRecord:
+      required:
+      - metadata
+      - resourceId
+      type: object
+      properties:
+        resourceId:
+          type:
+          - string
+          - 'null'
+        consumed:
+          type: number
+          format: double
+        unit:
+          type:
+          - string
+          - 'null'
+        agent_name:
+          type:
+          - string
+          - 'null'
+        metadata:
+          $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.Copilot.CopilotLicensingMetadata'
+        date:
           type:
           - string
           - 'null'
           format: date-time
-        units:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.IngestUnits'
-        end_to_end_latency_ms:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        time_to_first_token_ms:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        time_to_first_completion_token_ms:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        http_status_code:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        provider_uri:
-          type:
-          - string
-          - 'null'
-        provider_request_reasoning_json:
-          type:
-          - string
-          - 'null'
-        provider_request_json:
-          type:
-          - string
-          - 'null'
-        provider_request_headers:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.HeaderInfo'
-        provider_response_json:
-          oneOf:
-          - type: string
-          - type: array
-            items:
-              type: string
-        provider_response_headers:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.HeaderInfo'
-        provider_response_function_calls:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.FunctionCallInfo'
-        provider_response_id:
-          type:
-          - string
-          - 'null'
-        properties:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            type:
-            - string
-            - 'null'
-        use_case_properties:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            type:
-            - string
-            - 'null'
-      additionalProperties: false
-    PayI.Common.Models.BulkIngestResponse:
-      required:
-      - ingest_count
-      - ingest_timestamp
-      - request_id
-      type: object
-      properties:
-        request_id:
-          minLength: 1
-          type: string
-        ingest_timestamp:
-          type: string
-          format: date-time
-        ingest_count:
-          type: integer
-          format: int32
-        error_count:
-          type: integer
-          format: int32
-          readOnly: true
-        item_error_count:
-          type: integer
-          format: int32
-        errors:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/PayI.Common.Models.IndexApiError'
-        total_count:
-          type: integer
-          format: int32
-          readOnly: true
       additionalProperties: false
     PayI.Common.Models.Proxy.ProxyResult:
       type: object
@@ -655,6 +586,19 @@ components:
           - boolean
           - 'null'
       additionalProperties: false
+    PayI.Common.Models.ApiRouter.FunctionCallInfo:
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          minLength: 1
+          type: string
+        arguments:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
     PayI.Common.Models.ApiError:
       required:
       - message
@@ -670,34 +614,19 @@ components:
         xproxy_error:
           $ref: '#/components/schemas/PayI.Common.Models.ProxyError'
       additionalProperties: false
-    PayI.Common.Models.ApiRouter.Copilot.CopilotLicensingRecord:
+    PayI.Common.Models.BudgetManagement.CostDetails:
       required:
-      - metadata
-      - resourceId
+      - base
       type: object
       properties:
-        resourceId:
-          type:
-          - string
-          - 'null'
-        consumed:
+        base:
           type: number
           format: double
-        unit:
+        overrun_base:
           type:
-          - string
+          - number
           - 'null'
-        agent_name:
-          type:
-          - string
-          - 'null'
-        metadata:
-          $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.Copilot.CopilotLicensingMetadata'
-        date:
-          type:
-          - string
-          - 'null'
-          format: date-time
+          format: double
       additionalProperties: false
     PayI.Common.Models.ApiRouter.BulkIngestRequest:
       required:
@@ -839,111 +768,83 @@ components:
           - string
           - 'null'
       additionalProperties: false
-    PayI.Common.Models.BudgetManagement.CostDetailsBase:
+    PayI.Common.Models.ApiRouter.Copilot.CopilotTranscript:
       required:
-      - base
+      - conversation_id
+      - created_on
+      - transcript_id
       type: object
       properties:
-        base:
-          type: number
-          format: double
-      additionalProperties: false
-    PayI.Common.Models.ApiRouter.FunctionCallInfo:
-      required:
-      - name
-      type: object
-      properties:
-        name:
-          minLength: 1
+        agent_name:
+          type:
+          - string
+          - 'null'
+        conversation_id:
+          type:
+          - string
+          - 'null'
+        transcript_id:
+          type:
+          - string
+          - 'null'
+        created_on:
           type: string
-        arguments:
+          format: date-time
+        metadata:
           type:
           - string
           - 'null'
-      additionalProperties: false
-    PayI.Common.Models.BudgetManagement.CostDetails:
-      required:
-      - base
-      type: object
-      properties:
-        base:
-          type: number
-          format: double
-        overrun_base:
-          type:
-          - number
-          - 'null'
-          format: double
-      additionalProperties: false
-    PayI.Common.Enums.Currency:
-      enum:
-      - usd
-      type: string
-    PayI.Common.Models.ApiRouter.Copilot.CopilotActivity:
-      type: object
-      properties:
-        id:
-          type:
-          - string
-          - 'null'
-        valueType:
-          type:
-          - string
-          - 'null'
-        type:
-          type:
-          - string
-          - 'null'
-        timestamp:
-          type: integer
-          format: int64
-        from:
+        metrics:
           type:
           - object
           - 'null'
           allOf:
-          - $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.Copilot.CopilotActivityFrom'
-        name:
+          - $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.Copilot.CopilotTranscriptMetrics'
+        activities:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.Copilot.CopilotActivity'
+        _bot_conversationtranscriptid_value:
           type:
           - string
           - 'null'
-        channelId:
-          type:
-          - string
-          - 'null'
-        text:
-          type:
-          - string
-          - 'null'
-        replyToId:
-          type:
-          - string
-          - 'null'
-        value: {}
       additionalProperties: false
-    PayI.Common.Models.ApiRouter.Copilot.CopilotLicensingIngestRequest:
-      required:
-      - billing_date_utc
-      - resource
+    PayI.Common.Models.ProxyError:
       type: object
       properties:
-        billing_date_utc:
-          type: string
-          format: date-time
-        resource:
-          $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.Copilot.CopilotLicensingRecord'
-        fetched_at:
+        code:
           type:
           - string
           - 'null'
-          format: date-time
+        message:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
-    PayI.Common.Models.IngestResponse:
+    PayI.Common.Models.IndexApiError:
+      type: object
+      properties:
+        item_index:
+          type: integer
+          format: int32
+        xproxy_result:
+          $ref: '#/components/schemas/PayI.Common.Models.ApiError'
+      additionalProperties: false
+    PayI.Common.Models.ApiRouter.Copilot.CopilotTranscriptIngestRequest:
       required:
-      - event_timestamp
+      - transcript
+      type: object
+      properties:
+        transcript:
+          $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.Copilot.CopilotTranscript'
+      additionalProperties: false
+    PayI.Common.Models.BulkIngestResponse:
+      required:
+      - ingest_count
       - ingest_timestamp
       - request_id
-      - xproxy_result
       type: object
       properties:
         request_id:
@@ -952,36 +853,125 @@ components:
         ingest_timestamp:
           type: string
           format: date-time
-        event_timestamp:
-          type: string
-          format: date-time
-        xproxy_result:
-          $ref: '#/components/schemas/PayI.Common.Models.Proxy.ProxyResult'
+        ingest_count:
+          type: integer
+          format: int32
+        error_count:
+          type: integer
+          format: int32
+          readOnly: true
+        item_error_count:
+          type: integer
+          format: int32
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PayI.Common.Models.IndexApiError'
+        total_count:
+          type: integer
+          format: int32
+          readOnly: true
       additionalProperties: false
-    PayI.Common.Models.Proxy.RequestCost:
+    PayI.Common.Models.ApiRouter.IngestRequest:
+      required:
+      - category
+      - units
       type: object
       properties:
-        currency:
-          allOf:
-          - $ref: '#/components/schemas/PayI.Common.Enums.Currency'
-        input:
+        category:
+          minLength: 1
+          type: string
+        resource:
+          type:
+          - string
+          - 'null'
+        event_timestamp:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        units:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.IngestUnits'
+        end_to_end_latency_ms:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        time_to_first_token_ms:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        time_to_first_completion_token_ms:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        http_status_code:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        provider_uri:
+          type:
+          - string
+          - 'null'
+        provider_request_reasoning_json:
+          type:
+          - string
+          - 'null'
+        provider_request_json:
+          type:
+          - string
+          - 'null'
+        provider_request_headers:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.HeaderInfo'
+        provider_response_json:
+          oneOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+        provider_response_headers:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.HeaderInfo'
+        provider_response_function_calls:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.FunctionCallInfo'
+        provider_response_id:
+          type:
+          - string
+          - 'null'
+        properties:
           type:
           - object
           - 'null'
-          allOf:
-          - $ref: '#/components/schemas/PayI.Common.Models.BudgetManagement.CostDetailsBase'
-        output:
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        use_case_properties:
           type:
           - object
           - 'null'
-          allOf:
-          - $ref: '#/components/schemas/PayI.Common.Models.BudgetManagement.CostDetailsBase'
-        total:
-          type:
-          - object
-          - 'null'
-          allOf:
-          - $ref: '#/components/schemas/PayI.Common.Models.BudgetManagement.CostDetails'
+          additionalProperties:
+            type:
+            - string
+            - 'null'
       additionalProperties: false
     PayI.Common.Models.ProxyApiError:
       required:
@@ -1000,17 +990,45 @@ components:
         xproxy_result:
           $ref: '#/components/schemas/PayI.Common.Models.Proxy.ProxyResult'
       additionalProperties: false
-    PayI.Common.Models.ProxyError:
+    PayI.Common.Models.ApiRouter.HeaderInfo:
+      required:
+      - name
       type: object
       properties:
-        code:
+        name:
+          minLength: 1
+          type: string
+        value:
           type:
           - string
           - 'null'
-        message:
+      additionalProperties: false
+    PayI.Common.Models.CopilotTranscriptIngestResponse:
+      required:
+      - ingest_timestamp
+      - request_id
+      - requests_created
+      type: object
+      properties:
+        request_id:
+          minLength: 1
+          type: string
+        ingest_timestamp:
+          type: string
+          format: date-time
+        requests_created:
+          type: integer
+          format: int32
+        error_count:
+          type: integer
+          format: int32
+          readOnly: true
+        errors:
           type:
-          - string
+          - array
           - 'null'
+          items:
+            $ref: '#/components/schemas/PayI.Common.Models.IndexApiError'
       additionalProperties: false
     PayI.Common.Models.Proxy.ProxyLimitStatus:
       type: object
@@ -1018,36 +1036,9 @@ components:
         state:
           $ref: '#/components/schemas/PayI.Common.Data.BudgetManagement.Enums.LimitStatus'
       additionalProperties: false
-    PayI.Common.Models.ApiRouter.Copilot.CopilotTranscriptIngestRequest:
-      required:
-      - transcript
-      type: object
-      properties:
-        transcript:
-          $ref: '#/components/schemas/PayI.Common.Models.ApiRouter.Copilot.CopilotTranscript'
-      additionalProperties: false
-    PayI.Common.Models.ApiRouter.Copilot.CopilotTranscriptMetrics:
-      type: object
-      properties:
-        total_activities:
-          type: integer
-          format: int32
-        user_messages:
-          type: integer
-          format: int32
-        bot_messages:
-          type: integer
-          format: int32
-        total_turns:
-          type: integer
-          format: int32
-      additionalProperties: false
   securitySchemes:
     Pay_I_API_Key:
       type: apiKey
       description: 'Pay-I API Key. Example: "{apikey}"'
       name: xProxy-api-key
       in: header
-x-refined-from:
-- pay-i-openapi-original.json
-- pay-i-openapi.yml
