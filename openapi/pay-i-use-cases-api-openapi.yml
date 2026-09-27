@@ -524,6 +524,142 @@ paths:
                 $ref: '#/components/schemas/PayI.Common.Models.ApiError'
 components:
   schemas:
+    PayI.Common.Models.BudgetManagement.CreateLimitBase:
+      required:
+      - max
+      type: object
+      properties:
+        properties:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+        max:
+          type: number
+          format: double
+        threshold:
+          type:
+          - number
+          - 'null'
+          format: double
+        limit_type:
+          $ref: '#/components/schemas/PayI.Common.Data.BudgetManagement.Enums.LimitType'
+      additionalProperties: false
+    PayI.Common.Models.PropertiesRequest:
+      required:
+      - properties
+      type: object
+      properties:
+        properties:
+          type: object
+          additionalProperties:
+            type:
+            - string
+            - 'null'
+      additionalProperties: false
+    PayI.Calculator.Models.UpdateUseCaseDefinitionRequest:
+      type: object
+      properties:
+        description:
+          type:
+          - string
+          - 'null'
+        logging_enabled:
+          type:
+          - boolean
+          - 'null'
+      additionalProperties: false
+    PayI.Common.Models.ApiError:
+      required:
+      - message
+      - statusCode
+      type: object
+      properties:
+        message:
+          minLength: 1
+          type: string
+        statusCode:
+          type: integer
+          format: int32
+        xproxy_error:
+          $ref: '#/components/schemas/PayI.Common.Models.ProxyError'
+      additionalProperties: false
+    PayI.Calculator.Models.UseCaseInstanceResponse:
+      required:
+      - use_case_id
+      - use_case_name
+      type: object
+      properties:
+        use_case_id:
+          minLength: 1
+          type: string
+        limit_id:
+          type:
+          - string
+          - 'null'
+        type_version:
+          type: integer
+          format: int32
+        use_case_name:
+          minLength: 1
+          type: string
+      additionalProperties: false
+    PayI.Calculator.Models.UseCaseDefinitionRequest:
+      required:
+      - description
+      - name
+      type: object
+      properties:
+        name:
+          minLength: 1
+          type: string
+        description:
+          minLength: 1
+          type: string
+        limit_config:
+          type:
+          - object
+          - 'null'
+          allOf:
+          - $ref: '#/components/schemas/PayI.Common.Models.BudgetManagement.CreateLimitBase'
+        logging_enabled:
+          type:
+          - boolean
+          - 'null'
+      additionalProperties: false
+    PayI.Common.Models.ProxyError:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    PayI.Calculator.Models.ApiQueries.PaginatedCursorUseCaseDefinitionResponseList:
+      type: object
+      properties:
+        request_id:
+          type:
+          - string
+          - 'null'
+        cursor:
+          type:
+          - string
+          - 'null'
+        items:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PayI.Calculator.Models.UseCaseDefinitionResponse'
+      additionalProperties: false
     PayI.Calculator.Models.UseCaseDefinitionResponse:
       required:
       - description
@@ -554,147 +690,11 @@ components:
           type: integer
           format: int32
       additionalProperties: false
-    PayI.Common.Models.BudgetManagement.CreateLimitBase:
-      required:
-      - max
-      type: object
-      properties:
-        properties:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            type:
-            - string
-            - 'null'
-        max:
-          type: number
-          format: double
-        threshold:
-          type:
-          - number
-          - 'null'
-          format: double
-        limit_type:
-          $ref: '#/components/schemas/PayI.Common.Data.BudgetManagement.Enums.LimitType'
-      additionalProperties: false
-    PayI.Common.Models.ProxyError:
-      type: object
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-        message:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    PayI.Calculator.Models.UseCaseInstanceResponse:
-      required:
-      - use_case_id
-      - use_case_name
-      type: object
-      properties:
-        use_case_id:
-          minLength: 1
-          type: string
-        limit_id:
-          type:
-          - string
-          - 'null'
-        type_version:
-          type: integer
-          format: int32
-        use_case_name:
-          minLength: 1
-          type: string
-      additionalProperties: false
-    PayI.Common.Models.PropertiesRequest:
-      required:
-      - properties
-      type: object
-      properties:
-        properties:
-          type: object
-          additionalProperties:
-            type:
-            - string
-            - 'null'
-      additionalProperties: false
-    PayI.Common.Models.ApiError:
-      required:
-      - message
-      - statusCode
-      type: object
-      properties:
-        message:
-          minLength: 1
-          type: string
-        statusCode:
-          type: integer
-          format: int32
-        xproxy_error:
-          $ref: '#/components/schemas/PayI.Common.Models.ProxyError'
-      additionalProperties: false
-    PayI.Calculator.Models.UpdateUseCaseDefinitionRequest:
-      type: object
-      properties:
-        description:
-          type:
-          - string
-          - 'null'
-        logging_enabled:
-          type:
-          - boolean
-          - 'null'
-      additionalProperties: false
     PayI.Common.Data.BudgetManagement.Enums.LimitType:
       enum:
       - block
       - allow
       type: string
-    PayI.Calculator.Models.UseCaseDefinitionRequest:
-      required:
-      - description
-      - name
-      type: object
-      properties:
-        name:
-          minLength: 1
-          type: string
-        description:
-          minLength: 1
-          type: string
-        limit_config:
-          type:
-          - object
-          - 'null'
-          allOf:
-          - $ref: '#/components/schemas/PayI.Common.Models.BudgetManagement.CreateLimitBase'
-        logging_enabled:
-          type:
-          - boolean
-          - 'null'
-      additionalProperties: false
-    PayI.Calculator.Models.ApiQueries.PaginatedCursorUseCaseDefinitionResponseList:
-      type: object
-      properties:
-        request_id:
-          type:
-          - string
-          - 'null'
-        cursor:
-          type:
-          - string
-          - 'null'
-        items:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/PayI.Calculator.Models.UseCaseDefinitionResponse'
-      additionalProperties: false
   securitySchemes:
     Pay_I_API_Key:
       type: apiKey

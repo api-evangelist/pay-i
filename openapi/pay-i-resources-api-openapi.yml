@@ -225,47 +225,14 @@ paths:
                 $ref: '#/components/schemas/PayI.Common.Models.ApiError'
 components:
   schemas:
-    PayI.Common.Models.CategoryResource.CategoryResourceRequest:
+    PayI.Common.Models.Reservation.GoogleVertexReservationResource:
       required:
-      - units
+      - gsus
       type: object
       properties:
-        max_input_units:
-          type:
-          - integer
-          - 'null'
+        gsus:
+          type: integer
           format: int32
-        max_output_units:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        max_total_units:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        units:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/PayI.Common.Models.CategoryResource.ResourcePriceUnits'
-        start_timestamp:
-          type:
-          - string
-          - 'null'
-          format: date-time
-      additionalProperties: false
-    PayI.Common.Models.ProxyError:
-      type: object
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-        message:
-          type:
-          - string
-          - 'null'
       additionalProperties: false
     PayI.Common.Models.Reservation.AzureReservationResource:
       required:
@@ -275,6 +242,31 @@ components:
         ptus:
           type: integer
           format: int32
+      additionalProperties: false
+    PayI.Common.Models.ApiError:
+      required:
+      - message
+      - statusCode
+      type: object
+      properties:
+        message:
+          minLength: 1
+          type: string
+        statusCode:
+          type: integer
+          format: int32
+        xproxy_error:
+          $ref: '#/components/schemas/PayI.Common.Models.ProxyError'
+      additionalProperties: false
+    PayI.Common.Models.CategoryResource.ResourcePriceUnits:
+      type: object
+      properties:
+        input_price:
+          type: number
+          format: double
+        output_price:
+          type: number
+          format: double
       additionalProperties: false
     PayI.Common.Models.CategoryResource.CategoryResourceResponse:
       required:
@@ -383,6 +375,57 @@ components:
           allOf:
           - $ref: '#/components/schemas/PayI.Common.Models.Reservation.GoogleVertexReservationResource'
       additionalProperties: false
+    PayI.Common.Models.CategoryResource.CategoryResourceRequest:
+      required:
+      - units
+      type: object
+      properties:
+        max_input_units:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        max_output_units:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        max_total_units:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        units:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/PayI.Common.Models.CategoryResource.ResourcePriceUnits'
+        start_timestamp:
+          type:
+          - string
+          - 'null'
+          format: date-time
+      additionalProperties: false
+    PayI.Common.Models.Reservation.AwsBedrockReservationResource:
+      required:
+      - model_units
+      type: object
+      properties:
+        model_units:
+          type: integer
+          format: int32
+      additionalProperties: false
+    PayI.Common.Models.ProxyError:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
     PayI.Calculator.Models.ApiQueries.PaginatedCursorCategoryResourceResponseList:
       type: object
       properties:
@@ -400,15 +443,6 @@ components:
           - 'null'
           items:
             $ref: '#/components/schemas/PayI.Common.Models.CategoryResource.CategoryResourceResponse'
-      additionalProperties: false
-    PayI.Common.Models.Reservation.GoogleVertexReservationResource:
-      required:
-      - gsus
-      type: object
-      properties:
-        gsus:
-          type: integer
-          format: int32
       additionalProperties: false
     PayI.Common.Models.CategoryResource.SystemResourceScope:
       enum:
@@ -447,40 +481,6 @@ components:
           type:
           - string
           - 'null'
-      additionalProperties: false
-    PayI.Common.Models.ApiError:
-      required:
-      - message
-      - statusCode
-      type: object
-      properties:
-        message:
-          minLength: 1
-          type: string
-        statusCode:
-          type: integer
-          format: int32
-        xproxy_error:
-          $ref: '#/components/schemas/PayI.Common.Models.ProxyError'
-      additionalProperties: false
-    PayI.Common.Models.CategoryResource.ResourcePriceUnits:
-      type: object
-      properties:
-        input_price:
-          type: number
-          format: double
-        output_price:
-          type: number
-          format: double
-      additionalProperties: false
-    PayI.Common.Models.Reservation.AwsBedrockReservationResource:
-      required:
-      - model_units
-      type: object
-      properties:
-        model_units:
-          type: integer
-          format: int32
       additionalProperties: false
   securitySchemes:
     Pay_I_API_Key:
