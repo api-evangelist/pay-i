@@ -225,23 +225,55 @@ paths:
                 $ref: '#/components/schemas/PayI.Common.Models.ApiError'
 components:
   schemas:
-    PayI.Common.Models.Reservation.GoogleVertexReservationResource:
-      required:
-      - gsus
+    PayI.Calculator.Models.ApiQueries.PaginatedCursorCategoryResourceResponseList:
       type: object
       properties:
-        gsus:
-          type: integer
-          format: int32
+        request_id:
+          type:
+          - string
+          - 'null'
+        cursor:
+          type:
+          - string
+          - 'null'
+        items:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PayI.Common.Models.CategoryResource.CategoryResourceResponse'
       additionalProperties: false
-    PayI.Common.Models.Reservation.AzureReservationResource:
+    PayI.Common.Models.CategoryResource.MappedResourceResponse:
       required:
-      - ptus
+      - category
+      - host_name
+      - mapping_name
+      - resource
       type: object
       properties:
-        ptus:
-          type: integer
-          format: int32
+        host_name:
+          type:
+          - string
+          - 'null'
+        mapping_name:
+          type:
+          - string
+          - 'null'
+        resource:
+          type:
+          - string
+          - 'null'
+        category:
+          type:
+          - string
+          - 'null'
+        scope:
+          allOf:
+          - $ref: '#/components/schemas/PayI.Common.Models.CategoryResource.SystemResourceScope'
+        sub_scope:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
     PayI.Common.Models.ApiError:
       required:
@@ -258,16 +290,54 @@ components:
         xproxy_error:
           $ref: '#/components/schemas/PayI.Common.Models.ProxyError'
       additionalProperties: false
-    PayI.Common.Models.CategoryResource.ResourcePriceUnits:
+    PayI.Common.Models.CategoryResource.CategoryResourceRequest:
+      required:
+      - units
       type: object
       properties:
-        input_price:
-          type: number
-          format: double
-        output_price:
-          type: number
-          format: double
+        max_input_units:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        max_output_units:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        max_total_units:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        units:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/PayI.Common.Models.CategoryResource.ResourcePriceUnits'
+        start_timestamp:
+          type:
+          - string
+          - 'null'
+          format: date-time
       additionalProperties: false
+    PayI.Common.Models.ProxyError:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
+    PayI.Common.Models.CategoryResource.SystemResourceScope:
+      enum:
+      - global
+      - datazone
+      - region
+      type: string
     PayI.Common.Models.CategoryResource.CategoryResourceResponse:
       required:
       - active
@@ -375,35 +445,24 @@ components:
           allOf:
           - $ref: '#/components/schemas/PayI.Common.Models.Reservation.GoogleVertexReservationResource'
       additionalProperties: false
-    PayI.Common.Models.CategoryResource.CategoryResourceRequest:
+    PayI.Common.Models.Reservation.AzureReservationResource:
       required:
-      - units
+      - ptus
       type: object
       properties:
-        max_input_units:
-          type:
-          - integer
-          - 'null'
+        ptus:
+          type: integer
           format: int32
-        max_output_units:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        max_total_units:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        units:
-          type: object
-          additionalProperties:
-            $ref: '#/components/schemas/PayI.Common.Models.CategoryResource.ResourcePriceUnits'
-        start_timestamp:
-          type:
-          - string
-          - 'null'
-          format: date-time
+      additionalProperties: false
+    PayI.Common.Models.CategoryResource.ResourcePriceUnits:
+      type: object
+      properties:
+        input_price:
+          type: number
+          format: double
+        output_price:
+          type: number
+          format: double
       additionalProperties: false
     PayI.Common.Models.Reservation.AwsBedrockReservationResource:
       required:
@@ -414,73 +473,14 @@ components:
           type: integer
           format: int32
       additionalProperties: false
-    PayI.Common.Models.ProxyError:
-      type: object
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-        message:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    PayI.Calculator.Models.ApiQueries.PaginatedCursorCategoryResourceResponseList:
-      type: object
-      properties:
-        request_id:
-          type:
-          - string
-          - 'null'
-        cursor:
-          type:
-          - string
-          - 'null'
-        items:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/PayI.Common.Models.CategoryResource.CategoryResourceResponse'
-      additionalProperties: false
-    PayI.Common.Models.CategoryResource.SystemResourceScope:
-      enum:
-      - global
-      - datazone
-      - region
-      type: string
-    PayI.Common.Models.CategoryResource.MappedResourceResponse:
+    PayI.Common.Models.Reservation.GoogleVertexReservationResource:
       required:
-      - category
-      - host_name
-      - mapping_name
-      - resource
+      - gsus
       type: object
       properties:
-        host_name:
-          type:
-          - string
-          - 'null'
-        mapping_name:
-          type:
-          - string
-          - 'null'
-        resource:
-          type:
-          - string
-          - 'null'
-        category:
-          type:
-          - string
-          - 'null'
-        scope:
-          allOf:
-          - $ref: '#/components/schemas/PayI.Common.Models.CategoryResource.SystemResourceScope'
-        sub_scope:
-          type:
-          - string
-          - 'null'
+        gsus:
+          type: integer
+          format: int32
       additionalProperties: false
   securitySchemes:
     Pay_I_API_Key:
