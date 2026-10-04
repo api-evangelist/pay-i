@@ -59,18 +59,6 @@ paths:
                 $ref: '#/components/schemas/PayI.Common.Models.ApiError'
 components:
   schemas:
-    PayI.Common.Models.ProxyError:
-      type: object
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-        message:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
     PayI.Common.Models.ApiError:
       required:
       - message
@@ -85,6 +73,18 @@ components:
           format: int32
         xproxy_error:
           $ref: '#/components/schemas/PayI.Common.Models.ProxyError'
+      additionalProperties: false
+    PayI.Common.Models.ProxyError:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
       additionalProperties: false
   securitySchemes:
     Pay_I_API_Key:

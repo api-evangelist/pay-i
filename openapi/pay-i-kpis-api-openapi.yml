@@ -419,43 +419,40 @@ paths:
                 $ref: '#/components/schemas/PayI.Common.Models.ApiError'
 components:
   schemas:
-    PayI.Calculator.Models.KpiScoreResponse:
-      required:
-      - kpi_name
+    PayI.Common.Models.ProxyError:
       type: object
       properties:
-        kpi_name:
+        code:
           type:
           - string
           - 'null'
-        kpi_type:
-          $ref: '#/components/schemas/PayI.Calculator.Models.KpiType'
-        score:
-          type: number
-          format: double
-        create_timestamp:
-          type: string
-          format: date-time
-        update_timestamp:
+        message:
           type:
           - string
           - 'null'
-          format: date-time
       additionalProperties: false
-    PayI.Calculator.Models.ValueScoreResponse:
+    PayI.Calculator.Models.UpdateKpiRequest:
       type: object
       properties:
-        money:
+        description:
           type:
-          - number
+          - string
           - 'null'
-          format: double
-        time:
+        goal:
           type:
           - number
           - 'null'
           format: double
       additionalProperties: false
+    PayI.Calculator.Models.KpiType:
+      enum:
+      - boolean
+      - number
+      - percentage
+      - likert5
+      - likert7
+      - likert10
+      type: string
     PayI.Calculator.Models.KpiResponse:
       required:
       - description
@@ -486,6 +483,94 @@ components:
           - 'null'
           format: date-time
       additionalProperties: false
+    PayI.Calculator.Models.ValueScoreResponse:
+      type: object
+      properties:
+        money:
+          type:
+          - number
+          - 'null'
+          format: double
+        time:
+          type:
+          - number
+          - 'null'
+          format: double
+      additionalProperties: false
+    PayI.Common.Models.ApiError:
+      required:
+      - message
+      - statusCode
+      type: object
+      properties:
+        message:
+          minLength: 1
+          type: string
+        statusCode:
+          type: integer
+          format: int32
+        xproxy_error:
+          $ref: '#/components/schemas/PayI.Common.Models.ProxyError'
+      additionalProperties: false
+    PayI.Calculator.Models.ApiQueries.PaginatedKpiScoreResponseList:
+      type: object
+      properties:
+        request_id:
+          type:
+          - string
+          - 'null'
+        cursor:
+          type:
+          - string
+          - 'null'
+        items:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PayI.Calculator.Models.KpiScoreResponse'
+      additionalProperties: false
+    PayI.Calculator.Models.KpiScoreResponse:
+      required:
+      - kpi_name
+      type: object
+      properties:
+        kpi_name:
+          type:
+          - string
+          - 'null'
+        kpi_type:
+          $ref: '#/components/schemas/PayI.Calculator.Models.KpiType'
+        score:
+          type: number
+          format: double
+        create_timestamp:
+          type: string
+          format: date-time
+        update_timestamp:
+          type:
+          - string
+          - 'null'
+          format: date-time
+      additionalProperties: false
+    PayI.Calculator.Models.ApiQueries.PaginatedCursorKpiResponseList:
+      type: object
+      properties:
+        request_id:
+          type:
+          - string
+          - 'null'
+        cursor:
+          type:
+          - string
+          - 'null'
+        items:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PayI.Calculator.Models.KpiResponse'
+      additionalProperties: false
     Microsoft.AspNetCore.Mvc.ProblemDetails:
       type: object
       properties:
@@ -511,73 +596,6 @@ components:
           - string
           - 'null'
       additionalProperties: {}
-    PayI.Common.Models.ApiError:
-      required:
-      - message
-      - statusCode
-      type: object
-      properties:
-        message:
-          minLength: 1
-          type: string
-        statusCode:
-          type: integer
-          format: int32
-        xproxy_error:
-          $ref: '#/components/schemas/PayI.Common.Models.ProxyError'
-      additionalProperties: false
-    PayI.Calculator.Models.ApiQueries.PaginatedCursorKpiResponseList:
-      type: object
-      properties:
-        request_id:
-          type:
-          - string
-          - 'null'
-        cursor:
-          type:
-          - string
-          - 'null'
-        items:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/PayI.Calculator.Models.KpiResponse'
-      additionalProperties: false
-    PayI.Calculator.Models.KpiType:
-      enum:
-      - boolean
-      - number
-      - percentage
-      - likert5
-      - likert7
-      - likert10
-      type: string
-    PayI.Calculator.Models.UpdateKpiRequest:
-      type: object
-      properties:
-        description:
-          type:
-          - string
-          - 'null'
-        goal:
-          type:
-          - number
-          - 'null'
-          format: double
-      additionalProperties: false
-    PayI.Common.Models.ProxyError:
-      type: object
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-        message:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
     PayI.Calculator.Models.KpiScoreRequest:
       type: object
       properties:
@@ -606,24 +624,6 @@ components:
         goal:
           type: number
           format: double
-      additionalProperties: false
-    PayI.Calculator.Models.ApiQueries.PaginatedKpiScoreResponseList:
-      type: object
-      properties:
-        request_id:
-          type:
-          - string
-          - 'null'
-        cursor:
-          type:
-          - string
-          - 'null'
-        items:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/PayI.Calculator.Models.KpiScoreResponse'
       additionalProperties: false
   securitySchemes:
     Pay_I_API_Key:
