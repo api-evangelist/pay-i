@@ -579,58 +579,6 @@ components:
         state:
           $ref: '#/components/schemas/PayI.Common.Data.BudgetManagement.Enums.LimitStatus'
       additionalProperties: false
-    PayI.Common.Models.ProxyError:
-      type: object
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-        message:
-          type:
-          - string
-          - 'null'
-      additionalProperties: false
-    PayI.Common.Data.BudgetManagement.Enums.LimitStatus:
-      enum:
-      - ok
-      - blocked
-      - blocked_external
-      - exceeded
-      - overrun
-      - failed
-      type: string
-    PayI.Common.Models.BudgetManagement.CostDetails:
-      required:
-      - base
-      type: object
-      properties:
-        base:
-          type: number
-          format: double
-        overrun_base:
-          type:
-          - number
-          - 'null'
-          format: double
-      additionalProperties: false
-    PayI.Common.Models.ProxyApiError:
-      required:
-      - message
-      - statusCode
-      type: object
-      properties:
-        message:
-          minLength: 1
-          type: string
-        statusCode:
-          type: integer
-          format: int32
-        xproxy_error:
-          $ref: '#/components/schemas/PayI.Common.Models.ProxyError'
-        xproxy_result:
-          $ref: '#/components/schemas/PayI.Common.Models.Proxy.ProxyResult'
-      additionalProperties: false
     PayI.Common.Enums.Currency:
       enum:
       - usd
@@ -660,6 +608,27 @@ components:
           allOf:
           - $ref: '#/components/schemas/PayI.Common.Models.BudgetManagement.CostDetails'
       additionalProperties: false
+    PayI.Common.Data.BudgetManagement.Enums.LimitStatus:
+      enum:
+      - ok
+      - blocked
+      - blocked_external
+      - exceeded
+      - overrun
+      - failed
+      type: string
+    PayI.Common.Models.ProxyError:
+      type: object
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+      additionalProperties: false
     PayI.Common.Models.ApiError:
       required:
       - message
@@ -675,15 +644,6 @@ components:
         xproxy_error:
           $ref: '#/components/schemas/PayI.Common.Models.ProxyError'
       additionalProperties: false
-    PayI.Common.Models.BudgetManagement.CostDetailsBase:
-      required:
-      - base
-      type: object
-      properties:
-        base:
-          type: number
-          format: double
-      additionalProperties: false
     PayI.Common.Models.ApiRouter.IngestUnits:
       type: object
       properties:
@@ -697,6 +657,12 @@ components:
           minimum: 0
           type: integer
           format: int32
+      additionalProperties: false
+    PayI.Common.Models.ApiRouter.GoogleVertexResponse:
+      type: object
+      properties:
+        proxy_result:
+          $ref: '#/components/schemas/PayI.Common.Models.Proxy.ProxyResult'
       additionalProperties: false
     PayI.Common.Models.Proxy.ProxyResult:
       type: object
@@ -790,11 +756,45 @@ components:
           - boolean
           - 'null'
       additionalProperties: false
-    PayI.Common.Models.ApiRouter.GoogleVertexResponse:
+    PayI.Common.Models.ProxyApiError:
+      required:
+      - message
+      - statusCode
       type: object
       properties:
-        proxy_result:
+        message:
+          minLength: 1
+          type: string
+        statusCode:
+          type: integer
+          format: int32
+        xproxy_error:
+          $ref: '#/components/schemas/PayI.Common.Models.ProxyError'
+        xproxy_result:
           $ref: '#/components/schemas/PayI.Common.Models.Proxy.ProxyResult'
+      additionalProperties: false
+    PayI.Common.Models.BudgetManagement.CostDetailsBase:
+      required:
+      - base
+      type: object
+      properties:
+        base:
+          type: number
+          format: double
+      additionalProperties: false
+    PayI.Common.Models.BudgetManagement.CostDetails:
+      required:
+      - base
+      type: object
+      properties:
+        base:
+          type: number
+          format: double
+        overrun_base:
+          type:
+          - number
+          - 'null'
+          format: double
       additionalProperties: false
   securitySchemes:
     Pay_I_API_Key:
