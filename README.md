@@ -64,5 +64,129 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Pay-i is a company surfaced via the API Evangelist harvest backlog (source: secondary-market) and added to the network as a stub for full-pipeline profiling.
-- https://www.nasdaqprivatemarket.com/
+Pay-i is a GenAI cost, capacity and ROI optimization platform founded by Microsoft veterans. It instruments generative-AI applications so enterprises can prove the business value of their AI spend. Pay-i exposes a REST API at api.pay-i.com built around three surfaces: a metering proxy that fronts OpenAI, Azure OpenAI, Anthropic, Azure Anthropic, AWS Bedrock and Google Vertex and records cost, latency and failure metadata for every inference request; an ingest API for submitting events from providers Pay-i does not proxy; and a management API covering Limits (spend budgets with risk thresholds and blocking states), Use Cases and their versions and instances, KPIs and value policies, Categories and Resources for model and price catalogs, and Reports. Instrumentation is driven by a family of xProxy-* request headers and first-party Python and TypeScript SDKs, plus an n8n community node and a Databricks integration.
+
+**Areas:** Company · Artificial Intelligence · FinOps · Observability · Cost Management · Generative AI · LLM · Analytics · Governance · Metering
+
+## Pay-i on APIs.io
+
+Everything profiled for Pay-i is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/pay-i/](https://apis.io/providers/pay-i/)** — or go straight to one of the APIs or properties below.
+
+### APIs (14)
+
+- [Pay-i Anthropic Requests API](https://apis.io/apis/pay-i/pay-i-anthropic-requests-api/) — Anthropic Requests
+- [Pay-i AWS Bedrock Requests API](https://apis.io/apis/pay-i/pay-i-aws-bedrock-requests-api/) — AWS Bedrock Requests
+- [Pay-i Azure Anthropic Requests API](https://apis.io/apis/pay-i/pay-i-azure-anthropic-requests-api/) — Azure Anthropic Requests
+- [Pay-i Azure OpenAI Requests API](https://apis.io/apis/pay-i/pay-i-azure-openai-requests-api/) — Azure OpenAI Requests
+- [Pay-i Categories API](https://apis.io/apis/pay-i/pay-i-categories-api/) — System and Custom Categories
+- [Pay-i Google Vertex Requests API](https://apis.io/apis/pay-i/pay-i-google-vertex-requests-api/) — Google Vertex Requests
+- [Pay-i Ingest Events API](https://apis.io/apis/pay-i/pay-i-ingest-events-api/) — Ingest Requests
+- [Pay-i KP Is API](https://apis.io/apis/pay-i/pay-i-kpis-api/) — KPIs
+- [Pay-i Limits API](https://apis.io/apis/pay-i/pay-i-limits-api/) — Limits
+- [Pay-i OpenAI Requests API](https://apis.io/apis/pay-i/pay-i-openai-requests-api/) — OpenAI Requests
+- [Pay-i Reports API](https://apis.io/apis/pay-i/pay-i-reports-api/) — Public API for retrieving reports.
+- [Pay-i Requests API](https://apis.io/apis/pay-i/pay-i-requests-api/) — Requests
+- [Pay-i Resources API](https://apis.io/apis/pay-i/pay-i-resources-api/) — Resources
+- [Pay-i Use Cases API](https://apis.io/apis/pay-i/pay-i-use-cases-api/) — Use Cases
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [pay-i-docs](https://apis.io/servers/pay-i/pay-i-docs/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Pay I Openapi Overlay](https://apis.io/overlays/pay-i/pay-i-openapi-overlay/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Pay I Authentication](https://apis.io/security/pay-i/pay-i-authentication/)
+- [Pay I Domain Security](https://apis.io/security/pay-i/pay-i-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Pay I Plans Pricing](https://apis.io/plans/pay-i/pay-i-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Pay I Rate Limits](https://apis.io/rate-limits/pay-i/pay-i-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.pay-i.com/)
+- [Documentation](https://docs.pay-i.com/docs/getting-started)
+- [Getting started](https://docs.pay-i.com/docs/getting-started)
+- [API reference](https://docs.pay-i.com/reference/getlimits)
+- [Sign up](https://developer.pay-i.com/login)
+- [Blog](https://www.pay-i.com/resources)
+- [Terms of service](https://www.pay-i.com/tos)
+- [Privacy policy](https://www.pay-i.com/privacy)
+- [GitHub](https://github.com/Pay-i)
+
+## API Evangelist rating
+
+**Kin Score 38.9** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 75.0 |
+| Contract quality | 48.3 |
+| Contract governance | 4.5 |
+| Operational transparency | 2.6 |
+| Developer ergonomics | 47.0 |
+| Access clarity | 34.2 |
+
+**Agent readiness 29.3** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | platform (partial credit) |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 22.7** — AI & Biometrics
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/pay-i/](https://apis.io/providers/pay-i/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Pay-i: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/pay-i/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
